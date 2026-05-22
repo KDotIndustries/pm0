@@ -123,7 +123,7 @@ Surface files should include:
 ## Agent Notes
 ```
 
-When a proposal is accepted, rejected, killed, or converted into a PRD, PM0 updates the related surface. Future agents should be able to read one surface file and understand the durable product history for that area.
+When a proposal is accepted for engineering, rejected, or marked as needing more discussion, PM0 updates the related surface. Future agents should be able to read one surface file and understand the durable product history for that area.
 
 ### Proposals
 
@@ -358,9 +358,7 @@ Closes the product loop. It generates a PRD and updates durable surface memory.
 Possible outcomes:
 
 - accepted for engineering
-- accepted and already built
 - rejected
-- killed
 - needs more discussion
 
 Reads:
@@ -380,18 +378,24 @@ Writes:
 - optional GitHub PR description update
 - optional proposal status update or deletion
 
-If rejected or killed:
+If rejected:
 
 - do not generate a full PRD unless the user asks
 - summarize the rejection under `Rejected Proposals` in the surface file
 - ask whether to keep or delete the proposal file
 
-If accepted:
+If accepted for engineering:
 
 - generate the PRD
 - link the PRD from `Accepted PRDs` in the surface file
 - update current behavior, principles, metrics, or agent notes if the proposal changes durable surface memory
 - optionally update the GitHub PR description if a PR exists
+
+If more discussion is needed:
+
+- do not generate a PRD
+- keep the proposal active
+- update the proposal with the remaining questions or missing evidence
 
 ## Optional GitHub CI
 
