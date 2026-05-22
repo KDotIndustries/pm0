@@ -22,12 +22,15 @@ test("PM0 skill exposes the approved commands", async () => {
 
 test("PM0 skill does not expose removed command forms", async () => {
   const files = [
+    "README.md",
     "skills/pm0/SKILL.md",
     ...(await readdir("skills/pm0/reference")).map((file) => `skills/pm0/reference/${file}`)
   ];
   for (const file of files) {
     const text = await read(file);
     assert.doesNotMatch(text, /\/pm0:init/);
+    assert.doesNotMatch(text, /\/pm0\s+review/);
+    assert.doesNotMatch(text, /\/pm0\s+prd/);
   }
 });
 
@@ -53,7 +56,7 @@ test("skill guidance does not hard-code source-tree script paths", async () => {
   for (const file of files) {
     const text = await read(file);
     assert.doesNotMatch(text, /node skills\/pm0\/scripts\//);
-    assert.match(text, /active PM0 skill directory|installed PM0 skill directory/);
+    assert.match(text, /active PM0 skill directory|PM0 skill directory committed in the repository|installed PM0 skill directory/);
   }
 });
 
@@ -69,5 +72,6 @@ test("GitHub CI workflow template exists and wires product-ci inputs", async () 
   assert.match(template, /PM0_CHANGED_FILES/);
   assert.match(template, /PM0_PR_BODY/);
   assert.match(template, /PM0_SKILL_DIR/);
+  assert.match(template, /PM0 product CI script not found/);
   assert.match(template, /node "\$PM0_SKILL_DIR\/scripts\/product-ci\.mjs"/);
 });

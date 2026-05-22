@@ -41,4 +41,3 @@ If `.pm0/` does not exist and the command is not `init`, tell the user to run `/
 - Any other argument: treat it as `/pm0 discuss <argument>` after confirming the intended product surface or proposal.
 
 Use only space-separated subcommands.
-Do not expose `/pm0 prd` or `/pm0 review`.

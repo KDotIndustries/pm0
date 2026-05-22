@@ -13,6 +13,8 @@ jobs:
     name: PM0 product memory check
     runs-on: ubuntu-latest
     env:
+      # Set this to the PM0 skill directory committed in this repository.
+      # Examples: .agents/skills/pm0, .claude/skills/pm0, .cursor/skills/pm0
       PM0_SKILL_DIR: .agents/skills/pm0
     steps:
       - uses: actions/checkout@v4
@@ -32,4 +34,10 @@ jobs:
             core.exportVariable("PM0_PR_BODY", context.payload.pull_request?.body || "");
 
       - name: Run PM0 product check
-        run: node "$PM0_SKILL_DIR/scripts/product-ci.mjs"
+        run: |
+          if [ ! -f "$PM0_SKILL_DIR/scripts/product-ci.mjs" ]; then
+            echo "::error::PM0 product CI script not found. Set PM0_SKILL_DIR to a PM0 skill directory committed in this repository."
+            exit 1
+          fi
+
+          node "$PM0_SKILL_DIR/scripts/product-ci.mjs"

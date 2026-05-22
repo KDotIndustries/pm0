@@ -6,7 +6,7 @@ Provide an optional, warning-oriented PR check that helps product-changing pull 
 
 ## Trigger
 
-Use this reference only when the user asks to add optional GitHub CI during `/pm0 init` or explicitly asks for the PM0 product CI check. Do not expose `/pm0 review`.
+Use this reference only when the user asks to add optional GitHub CI during `/pm0 init` or explicitly asks for the PM0 product CI check.
 
 ## Inputs
 
@@ -17,7 +17,7 @@ The CI check needs:
 - Existing `.pm0/surfaces/*.md` files.
 - Existing `.pm0/proposals/*.md` and `.pm0/prds/*.md` files.
 
-Use `templates/github-workflow.yml` as the starting workflow. Set `PM0_SKILL_DIR` to the installed PM0 skill directory for the target harness, then run the bundled script with `node "$PM0_SKILL_DIR/scripts/product-ci.mjs"`.
+Use `templates/github-workflow.yml` as the starting workflow. Set `PM0_SKILL_DIR` to a PM0 skill directory committed in the repository for the target harness, then run the bundled script with `node "$PM0_SKILL_DIR/scripts/product-ci.mjs"`.
 
 ## Checks
 
@@ -40,6 +40,8 @@ The check should not fail the build by default.
 ## Template
 
 Copy `templates/github-workflow.yml` to `.github/workflows/pm0.yml` and adjust `PM0_SKILL_DIR` if the PM0 skill is installed somewhere other than `.agents/skills/pm0`.
+
+This default template does not invoke Claude, Codex, or any other hosted coding agent. Agent-backed product review depends on the repository owner's existing GitHub integration, secrets, permissions, and billing setup. If the repository already uses an agent GitHub Action, keep that workflow separate and pass PM0 context as part of that action's prompt or instructions.
 
 ## Limitations
 
