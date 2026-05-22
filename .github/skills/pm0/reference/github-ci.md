@@ -1,0 +1,42 @@
+# GitHub CI
+
+## Purpose
+
+Provide an optional, warning-oriented PR check that helps product-changing pull requests link the relevant PM0 proposal or PRD.
+
+## Trigger
+
+Use this reference only when the user asks to add optional GitHub CI during `/pm0 init` or explicitly asks for the PM0 product CI check. Do not expose `/pm0 review`.
+
+## Inputs
+
+The CI check needs:
+
+- Changed files in the pull request.
+- Pull request body text.
+- Existing `.pm0/surfaces/*.md` files.
+- Existing `.pm0/proposals/*.md` and `.pm0/prds/*.md` files.
+
+The script entrypoint is `node skills/pm0/scripts/product-ci.mjs`.
+
+## Checks
+
+- Infer whether changed files appear to affect a known product surface.
+- If no product surface can be inferred, pass without findings.
+- If a product surface is inferred, look for linked `.pm0/proposals/*.md` or `.pm0/prds/*.md` artifacts in the PR body.
+- Warn when a product-changing PR does not link a proposal or PRD.
+- Warn when a linked PM0 artifact path does not exist.
+
+## Output
+
+Return a concise result with:
+
+- `pass` when no warning is needed.
+- `warning` when the PR appears product-changing and lacks a valid PM0 artifact link.
+- Finding messages that explain what to add or fix.
+
+The check should not fail the build by default.
+
+## Limitations
+
+This is a heuristic. It is optional, warning-oriented, and based on file names, PR text, and existing PM0 memory. It does not decide whether a product change is good, complete, approved, or shippable.
