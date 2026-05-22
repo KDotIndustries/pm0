@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { mkdtemp, readFile, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { spawn } from "node:child_process";
 import test from "node:test";
 import { scaffoldPm0 } from "../skills/pm0/scripts/scaffold-pm0.mjs";
 
@@ -65,6 +66,62 @@ test("scaffoldPm0 does not overwrite existing user memory", async () => {
     assert.doesNotMatch(project, /^# Second Name/m);
     assert.match(index, /- `onboarding`/);
     assert.doesNotMatch(index, /- `billing`/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("scaffoldPm0 only reports one project file creation under concurrent runs", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-scaffold-"));
+  try {
+    const results = await Promise.all(
+      Array.from({ length: 20 }, (_, index) =>
+        scaffoldPm0({
+          root,
+          productName: `Concurrent Product ${index}`,
+          surfaces: [`surface-${index}`]
+        })
+      )
+    );
+
+    const projectCreations = results.filter((result) => result.created.includes(".pm0/project.md"));
+    const indexCreations = results.filter((result) => result.created.includes(".pm0/surfaces/index.md"));
+
+    assert.equal(projectCreations.length, 1);
+    assert.equal(indexCreations.length, 1);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("CLI rejects --surfaces without a value", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-scaffold-cli-"));
+  const scriptPath = path.resolve("skills/pm0/scripts/scaffold-pm0.mjs");
+
+  try {
+    const result = await new Promise((resolve, reject) => {
+      const child = spawn(process.execPath, [scriptPath, "--surfaces"], { cwd: root });
+      let stdout = "";
+      let stderr = "";
+
+      child.stdout.setEncoding("utf8");
+      child.stderr.setEncoding("utf8");
+      child.stdout.on("data", (chunk) => {
+        stdout += chunk;
+      });
+      child.stderr.on("data", (chunk) => {
+        stderr += chunk;
+      });
+      child.on("error", reject);
+      child.on("close", (code) => {
+        resolve({ code, stdout, stderr });
+      });
+    });
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /--surfaces requires a comma-separated value/);
+    assert.match(result.stderr, /Usage:/);
+    assert.equal(result.stdout, "");
   } finally {
     await rm(root, { recursive: true, force: true });
   }

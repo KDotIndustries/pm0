@@ -11,6 +11,18 @@ async function pathExists(filePath) {
   }
 }
 
+async function createFileIfMissing(filePath, contents) {
+  try {
+    await writeFile(filePath, contents, { encoding: "utf8", flag: "wx" });
+    return true;
+  } catch (error) {
+    if (error?.code === "EEXIST") {
+      return false;
+    }
+    throw error;
+  }
+}
+
 function normalizeSurface(surface) {
   return String(surface || "")
     .trim()
@@ -91,31 +103,54 @@ export async function scaffoldPm0(options = {}) {
   }
 
   const projectPath = path.join(pm0Root, "project.md");
-  if (!(await pathExists(projectPath))) {
-    await writeFile(projectPath, projectTemplate(options), "utf8");
+  if (await createFileIfMissing(projectPath, projectTemplate(options))) {
     created.push(".pm0/project.md");
   }
 
   const indexPath = path.join(pm0Root, "surfaces", "index.md");
-  if (!(await pathExists(indexPath))) {
-    await writeFile(indexPath, surfaceIndexTemplate(options.surfaces || []), "utf8");
+  if (await createFileIfMissing(indexPath, surfaceIndexTemplate(options.surfaces || []))) {
     created.push(".pm0/surfaces/index.md");
   }
 
   return { root, created };
 }
 
+function usage() {
+  return [
+    "Usage: node skills/pm0/scripts/scaffold-pm0.mjs [--product-name <name>] [--one-liner <text>] [--surfaces <comma-separated-surfaces>]",
+    "",
+    "Options:",
+    "  --product-name <name>                 Product name for .pm0/project.md",
+    "  --one-liner <text>                    Product one-liner for .pm0/project.md",
+    "  --surfaces <comma-separated-surfaces> Initial product surfaces"
+  ].join("\n");
+}
+
+function optionValue(args, optionName, description) {
+  const index = args.indexOf(optionName);
+  if (index < 0) {
+    return undefined;
+  }
+
+  const value = args[index + 1];
+  if (!value || value.startsWith("--")) {
+    throw new Error(`${optionName} requires ${description}.\n\n${usage()}`);
+  }
+
+  return value;
+}
+
 async function main() {
   const args = process.argv.slice(2);
-  const productNameIndex = args.indexOf("--product-name");
-  const oneLinerIndex = args.indexOf("--one-liner");
-  const surfacesIndex = args.indexOf("--surfaces");
+  const productName = optionValue(args, "--product-name", "a value");
+  const productOneLiner = optionValue(args, "--one-liner", "a value");
+  const surfaces = optionValue(args, "--surfaces", "a comma-separated value");
 
   const result = await scaffoldPm0({
     root: process.cwd(),
-    productName: productNameIndex >= 0 ? args[productNameIndex + 1] : undefined,
-    productOneLiner: oneLinerIndex >= 0 ? args[oneLinerIndex + 1] : undefined,
-    surfaces: surfacesIndex >= 0 ? args[surfacesIndex + 1].split(",") : []
+    productName,
+    productOneLiner,
+    surfaces: surfaces ? surfaces.split(",") : []
   });
 
   console.log(JSON.stringify(result, null, 2));
