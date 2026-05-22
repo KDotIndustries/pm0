@@ -71,6 +71,32 @@ Date: YYYY-MM-DD
 
 Use proposal status values from the PM0 spec: Draft, Investigating, Proposed, Accepted, Rejected, Built, or Shipped.
 
+## Memory Hygiene
+
+Keep `.pm0/proposals/` and `.pm0/surfaces/` as the source of truth. Internal run artifacts, scratch notes, chat transcripts, or analysis files can preserve reasoning, but they are not durable product memory by themselves.
+
+When discussion improves the product judgment, update the proposal instead of leaving the best version only in notes. In particular, update the proposal when discussion changes:
+
+- status
+- problem framing
+- desired outcome
+- target segment
+- proposed scope
+- non-goals
+- acceptance criteria
+- open questions
+- build notes
+
+Update the surface whenever discussion changes the surface-level memory. Add or revise:
+
+- active proposal links and one-line summaries
+- accepted PRD links
+- rejected proposal summaries
+- known problems or tensions
+- open questions
+
+If you write an internal run artifact, also summarize any durable decision or recommendation back into the relevant proposal and surface before ending, unless the user explicitly asked for notes only.
+
 ## End States
 
 End by asking whether the user wants to continue discussing, build the proposal, reject it, or hand it off. If the proposal is clearly not ready, recommend continuing discussion and list the missing product decisions.

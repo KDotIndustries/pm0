@@ -92,3 +92,11 @@ test("agent CI templates use the shared PM0 product review prompt", async () => 
   assert.match(codex, /OPENAI_API_KEY/);
   assert.match(codex, /PM0_PRODUCT_REVIEW_PROMPT/);
 });
+
+test("discuss guidance keeps proposals and surfaces as source of truth", async () => {
+  const discuss = await read("skills/pm0/reference/discuss.md");
+  assert.match(discuss, /source of truth/);
+  assert.match(discuss, /internal run artifacts/i);
+  assert.match(discuss, /update the proposal/i);
+  assert.match(discuss, /update the surface/i);
+});
