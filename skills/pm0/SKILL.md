@@ -31,7 +31,7 @@ If `.pm0/` does not exist and the command is not `init`, tell the user to run `/
 | `/pm0 analyze <surface>` | Analyze one product area | `reference/analyze.md` |
 | `/pm0 discuss <surface-or-proposal>` | Create or continue a proposal | `reference/discuss.md` |
 | `/pm0 build <proposal>` | Build the smallest useful change | `reference/build.md` |
-| `/pm0 handoff <proposal>` | Accept for engineering, reject, or continue discussion | `reference/handoff.md` |
+| `/pm0 handoff <proposal>` | Accept for engineering, reject, or mark as needs more discussion | `reference/handoff.md` |
 
 ## Routing
 
