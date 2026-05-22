@@ -130,25 +130,40 @@ function usage() {
   ].join("\n");
 }
 
-function optionValue(args, optionName, description) {
-  const index = args.indexOf(optionName);
-  if (index < 0) {
-    return undefined;
+function parseArgs(args) {
+  const options = {};
+  const knownOptions = new Map([
+    ["--product-name", { key: "productName", description: "a value" }],
+    ["--one-liner", { key: "productOneLiner", description: "a value" }],
+    ["--surfaces", { key: "surfaces", description: "a comma-separated value" }]
+  ]);
+
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+
+    if (!arg.startsWith("--")) {
+      throw new Error(`Unexpected argument: ${arg}\n\n${usage()}`);
+    }
+
+    const option = knownOptions.get(arg);
+    if (!option) {
+      throw new Error(`Unknown option: ${arg}\n\n${usage()}`);
+    }
+
+    const value = args[index + 1];
+    if (!value || value.startsWith("--")) {
+      throw new Error(`${arg} requires ${option.description}.\n\n${usage()}`);
+    }
+
+    options[option.key] = value;
+    index += 1;
   }
 
-  const value = args[index + 1];
-  if (!value || value.startsWith("--")) {
-    throw new Error(`${optionName} requires ${description}.\n\n${usage()}`);
-  }
-
-  return value;
+  return options;
 }
 
 async function main() {
-  const args = process.argv.slice(2);
-  const productName = optionValue(args, "--product-name", "a value");
-  const productOneLiner = optionValue(args, "--one-liner", "a value");
-  const surfaces = optionValue(args, "--surfaces", "a comma-separated value");
+  const { productName, productOneLiner, surfaces } = parseArgs(process.argv.slice(2));
 
   const result = await scaffoldPm0({
     root: process.cwd(),

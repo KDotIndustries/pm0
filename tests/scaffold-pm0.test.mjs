@@ -4,7 +4,12 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import { scaffoldPm0 } from "../skills/pm0/scripts/scaffold-pm0.mjs";
+
+const testFilePath = fileURLToPath(import.meta.url);
+const repoRoot = path.resolve(path.dirname(testFilePath), "..");
+const scaffoldScriptPath = path.join(repoRoot, "skills/pm0/scripts/scaffold-pm0.mjs");
 
 async function exists(filePath) {
   try {
@@ -106,11 +111,10 @@ test("scaffoldPm0 only reports each created path once under concurrent runs", as
 
 test("CLI rejects --surfaces without a value", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-scaffold-cli-"));
-  const scriptPath = path.resolve("skills/pm0/scripts/scaffold-pm0.mjs");
 
   try {
     const result = await new Promise((resolve, reject) => {
-      const child = spawn(process.execPath, [scriptPath, "--surfaces"], { cwd: root });
+      const child = spawn(process.execPath, [scaffoldScriptPath, "--surfaces"], { cwd: root });
       let stdout = "";
       let stderr = "";
 
@@ -132,6 +136,77 @@ test("CLI rejects --surfaces without a value", async () => {
     assert.match(result.stderr, /--surfaces requires a comma-separated value/);
     assert.match(result.stderr, /Usage:/);
     assert.equal(result.stdout, "");
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("CLI script path is derived from this test file", () => {
+  assert.equal(scaffoldScriptPath, path.join(repoRoot, "skills/pm0/scripts/scaffold-pm0.mjs"));
+  assert.equal(path.isAbsolute(scaffoldScriptPath), true);
+});
+
+test("CLI rejects unknown flags", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-scaffold-cli-"));
+
+  try {
+    const result = await new Promise((resolve, reject) => {
+      const child = spawn(process.execPath, [scaffoldScriptPath, "--unknown"], { cwd: root });
+      let stdout = "";
+      let stderr = "";
+
+      child.stdout.setEncoding("utf8");
+      child.stderr.setEncoding("utf8");
+      child.stdout.on("data", (chunk) => {
+        stdout += chunk;
+      });
+      child.stderr.on("data", (chunk) => {
+        stderr += chunk;
+      });
+      child.on("error", reject);
+      child.on("close", (code) => {
+        resolve({ code, stdout, stderr });
+      });
+    });
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /Unknown option: --unknown/);
+    assert.match(result.stderr, /Usage:/);
+    assert.equal(result.stdout, "");
+    assert.equal(await exists(path.join(root, ".pm0/project.md")), false);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("CLI rejects stray positional arguments", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-scaffold-cli-"));
+
+  try {
+    const result = await new Promise((resolve, reject) => {
+      const child = spawn(process.execPath, [scaffoldScriptPath, "unexpected"], { cwd: root });
+      let stdout = "";
+      let stderr = "";
+
+      child.stdout.setEncoding("utf8");
+      child.stderr.setEncoding("utf8");
+      child.stdout.on("data", (chunk) => {
+        stdout += chunk;
+      });
+      child.stderr.on("data", (chunk) => {
+        stderr += chunk;
+      });
+      child.on("error", reject);
+      child.on("close", (code) => {
+        resolve({ code, stdout, stderr });
+      });
+    });
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /Unexpected argument: unexpected/);
+    assert.match(result.stderr, /Usage:/);
+    assert.equal(result.stdout, "");
+    assert.equal(await exists(path.join(root, ".pm0/project.md")), false);
   } finally {
     await rm(root, { recursive: true, force: true });
   }
