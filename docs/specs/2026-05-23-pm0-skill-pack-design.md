@@ -7,7 +7,7 @@ Status: Draft for review
 
 PM0 is product memory for AI agents. It helps founders and product-minded builders keep durable product context in the repo, then use that context before changing a product surface.
 
-PM0 v1 ships as a public skill/plugin pack, not as a cloud product. It should work in Claude Code, Codex, and similar agent harnesses without a PM0 account.
+PM0 v1 ships as a public skill/plugin pack for Claude Code, Codex, Cursor, GitHub Copilot, Gemini, OpenCode, and similar agent harnesses.
 
 ## Product Shape
 
@@ -30,8 +30,6 @@ Do not make these first-class v1 concepts:
 - Product Check
 - `/pm0 prd`
 - `/pm0 review`
-- PM0 Cloud
-- PM0-owned MCP integrations
 
 ## Repository Memory
 
@@ -49,8 +47,6 @@ PM0 writes durable memory into `.pm0/`:
   prds/
     2026-05-23-onboarding-empty-state.md
 ```
-
-Do not require `.pm0/config.yml` in v1. Agents are good enough to infer likely surface relationships from the repo, `.pm0/surfaces/`, proposals, PRDs, changed files, and user instructions. Avoid making founders maintain a path-mapping config until the need is proven.
 
 ### Project Memory
 
@@ -293,7 +289,7 @@ Reads:
 - active proposal, if one is named
 - related PRDs and rejected proposal summaries
 - current branch/PR state if useful
-- host-agent MCPs and tools when the question needs external evidence
+- host-agent tools and integrations when the question needs external evidence
 
 Writes:
 
@@ -301,7 +297,7 @@ Writes:
 .pm0/proposals/YYYY-MM-DD-{surface}-{slug}.md
 ```
 
-`discuss` should route evidence intelligently. PM0 does not ship PM0 Cloud or PM0-owned MCP servers in v1, but the skill should ask or inspect what MCPs/tools the current host agent has available, then choose only relevant sources.
+`discuss` should route evidence intelligently. The skill should ask or inspect what tools and integrations the current host agent has available, then choose only relevant sources.
 
 Examples:
 
@@ -319,7 +315,7 @@ Rules:
 - Store links, short summaries, counts, and caveats.
 - Mark evidence strength and contradictions.
 - If evidence is weak, say so.
-- Do not use every available MCP just because it exists.
+- Do not use every available integration just because it exists.
 
 At the end, PM0 should ask whether the user wants to continue discussing, build the proposal, reject it, or hand it off.
 
@@ -369,7 +365,7 @@ Reads:
 - relevant contexts
 - branch diff or PR description, if present
 - stakeholder or user feedback supplied by the user
-- host-agent MCPs/tools if needed for final evidence
+- host-agent tools and integrations if needed for final evidence
 
 Writes:
 
@@ -401,7 +397,7 @@ If more discussion is needed:
 
 GitHub CI is optional and should be offered during `/pm0 init`.
 
-V1 CI should be warning-oriented and should not require `.pm0/config.yml`.
+V1 CI should be warning-oriented.
 
 - infer likely surfaces from changed paths, file names, PR text, `.pm0/surfaces/`, proposals, and PRDs
 - product-changing PRs mention a PM0 proposal or PRD
@@ -409,7 +405,7 @@ V1 CI should be warning-oriented and should not require `.pm0/config.yml`.
 - linked surface file exists
 - PR explains product intent or links the relevant PM0 artifact
 
-No PM0 Cloud check is required in v1. If the GitHub environment has an LLM review mechanism available, the CI can use it to infer affected surfaces and product-memory contradictions. Otherwise, it should fall back to static artifact checks.
+If the GitHub environment has an LLM review mechanism available, the CI can use it to infer affected surfaces and product-memory contradictions. Otherwise, it should fall back to static artifact checks.
 
 Do not expose CI as `/pm0 review` in v1.
 
@@ -425,14 +421,11 @@ The public repository should include a README inspired by Superpowers and Impecc
 - founder workflow examples
 - note that PM0's implementation follows the local Superpowers and Impeccable example patterns
 - optional GitHub CI setup
-- clear note that PM0 v1 does not require a cloud account
 
 ## Non-Goals
 
 PM0 v1 should not include:
 
-- PM0 Cloud
-- PM0-managed MCP integrations
 - source ingestion pipelines
 - a SaaS dashboard
 - a canvas UI
@@ -440,9 +433,8 @@ PM0 v1 should not include:
 - a Notion replacement
 - a generic PRD generator
 - separate decision logs
-- required path-mapping config
 
-## Open Questions
+## Implementation Decisions
 
-1. Which harnesses should v1 package first: Codex, Claude Code, Cursor, or all three?
-2. How much deterministic scaffolding should live in `scaffold-pm0.mjs` versus command instructions?
+1. Target all practical harnesses represented by the Impeccable example pattern. Keep one canonical PM0 skill source, then produce harness-specific copies for directories like `.agents/`, `.claude/`, `.cursor/`, `.gemini/`, `.github/`, `.kiro/`, `.opencode/`, `.pi/`, `.qoder/`, `.rovodev/`, `.trae-cn/`, and `.trae/`, plus plugin manifests where the harness supports them.
+2. Put deterministic file creation in `scaffold-pm0.mjs`: create `.pm0/project.md`, `.pm0/contexts/`, `.pm0/surfaces/index.md`, `.pm0/proposals/`, and `.pm0/prds/`. Keep product judgment in command instructions: which contexts to create, what assumptions to mark, which surfaces matter, and what evidence to use.
