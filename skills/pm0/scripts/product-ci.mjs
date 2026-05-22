@@ -35,12 +35,42 @@ function inferSurface(changedFiles, surfaceSlugs) {
 }
 
 function extractPm0Links(prBody) {
-  const links = [];
-  const pattern = /\.pm0\/(?:proposals|prds)\/[A-Za-z0-9._/-]+\.md/g;
+  const links = new Set();
+  const pattern = /(?<![A-Za-z0-9._-])\/?(?:[A-Za-z0-9._-]+\/)*\.pm0\/(?:proposals|prds)\/[A-Za-z0-9._/-]+\.md/g;
   for (const match of String(prBody || "").matchAll(pattern)) {
-    links.push(match[0]);
+    links.add(match[0]);
   }
-  return links;
+  return [...links];
+}
+
+function isSubpath(filePath, dir) {
+  const relative = path.relative(dir, filePath);
+  return relative && !relative.startsWith("..") && !path.isAbsolute(relative);
+}
+
+function normalizePm0ArtifactLink(root, link) {
+  const segments = link.split("/");
+  const normalized = path.posix.normalize(link);
+
+  if (path.posix.isAbsolute(link) || segments.includes("..")) {
+    return { valid: false, normalized };
+  }
+
+  if (
+    !normalized.startsWith(".pm0/proposals/") &&
+    !normalized.startsWith(".pm0/prds/")
+  ) {
+    return { valid: false, normalized };
+  }
+
+  const resolved = path.resolve(root, normalized);
+  const proposalsDir = path.resolve(root, ".pm0", "proposals");
+  const prdsDir = path.resolve(root, ".pm0", "prds");
+
+  return {
+    valid: isSubpath(resolved, proposalsDir) || isSubpath(resolved, prdsDir),
+    normalized
+  };
 }
 
 export async function runProductCi({ root = process.cwd(), changedFiles = [], prBody = "" } = {}) {
@@ -65,10 +95,19 @@ export async function runProductCi({ root = process.cwd(), changedFiles = [], pr
   }
 
   for (const link of links) {
-    if (!(await pathExists(path.join(root, link)))) {
+    const artifact = normalizePm0ArtifactLink(root, link);
+    if (!artifact.valid) {
       findings.push({
         level: "warning",
-        message: `Linked PM0 artifact does not exist: ${link}`
+        message: `Invalid PM0 artifact link: ${link}`
+      });
+      continue;
+    }
+
+    if (!(await pathExists(path.join(root, artifact.normalized)))) {
+      findings.push({
+        level: "warning",
+        message: `Linked PM0 artifact does not exist: ${artifact.normalized}`
       });
     }
   }

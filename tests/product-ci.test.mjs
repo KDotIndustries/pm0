@@ -48,6 +48,44 @@ test("runProductCi passes when PR links an existing PM0 proposal", async () => {
   }
 });
 
+test("runProductCi warns when a linked PM0 artifact escapes proposal and PRD directories", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
+  try {
+    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+
+    const result = await runProductCi({
+      root,
+      changedFiles: ["apps/web/src/onboarding/page.tsx"],
+      prBody: "PM0 Proposal: .pm0/proposals/../surfaces/onboarding.md"
+    });
+
+    assert.equal(result.result, "warning");
+    assert.equal(result.findings.length, 1);
+    assert.match(result.findings[0].message, /Invalid PM0 artifact link/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("runProductCi reports duplicate missing PM0 links once", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
+  try {
+    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+
+    const result = await runProductCi({
+      root,
+      changedFiles: ["apps/web/src/onboarding/page.tsx"],
+      prBody: "[.pm0/proposals/missing.md](.pm0/proposals/missing.md)"
+    });
+
+    assert.equal(result.result, "warning");
+    assert.equal(result.findings.length, 1);
+    assert.equal(result.findings[0].message, "Linked PM0 artifact does not exist: .pm0/proposals/missing.md");
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
 test("runProductCi is informational when no product surface is inferable", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
   try {
