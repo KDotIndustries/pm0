@@ -33,9 +33,13 @@ test("PM0 skill does not expose removed command forms", async () => {
 
 test("handoff reference has exactly three outcomes", async () => {
   const handoff = await read("skills/pm0/reference/handoff.md");
-  assert.match(handoff, /accepted for engineering/);
-  assert.match(handoff, /rejected/);
-  assert.match(handoff, /needs more discussion/);
-  assert.doesNotMatch(handoff, /accepted and already built/);
-  assert.doesNotMatch(handoff, /\bkilled\b/);
+  const outcomesSection = handoff.match(/## Outcomes\n\n[\s\S]*?\n\n(?=## )/);
+  assert.ok(outcomesSection, "handoff reference includes an Outcomes section");
+
+  const outcomes = [...outcomesSection[0].matchAll(/^- (.+)$/gm)].map(([, outcome]) => outcome);
+  assert.deepEqual(outcomes, [
+    "accepted for engineering",
+    "rejected",
+    "needs more discussion"
+  ]);
 });
