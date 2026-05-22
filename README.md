@@ -20,6 +20,7 @@ PM0 makes that context explicit:
 ```text
 /pm0
 /pm0 init
+/pm0 context competitive landscape
 /pm0 analyze onboarding
 /pm0 discuss onboarding
 /pm0 build 2026-05-23-onboarding-empty-state
@@ -40,10 +41,11 @@ PM0 makes that context explicit:
 ## Basic Workflow
 
 1. Run `/pm0 init` to create product memory.
-2. Run `/pm0 analyze <surface>` for a product area such as onboarding or pricing.
-3. Run `/pm0 discuss <surface>` to turn a founder idea or user problem into a proposal.
-4. Run `/pm0 build <proposal>` to ask the host coding agent for the smallest useful change.
-5. Run `/pm0 handoff <proposal>` to accept for engineering, reject, or mark as needs more discussion.
+2. Run `/pm0 context <topic>` when you want focused product context such as competitive landscape, pricing packages, target users, or design system.
+3. Run `/pm0 analyze <surface>` for a product area such as onboarding or pricing.
+4. Run `/pm0 discuss <surface>` to turn a founder idea or user problem into a proposal.
+5. Run `/pm0 build <proposal>` to ask the host coding agent for the smallest useful change.
+6. Run `/pm0 handoff <proposal>` to accept for engineering, reject, or mark as needs more discussion.
 
 ## Installation
 
@@ -87,6 +89,21 @@ node <active PM0 skill directory>/scripts/scaffold-pm0.mjs \
 ```
 
 Use the PM0 skill directory for your harness, for example `.agents/skills/pm0` for Codex or `.claude/skills/pm0` for Claude Code.
+
+## Build Product Context
+
+Use `/pm0 context <topic>` for focused research-backed context after init. PM0 starts from repo memory and can use available tools such as web search, product URLs, screenshots, or connected MCPs when they are relevant and allowed by the current agent harness.
+
+Examples:
+
+```text
+/pm0 context target users
+/pm0 context competitive landscape
+/pm0 context pricing packages
+/pm0 context design system
+```
+
+PM0 stores durable summaries in `.pm0/contexts/`, not raw tickets, transcripts, emails, analytics exports, or replay data.
 
 ## Optional GitHub CI
 

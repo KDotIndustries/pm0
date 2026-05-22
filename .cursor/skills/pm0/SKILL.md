@@ -1,7 +1,7 @@
 ---
 name: pm0
 description: Use when the user invokes /pm0 or asks for product memory, proposal shaping, PRD handoff, product-surface analysis, founder product management, or repo-native product context for AI agents.
-argument-hint: "[command] [surface-or-proposal]"
+argument-hint: "[command] [topic-or-surface-or-proposal]"
 user-invocable: true
 ---
 
@@ -25,6 +25,7 @@ If `.pm0/` does not exist and the command is not `init`, tell the user to run `/
 | --- | --- | --- |
 | `/pm0` | Show command menu | This file |
 | `/pm0 init` | Create `.pm0` product memory | `reference/init.md` |
+| `/pm0 context <topic>` | Create or update focused product context | `reference/context.md` |
 | `/pm0 analyze <surface>` | Analyze one product area | `reference/analyze.md` |
 | `/pm0 discuss <surface-or-proposal>` | Create or continue a proposal | `reference/discuss.md` |
 | `/pm0 build <proposal>` | Build the smallest useful change | `reference/build.md` |
@@ -34,6 +35,7 @@ If `.pm0/` does not exist and the command is not `init`, tell the user to run `/
 
 - No argument: show the command menu and ask what the user wants to do.
 - First word is `init`: read `reference/init.md` and follow it.
+- First word is `context`: read `reference/context.md` and follow it.
 - First word is `analyze`: read `reference/analyze.md` and follow it.
 - First word is `discuss`: read `reference/discuss.md` and follow it.
 - First word is `build`: read `reference/build.md` and follow it.

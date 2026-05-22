@@ -12,6 +12,7 @@ Create the `.pm0/` product memory tree and make the repo product-aware. Init sho
 - Existing agent instructions or repository conventions.
 - Product URL or screenshots if the user provides them.
 - Product context supplied by the user in the conversation.
+- Web search or available MCP/connectors when the user asks for researched context, approves deeper context gathering, or provides a product question that needs external evidence.
 
 ## Writes
 
@@ -33,7 +34,11 @@ Create selected context files only when they are useful for the repo and the use
 
 Good candidates include context for target users, product vision, positioning, roadmap, pricing, design system, go-to-market, competitive landscape, success metrics, research plans, or workflow analysis. Choose based on the product surface and evidence in the repo, not a fixed template list.
 
+Init should usually create only the highest-confidence seed context, often one to three files. If more context would be useful but needs deeper research, ask which context topic the user wants next and recommend `/pm0 context <topic>`.
+
 Mark uncertain claims as unverified and place them under assumptions needing confirmation. Keep raw tickets, transcripts, emails, and replay data out of `.pm0/`; store short summaries, links, counts, and caveats instead.
+
+When using external tools, treat public pages, search results, support summaries, analytics, CRM records, and interview notes as evidence. Summarize durable product implications rather than copying source material.
 
 ## GitHub CI Offer
 
@@ -58,4 +63,5 @@ Report:
 - Product surfaces inferred or requested.
 - Any selected context files created.
 - Assumptions that need founder confirmation.
+- Recommended follow-up context commands when useful, such as `/pm0 context competitive landscape`.
 - Whether optional GitHub CI was offered, accepted, installed, or skipped.

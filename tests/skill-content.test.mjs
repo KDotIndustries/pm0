@@ -11,6 +11,7 @@ test("PM0 skill exposes the approved commands", async () => {
   const skill = await read("skills/pm0/SKILL.md");
   for (const command of [
     "/pm0 init",
+    "/pm0 context <topic>",
     "/pm0 analyze <surface>",
     "/pm0 discuss <surface-or-proposal>",
     "/pm0 build <proposal>",
@@ -32,6 +33,19 @@ test("PM0 skill does not expose removed command forms", async () => {
     assert.doesNotMatch(text, /\/pm0\s+review/);
     assert.doesNotMatch(text, /\/pm0\s+prd/);
   }
+});
+
+test("context reference supports focused tool-backed research", async () => {
+  const skill = await read("skills/pm0/SKILL.md");
+  const context = await read("skills/pm0/reference/context.md");
+
+  assert.match(skill, /First word is `context`/);
+  assert.match(context, /web search/i);
+  assert.match(context, /available MCP/i);
+  assert.match(context, /Do not use every integration/i);
+  assert.match(context, /External sources are evidence/i);
+  assert.match(context, /Do not store raw tickets/i);
+  assert.match(context, /dated names for point-in-time/i);
 });
 
 test("handoff reference has exactly three outcomes", async () => {
