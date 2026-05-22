@@ -65,6 +65,29 @@ Copy `.cursor/skills/pm0` into your project or user Cursor skills directory.
 
 PM0 includes harness copies for `.gemini`, `.github`, `.kiro`, `.opencode`, `.pi`, `.qoder`, `.rovodev`, `.trae-cn`, and `.trae`.
 
+## Initialize Product Memory
+
+From your product repository, run `/pm0 init` in your agent. The skill creates:
+
+```text
+.pm0/project.md
+.pm0/contexts/
+.pm0/surfaces/index.md
+.pm0/proposals/
+.pm0/prds/
+```
+
+The bundled scaffold script is also available if you want a deterministic setup step:
+
+```bash
+node <active PM0 skill directory>/scripts/scaffold-pm0.mjs \
+  --product-name "Acme Analytics" \
+  --one-liner "Analytics for founder-led SaaS teams." \
+  --surfaces "onboarding,pricing,dashboard"
+```
+
+Use the PM0 skill directory for your harness, for example `.agents/skills/pm0` for Codex or `.claude/skills/pm0` for Claude Code.
+
 ## Optional GitHub CI
 
 PM0 can add optional GitHub CI during `/pm0 init`.
@@ -72,6 +95,38 @@ PM0 can add optional GitHub CI during `/pm0 init`.
 - Local check: warning-oriented, no hosted agent, validates that product-changing PRs link a PM0 proposal or PRD.
 - Claude example: uses the repository owner's Claude GitHub Action setup and PM0's shared product-review prompt.
 - Codex example: uses the repository owner's Codex GitHub Action setup and PM0's shared product-review prompt.
+
+Install the local, no-agent check:
+
+```bash
+node <active PM0 skill directory>/scripts/install-github-ci.mjs \
+  --mode local \
+  --skill-dir .agents/skills/pm0
+```
+
+Install the Claude-backed example:
+
+```bash
+node <active PM0 skill directory>/scripts/install-github-ci.mjs \
+  --mode claude \
+  --skill-dir .claude/skills/pm0
+```
+
+This expects the repository owner to configure the Claude GitHub Action and `ANTHROPIC_API_KEY`.
+
+Install the Codex-backed example:
+
+```bash
+node <active PM0 skill directory>/scripts/install-github-ci.mjs \
+  --mode codex \
+  --skill-dir .agents/skills/pm0
+```
+
+This expects the repository owner to configure the Codex GitHub Action and `OPENAI_API_KEY`.
+
+Use `--mode auto` when you want PM0 to choose from the skill directory: `.claude/skills/pm0` selects Claude, `.agents/skills/pm0` selects Codex, and other locations select the local check.
+
+The installer writes `.github/workflows/pm0.yml` and refuses to overwrite an existing workflow unless you pass `--force`.
 
 ## Design References
 
