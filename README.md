@@ -43,7 +43,7 @@ PM0 makes that context explicit:
 2. Run `/pm0 analyze <surface>` for a product area such as onboarding or pricing.
 3. Run `/pm0 discuss <surface>` to turn a founder idea or user problem into a proposal.
 4. Run `/pm0 build <proposal>` to ask the host coding agent for the smallest useful change.
-5. Run `/pm0 handoff <proposal>` to accept for engineering, reject, or continue discussion.
+5. Run `/pm0 handoff <proposal>` to accept for engineering, reject, or mark as needs more discussion.
 
 ## Installation
 

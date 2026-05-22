@@ -25,9 +25,32 @@ function slugFromFile(fileName) {
   return fileName.replace(/\.md$/, "");
 }
 
-function inferSurface(changedFiles, surfaceSlugs) {
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function surfaceAliases(surface) {
+  return [...new Set([
+    surface,
+    surface.replace(/-/g, " "),
+    surface.replace(/-/g, "_")
+  ])];
+}
+
+function textMentionsSurface(text, surface) {
+  const haystack = String(text || "");
+  return surfaceAliases(surface).some((alias) => {
+    const pattern = new RegExp(`(^|[^a-z0-9])${escapeRegExp(alias)}([^a-z0-9]|$)`, "i");
+    return pattern.test(haystack);
+  });
+}
+
+function inferSurface(changedFiles, surfaceSlugs, prBody = "") {
   for (const surface of surfaceSlugs) {
-    if (changedFiles.some((file) => file.toLowerCase().includes(surface))) {
+    if (
+      changedFiles.some((file) => textMentionsSurface(file, surface)) ||
+      textMentionsSurface(prBody, surface)
+    ) {
       return surface;
     }
   }
@@ -79,7 +102,7 @@ export async function runProductCi({ root = process.cwd(), changedFiles = [], pr
     .map(slugFromFile)
     .filter((slug) => slug !== "index");
 
-  const inferredSurface = inferSurface(changedFiles, surfaceSlugs);
+  const inferredSurface = inferSurface(changedFiles, surfaceSlugs, prBody);
   const links = extractPm0Links(prBody);
   const findings = [];
 

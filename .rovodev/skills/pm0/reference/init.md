@@ -25,7 +25,7 @@ Init writes the base memory tree:
 .pm0/prds/
 ```
 
-Run `node skills/pm0/scripts/scaffold-pm0.mjs` to create deterministic folders and starter files. Do not hand-create the base tree when the script is available.
+Run the bundled scaffold script from the active PM0 skill directory, for example `node <active PM0 skill directory>/scripts/scaffold-pm0.mjs`, to create deterministic folders and starter files. Do not hand-create the base tree when the script is available.
 
 ## Context Selection
 
@@ -37,7 +37,7 @@ Mark uncertain claims as unverified and place them under assumptions needing con
 
 ## GitHub CI Offer
 
-After scaffolding, ask whether the user wants optional GitHub CI that warns when product-changing PRs do not link a PM0 proposal or PRD. If they want it, use `reference/github-ci.md` and the `skills/pm0/scripts/product-ci.mjs` script as the implementation reference.
+After scaffolding, ask whether the user wants optional GitHub CI that warns when product-changing PRs do not link a PM0 proposal or PRD. If they want it, use `reference/github-ci.md`, `templates/github-workflow.yml`, and the bundled `scripts/product-ci.mjs` script in the active PM0 skill directory as the implementation reference.
 
 ## Output
 

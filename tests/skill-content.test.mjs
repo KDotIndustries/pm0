@@ -43,3 +43,31 @@ test("handoff reference has exactly three outcomes", async () => {
     "needs more discussion"
   ]);
 });
+
+test("skill guidance does not hard-code source-tree script paths", async () => {
+  const files = [
+    "skills/pm0/reference/init.md",
+    "skills/pm0/reference/github-ci.md"
+  ];
+
+  for (const file of files) {
+    const text = await read(file);
+    assert.doesNotMatch(text, /node skills\/pm0\/scripts\//);
+    assert.match(text, /active PM0 skill directory|installed PM0 skill directory/);
+  }
+});
+
+test("README uses approved handoff wording", async () => {
+  const readme = await read("README.md");
+  assert.match(readme, /needs more discussion/);
+  assert.doesNotMatch(readme, /continue discussion/);
+});
+
+test("GitHub CI workflow template exists and wires product-ci inputs", async () => {
+  const template = await read("skills/pm0/templates/github-workflow.yml");
+  assert.match(template, /pull_request:/);
+  assert.match(template, /PM0_CHANGED_FILES/);
+  assert.match(template, /PM0_PR_BODY/);
+  assert.match(template, /PM0_SKILL_DIR/);
+  assert.match(template, /node "\$PM0_SKILL_DIR\/scripts\/product-ci\.mjs"/);
+});

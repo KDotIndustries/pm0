@@ -103,3 +103,22 @@ test("runProductCi is informational when no product surface is inferable", async
     await rm(root, { recursive: true, force: true });
   }
 });
+
+test("runProductCi infers a product surface from PR body text", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
+  try {
+    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+
+    const result = await runProductCi({
+      root,
+      changedFiles: ["apps/web/src/routes/start.tsx"],
+      prBody: "This improves onboarding for new founders."
+    });
+
+    assert.equal(result.surface, "onboarding");
+    assert.equal(result.result, "warning");
+    assert.match(result.findings[0].message, /onboarding surface/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
