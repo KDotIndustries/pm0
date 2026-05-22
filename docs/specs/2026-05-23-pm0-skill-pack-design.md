@@ -48,10 +48,9 @@ PM0 writes durable memory into `.pm0/`:
     2026-05-23-onboarding-empty-state.md
   prds/
     2026-05-23-onboarding-empty-state.md
-  config.yml
 ```
 
-`.pm0/config.yml` is part of the base contract. It may start minimal, but it gives PM0 and optional GitHub CI one stable place for surface path mappings and repo-specific settings.
+Do not require `.pm0/config.yml` in v1. Agents are good enough to infer likely surface relationships from the repo, `.pm0/surfaces/`, proposals, PRDs, changed files, and user instructions. Avoid making founders maintain a path-mapping config until the need is proven.
 
 ### Project Memory
 
@@ -208,6 +207,13 @@ skills/
 
 Reference files own command-specific behavior.
 
+Implementation should use the local repo examples as packaging references:
+
+- `examples/impeccable-main` for the one-skill command router, per-command reference files, and user-facing command vocabulary.
+- `examples/superpowers-main` for plugin manifests, README structure, cross-harness packaging, and test/sync patterns.
+
+Follow their structure and ergonomics. Do not copy PMOS content or templates into PM0.
+
 ## Commands
 
 PM0 uses one slash command with subcommands:
@@ -248,7 +254,6 @@ Writes:
 .pm0/surfaces/index.md
 .pm0/proposals/
 .pm0/prds/
-.pm0/config.yml
 ```
 
 It may create selected context files, but should not generate every context file by default.
@@ -264,7 +269,6 @@ Reads:
 - `.pm0/project.md`
 - `.pm0/contexts/*` relevant to the surface
 - `.pm0/surfaces/{surface}.md`, if present
-- `.pm0/config.yml`
 - relevant routes/components/docs
 - accepted PRDs and proposal summaries linked from the surface
 - available external evidence only when relevant
@@ -393,15 +397,15 @@ If accepted:
 
 GitHub CI is optional and should be offered during `/pm0 init`.
 
-V1 CI should be static and warning-oriented:
+V1 CI should be warning-oriented and should not require `.pm0/config.yml`.
 
-- changed paths map to surfaces in `.pm0/config.yml`
+- infer likely surfaces from changed paths, file names, PR text, `.pm0/surfaces/`, proposals, and PRDs
 - product-changing PRs mention a PM0 proposal or PRD
 - linked proposal/PRD file exists
 - linked surface file exists
 - PR explains product intent or links the relevant PM0 artifact
 
-No LLM or PM0 Cloud check is required in v1.
+No PM0 Cloud check is required in v1. If the GitHub environment has an LLM review mechanism available, the CI can use it to infer affected surfaces and product-memory contradictions. Otherwise, it should fall back to static artifact checks.
 
 Do not expose CI as `/pm0 review` in v1.
 
@@ -415,6 +419,7 @@ The public repository should include a README inspired by Superpowers and Impecc
 - basic command examples
 - `.pm0` folder contract
 - founder workflow examples
+- note that PM0's implementation follows the local Superpowers and Impeccable example patterns
 - optional GitHub CI setup
 - clear note that PM0 v1 does not require a cloud account
 
@@ -431,7 +436,7 @@ PM0 v1 should not include:
 - a Notion replacement
 - a generic PRD generator
 - separate decision logs
-- LLM-based CI enforcement by default
+- required path-mapping config
 
 ## Open Questions
 
