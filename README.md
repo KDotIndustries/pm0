@@ -67,7 +67,11 @@ PM0 includes harness copies for `.gemini`, `.github`, `.kiro`, `.opencode`, `.pi
 
 ## Optional GitHub CI
 
-PM0 can add a warning-oriented GitHub CI check during `/pm0 init`. The check looks for product-changing PRs that should link a PM0 proposal or PRD.
+PM0 can add optional GitHub CI during `/pm0 init`.
+
+- Local check: warning-oriented, no hosted agent, validates that product-changing PRs link a PM0 proposal or PRD.
+- Claude example: uses the repository owner's Claude GitHub Action setup and PM0's shared product-review prompt.
+- Codex example: uses the repository owner's Codex GitHub Action setup and PM0's shared product-review prompt.
 
 ## Design References
 

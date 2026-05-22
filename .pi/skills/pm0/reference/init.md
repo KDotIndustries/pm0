@@ -37,7 +37,18 @@ Mark uncertain claims as unverified and place them under assumptions needing con
 
 ## GitHub CI Offer
 
-After scaffolding, ask whether the user wants optional GitHub CI that warns when product-changing PRs do not link a PM0 proposal or PRD. If they want it, use `reference/github-ci.md`, `templates/github-workflow.yml`, and the bundled `scripts/product-ci.mjs` script in the active PM0 skill directory as the implementation reference.
+After scaffolding, ask whether the user wants optional GitHub CI.
+
+Offer these choices:
+
+- local PM0 product-memory check: no hosted agent, warning-oriented, links product-changing PRs to proposals or PRDs
+- Claude-backed PM0 product review: uses the repository owner's Claude GitHub Action setup
+- Codex-backed PM0 product review: uses the repository owner's Codex GitHub Action setup
+- skip
+
+If the user chooses local, run the bundled installer from the active PM0 skill directory with `--mode local`. If the user chooses Claude or Codex, run it with `--mode claude` or `--mode codex`. If the user wants the agent to choose, run it with `--mode auto`; auto selects Claude from `.claude/skills/pm0`, Codex from `.agents/skills/pm0`, and local otherwise.
+
+Use `reference/github-ci.md`, `templates/github-workflow.yml`, `templates/github-workflow.claude.example.yml`, `templates/github-workflow.codex.example.yml`, `templates/product-review-prompt.md`, `scripts/install-github-ci.mjs`, and `scripts/product-ci.mjs` as implementation references.
 
 ## Output
 
@@ -47,4 +58,4 @@ Report:
 - Product surfaces inferred or requested.
 - Any selected context files created.
 - Assumptions that need founder confirmation.
-- Whether optional GitHub CI was offered, accepted, or skipped.
+- Whether optional GitHub CI was offered, accepted, installed, or skipped.

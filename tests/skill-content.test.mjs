@@ -75,3 +75,20 @@ test("GitHub CI workflow template exists and wires product-ci inputs", async () 
   assert.match(template, /PM0 product CI script not found/);
   assert.match(template, /node "\$PM0_SKILL_DIR\/scripts\/product-ci\.mjs"/);
 });
+
+test("agent CI templates use the shared PM0 product review prompt", async () => {
+  const prompt = await read("skills/pm0/templates/product-review-prompt.md");
+  assert.match(prompt, /founder-minded product manager/);
+  assert.match(prompt, /\.pm0\/project\.md/);
+  assert.match(prompt, /Do not review code style/);
+
+  const claude = await read("skills/pm0/templates/github-workflow.claude.example.yml");
+  assert.match(claude, /anthropics\/claude-code-action@v1/);
+  assert.match(claude, /ANTHROPIC_API_KEY/);
+  assert.match(claude, /PM0_PRODUCT_REVIEW_PROMPT/);
+
+  const codex = await read("skills/pm0/templates/github-workflow.codex.example.yml");
+  assert.match(codex, /openai\/codex-action@v1/);
+  assert.match(codex, /OPENAI_API_KEY/);
+  assert.match(codex, /PM0_PRODUCT_REVIEW_PROMPT/);
+});

@@ -1,4 +1,4 @@
-import { readdir, stat } from "node:fs/promises";
+import { appendFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -142,6 +142,41 @@ export async function runProductCi({ root = process.cwd(), changedFiles = [], pr
   };
 }
 
+function escapeGitHubCommand(value) {
+  return String(value)
+    .replace(/%/g, "%25")
+    .replace(/\r/g, "%0D")
+    .replace(/\n/g, "%0A");
+}
+
+function formatGithubAnnotations(result) {
+  return result.findings
+    .filter((finding) => finding.level === "warning")
+    .map((finding) => `::warning title=PM0 product memory::${escapeGitHubCommand(finding.message)}`);
+}
+
+function formatGithubStepSummary(result) {
+  const lines = [
+    "## PM0 Product CI",
+    "",
+    `Result: ${result.result}`,
+    `Surface: ${result.surface || "not inferred"}`,
+    ""
+  ];
+
+  if (result.findings.length === 0) {
+    lines.push("No PM0 product-memory warnings.");
+  } else {
+    lines.push("Findings:");
+    for (const finding of result.findings) {
+      lines.push(`- ${finding.level}: ${finding.message}`);
+    }
+  }
+
+  lines.push("");
+  return lines.join("\n");
+}
+
 async function main() {
   const changedFiles = (process.env.PM0_CHANGED_FILES || "")
     .split("\n")
@@ -149,6 +184,12 @@ async function main() {
     .filter(Boolean);
   const prBody = process.env.PM0_PR_BODY || "";
   const result = await runProductCi({ changedFiles, prBody });
+  for (const annotation of formatGithubAnnotations(result)) {
+    console.log(annotation);
+  }
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    await appendFile(process.env.GITHUB_STEP_SUMMARY, formatGithubStepSummary(result), "utf8");
+  }
   console.log(JSON.stringify(result, null, 2));
   process.exit(0);
 }

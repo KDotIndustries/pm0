@@ -1,9 +1,15 @@
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { spawn } from "node:child_process";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import { runProductCi } from "../skills/pm0/scripts/product-ci.mjs";
+
+const testFilePath = fileURLToPath(import.meta.url);
+const repoRoot = path.resolve(path.dirname(testFilePath), "..");
+const productCiScriptPath = path.join(repoRoot, "skills/pm0/scripts/product-ci.mjs");
 
 async function write(root, relativePath, content) {
   const fullPath = path.join(root, relativePath);
@@ -118,6 +124,53 @@ test("runProductCi infers a product surface from PR body text", async () => {
     assert.equal(result.surface, "onboarding");
     assert.equal(result.result, "warning");
     assert.match(result.findings[0].message, /onboarding surface/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("product CI CLI emits GitHub annotations and step summary for warnings", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-cli-"));
+  try {
+    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+    const summaryPath = path.join(root, "summary.md");
+
+    const result = await new Promise((resolve, reject) => {
+      const child = spawn(process.execPath, [productCiScriptPath], {
+        cwd: root,
+        env: {
+          ...process.env,
+          PM0_CHANGED_FILES: "apps/web/src/onboarding/page.tsx",
+          PM0_PR_BODY: "Improve onboarding.",
+          GITHUB_STEP_SUMMARY: summaryPath
+        }
+      });
+      let stdout = "";
+      let stderr = "";
+
+      child.stdout.setEncoding("utf8");
+      child.stderr.setEncoding("utf8");
+      child.stdout.on("data", (chunk) => {
+        stdout += chunk;
+      });
+      child.stderr.on("data", (chunk) => {
+        stderr += chunk;
+      });
+      child.on("error", reject);
+      child.on("close", (code) => {
+        resolve({ code, stdout, stderr });
+      });
+    });
+
+    assert.equal(result.code, 0);
+    assert.match(result.stdout, /::warning title=PM0 product memory::/);
+    assert.match(result.stdout, /"result": "warning"/);
+    assert.equal(result.stderr, "");
+
+    const summary = await readFile(summaryPath, "utf8");
+    assert.match(summary, /## PM0 Product CI/);
+    assert.match(summary, /Result: warning/);
+    assert.match(summary, /Changes appear to affect the onboarding surface/);
   } finally {
     await rm(root, { recursive: true, force: true });
   }
