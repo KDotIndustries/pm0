@@ -81,3 +81,5 @@ When the handoff is accepted for engineering and the user is preparing a PR, pro
 - Acceptance criteria.
 - Verification expectations.
 - Known risks or open questions.
+
+Keep PR descriptions public-safe. Do not paste raw customer evidence, private support or research links, confidential strategy, or internal-only language into the PR description. Redact sensitive details and use short neutral summaries, aggregate counts, or links that are safe for the repository audience.

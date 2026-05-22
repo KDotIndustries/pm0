@@ -10,13 +10,18 @@ The user must provide a surface, proposal, idea, problem, or product question. I
 
 ## Read Order
 
-1. `.pm0/project.md`.
-2. Relevant files from `.pm0/contexts/`.
-3. `.pm0/surfaces/{surface}.md`.
-4. Active proposal if one is named.
-5. Related accepted PRDs and rejected proposal summaries.
-6. Current branch or PR state if it affects the proposal.
-7. Host-agent tools and integrations when the question needs external evidence.
+If `/pm0 discuss <proposal>` names an existing proposal, read that proposal first to discover its `Surface:` value, then read the matching surface memory.
+
+If `/pm0 discuss <surface>` names a product surface, read product and surface memory first before creating or updating any proposal.
+
+1. Existing proposal, only when one is named.
+2. `.pm0/project.md`.
+3. Relevant files from `.pm0/contexts/`.
+4. `.pm0/surfaces/{surface}.md`.
+5. Active proposal if one is named and has not already been read.
+6. Related accepted PRDs and rejected proposal summaries.
+7. Current branch or PR state if it affects the proposal.
+8. Host-agent tools and integrations when the question needs external evidence.
 
 ## Tool And Integration Routing
 

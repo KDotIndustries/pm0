@@ -3,9 +3,6 @@ name: pm0
 description: Use when the user invokes /pm0 or asks for product memory, proposal shaping, PRD handoff, product-surface analysis, founder product management, or repo-native product context for AI agents.
 argument-hint: "[command] [surface-or-proposal]"
 user-invocable: true
-allowed-tools:
-  - Bash(node skills/pm0/scripts/scaffold-pm0.mjs *)
-  - Bash(node skills/pm0/scripts/product-ci.mjs *)
 ---
 
 PM0 is product memory for AI agents. It keeps product context in `.pm0/` so agents can understand a product surface before changing it.
