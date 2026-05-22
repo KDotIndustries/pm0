@@ -1,19 +1,22 @@
-import { mkdir, stat, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
-async function pathExists(filePath) {
-  try {
-    await stat(filePath);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 async function createFileIfMissing(filePath, contents) {
   try {
     await writeFile(filePath, contents, { encoding: "utf8", flag: "wx" });
+    return true;
+  } catch (error) {
+    if (error?.code === "EEXIST") {
+      return false;
+    }
+    throw error;
+  }
+}
+
+async function createDirectoryIfMissing(dirPath) {
+  try {
+    await mkdir(dirPath);
     return true;
   } catch (error) {
     if (error?.code === "EEXIST") {
@@ -94,10 +97,11 @@ export async function scaffoldPm0(options = {}) {
   const pm0Root = path.join(root, ".pm0");
   const created = [];
 
+  await mkdir(pm0Root, { recursive: true });
+
   for (const dir of ["contexts", "surfaces", "proposals", "prds"]) {
     const dirPath = path.join(pm0Root, dir);
-    if (!(await pathExists(dirPath))) {
-      await mkdir(dirPath, { recursive: true });
+    if (await createDirectoryIfMissing(dirPath)) {
       created.push(path.posix.join(".pm0", dir));
     }
   }

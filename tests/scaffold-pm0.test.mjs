@@ -71,7 +71,7 @@ test("scaffoldPm0 does not overwrite existing user memory", async () => {
   }
 });
 
-test("scaffoldPm0 only reports one project file creation under concurrent runs", async () => {
+test("scaffoldPm0 only reports each created path once under concurrent runs", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-scaffold-"));
   try {
     const results = await Promise.all(
@@ -84,11 +84,21 @@ test("scaffoldPm0 only reports one project file creation under concurrent runs",
       )
     );
 
-    const projectCreations = results.filter((result) => result.created.includes(".pm0/project.md"));
-    const indexCreations = results.filter((result) => result.created.includes(".pm0/surfaces/index.md"));
+    const createdCounts = new Map();
+    for (const result of results) {
+      for (const createdPath of result.created) {
+        createdCounts.set(createdPath, (createdCounts.get(createdPath) || 0) + 1);
+      }
+    }
 
-    assert.equal(projectCreations.length, 1);
-    assert.equal(indexCreations.length, 1);
+    assert.deepEqual(Object.fromEntries([...createdCounts].sort()), {
+      ".pm0/contexts": 1,
+      ".pm0/project.md": 1,
+      ".pm0/proposals": 1,
+      ".pm0/prds": 1,
+      ".pm0/surfaces": 1,
+      ".pm0/surfaces/index.md": 1
+    });
   } finally {
     await rm(root, { recursive: true, force: true });
   }
