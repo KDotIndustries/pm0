@@ -36,6 +36,157 @@ External sources are evidence, not truth. Store links, dates, short summaries, c
 
 Do not store raw tickets, transcripts, emails, CRM records, analytics exports, or replay data in `.pm0/`. Summarize only the product-relevant insight and link back to the source when appropriate.
 
+## Quality Bar
+
+Do not ship a weak artifact. A context file should help a founder make a better product decision, not merely list links or summarize obvious repo facts.
+
+For researched contexts:
+
+- Identify what type of artifact the user requested and use the matching template below.
+- Search broadly enough to discover the relevant entities before writing conclusions.
+- Prefer structured tables when comparison, prioritization, or measurement is the point of the context.
+- Separate repo facts, public web evidence, user-provided context, and assumptions.
+- Include contradictions and confidence levels.
+- If tools are unavailable or evidence is too thin, write a useful research plan and mark the context as incomplete instead of pretending the work is complete.
+
+## Artifact-Specific Guidance
+
+### Competitive Landscape
+
+A competitive landscape must compare competitors. Do not only name competitors or list source links.
+
+Research flow:
+
+1. Identify the product category and likely buyer from repo memory and public product copy.
+2. Discover competitors through web search, similar-site search when available, pricing pages, comparison pages, review sites, marketplace listings, and founder-provided names.
+3. Include direct competitors, adjacent substitutes, and regional or vertical competitors when relevant.
+4. Read enough primary sources for each important competitor to understand positioning, packaging, target buyer, channels, and pricing model.
+5. Compare the competitors against the user's product and extract product implications.
+
+Minimum output:
+
+```markdown
+## Category Definition
+
+## Competitor Set
+
+| Competitor | Type | Target Buyer | Core Promise | Pricing Model | Why They Matter | Sources | Confidence |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+## Competitor Comparison
+
+| Capability / Position | Our Product | Competitor A | Competitor B | Competitor C |
+| --- | --- | --- | --- | --- |
+
+## Threat Ranking
+
+| Rank | Competitor | Threat Level | Reason | PM0 Implication |
+| --- | --- | --- | --- | --- |
+
+## Differentiation Opportunities
+
+## Positioning Risks
+
+## Evidence And Caveats
+
+## Open Questions
+```
+
+Aim for at least five relevant competitors when the market is discoverable. Use fewer only when the category is genuinely narrow, and explain why.
+
+### Pricing Packages
+
+Pricing context must compare packages and expose mismatches between product, billing, marketing, and competitors.
+
+Minimum output:
+
+```markdown
+## Current Package Matrix
+
+| Package | Price | Buyer / Use Case | Limits | Included | Excluded / Add-ons | Source | Caveats |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+## Pricing And Packaging Matrix
+
+| Company | Entry Package | Core Paid Package | AI / Usage Pricing | Seat Pricing | Key Limits | Notes | Sources |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+## Internal Contradictions
+
+## Packaging Implications
+
+## Open Questions
+```
+
+When repo billing constants and public pricing disagree, call that out as a first-class product risk.
+
+### Success Metrics
+
+Success metrics context must define how the product should know whether it is working. Do not stop at generic KPI names.
+
+Minimum output:
+
+```markdown
+## North Star Candidate
+
+## Success Metrics Matrix
+
+| Metric | Definition | User / Business Reason | Current Baseline | Target | Instrumentation Source | Cadence | Caveats |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+## Funnel Or Workflow Metrics
+
+## Quality Guardrails
+
+## Instrumentation Gaps
+
+## Review Cadence
+```
+
+If baselines are unavailable, write `Unknown` and identify the event, dashboard, or tool needed to measure it.
+
+### Target Users
+
+Target-user context must distinguish segments, buyer, user, and non-targets.
+
+Minimum output:
+
+```markdown
+## Segment Matrix
+
+| Segment | Buyer | Daily User | Trigger Problem | Current Alternative | Success Criteria | Evidence | Confidence |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+## Priority Segment Recommendation
+
+## Non-Targets
+
+## Jobs To Be Done
+
+## Evidence And Caveats
+```
+
+### Design System
+
+Design-system context must capture the actual product UI language, not generic design advice.
+
+Minimum output:
+
+```markdown
+## Interface Inventory
+
+| Surface | Components / Patterns | Visual Language | Interaction Notes | Source |
+| --- | --- | --- | --- | --- |
+
+## Reusable Patterns
+
+## Product UX Principles
+
+## Accessibility And Responsiveness Notes
+
+## Risks And Inconsistencies
+```
+
 ## File Naming
 
 Use stable names for durable context that should be maintained over time:

@@ -48,6 +48,19 @@ test("context reference supports focused tool-backed research", async () => {
   assert.match(context, /dated names for point-in-time/i);
 });
 
+test("context reference requires founder-grade artifact templates", async () => {
+  const context = await read("skills/pm0/reference/context.md");
+
+  assert.match(context, /Quality Bar/i);
+  assert.match(context, /A competitive landscape must compare competitors/i);
+  assert.match(context, /Competitor Comparison/i);
+  assert.match(context, /Threat Ranking/i);
+  assert.match(context, /Success Metrics Matrix/i);
+  assert.match(context, /Pricing And Packaging Matrix/i);
+  assert.match(context, /Segment Matrix/i);
+  assert.match(context, /Do not ship a weak artifact/i);
+});
+
 test("handoff reference has exactly three outcomes", async () => {
   const handoff = await read("skills/pm0/reference/handoff.md");
   const outcomesSection = handoff.match(/## Outcomes\n\n[\s\S]*?\n\n(?=## )/);

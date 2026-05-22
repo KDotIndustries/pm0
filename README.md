@@ -103,6 +103,8 @@ Examples:
 /pm0 context design system
 ```
 
+Founder-grade context should be structured enough to support a decision. For example, competitive landscape should discover competitors, compare them in tables, rank threats, and call out differentiation opportunities. Pricing context should compare packages, expose contradictions, and benchmark competitors. Success metrics context should define metrics, baselines, targets, instrumentation, and caveats.
+
 PM0 stores durable summaries in `.pm0/contexts/`, not raw tickets, transcripts, emails, analytics exports, or replay data.
 
 ## Optional GitHub CI
