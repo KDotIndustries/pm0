@@ -90,6 +90,8 @@ node <active PM0 skill directory>/scripts/scaffold-pm0.mjs \
 
 Use the PM0 skill directory for your harness, for example `.agents/skills/pm0` for Codex or `.claude/skills/pm0` for Claude Code.
 
+When `/pm0 init` creates context files, it follows the same founder-grade context rules as `/pm0 context <topic>`. If there is not enough evidence to create a useful context artifact, init should leave that context uncreated and recommend the specific follow-up command instead.
+
 ## Build Product Context
 
 Use `/pm0 context <topic>` for focused research-backed context after init. PM0 starts from repo memory and can use available tools such as web search, product URLs, screenshots, or connected MCPs when they are relevant and allowed by the current agent harness.

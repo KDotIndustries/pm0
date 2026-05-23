@@ -52,13 +52,29 @@ test("context reference requires founder-grade artifact templates", async () => 
   const context = await read("skills/pm0/reference/context.md");
 
   assert.match(context, /Quality Bar/i);
+  assert.match(context, /Context Type Index/i);
   assert.match(context, /A competitive landscape must compare competitors/i);
   assert.match(context, /Competitor Comparison/i);
   assert.match(context, /Threat Ranking/i);
   assert.match(context, /Success Metrics Matrix/i);
   assert.match(context, /Pricing And Packaging Matrix/i);
   assert.match(context, /Segment Matrix/i);
+  assert.match(context, /Positioning Matrix/i);
+  assert.match(context, /Roadmap Matrix/i);
+  assert.match(context, /GTM Motion Matrix/i);
+  assert.match(context, /MVP Scope Matrix/i);
+  assert.match(context, /Workflow Breakdown/i);
+  assert.match(context, /Research Plan Matrix/i);
   assert.match(context, /Do not ship a weak artifact/i);
+});
+
+test("init reuses context guidance for generated context files", async () => {
+  const init = await read("skills/pm0/reference/init.md");
+
+  assert.match(init, /reference\/context\.md/);
+  assert.match(init, /quality bar/i);
+  assert.match(init, /artifact-specific guidance/i);
+  assert.match(init, /Do not create thin placeholder context files/i);
 });
 
 test("handoff reference has exactly three outcomes", async () => {

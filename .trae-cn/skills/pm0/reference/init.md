@@ -34,6 +34,8 @@ Create selected context files only when they are useful for the repo and the use
 
 Good candidates include context for target users, product vision, positioning, roadmap, pricing, design system, go-to-market, competitive landscape, success metrics, research plans, or workflow analysis. Choose based on the product surface and evidence in the repo, not a fixed template list.
 
+Before creating any context file during init, read `reference/context.md` and follow its quality bar and artifact-specific guidance for that context type. Do not create thin placeholder context files. If init cannot meet the relevant context quality bar with available repo evidence, user input, approved web search, screenshots, or available MCP/connectors, leave the context uncreated and recommend the exact `/pm0 context <topic>` command to run next.
+
 Init should usually create only the highest-confidence seed context, often one to three files. If more context would be useful but needs deeper research, ask which context topic the user wants next and recommend `/pm0 context <topic>`.
 
 Mark uncertain claims as unverified and place them under assumptions needing confirmation. Keep raw tickets, transcripts, emails, and replay data out of `.pm0/`; store short summaries, links, counts, and caveats instead.
