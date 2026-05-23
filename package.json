@@ -1,0 +1,12 @@
+{
+  "name": "pm0",
+  "version": "0.1.0",
+  "type": "module",
+  "private": false,
+  "description": "Product memory for AI agents.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "sync:harnesses": "node scripts/sync-harness-skills.mjs"
+  }
+}

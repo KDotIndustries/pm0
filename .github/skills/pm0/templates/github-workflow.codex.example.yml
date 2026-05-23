@@ -1,0 +1,68 @@
+name: PM0 Codex Product Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  pm0-codex-review:
+    name: PM0 Codex product review
+    runs-on: ubuntu-latest
+    env:
+      # Set this to the PM0 skill directory committed in this repository.
+      PM0_SKILL_DIR: .agents/skills/pm0
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          persist-credentials: false
+
+      - name: Load PM0 review prompt
+        id: pm0-prompt
+        run: |
+          if [ ! -f "$PM0_SKILL_DIR/templates/product-review-prompt.md" ]; then
+            echo "::error::PM0 product review prompt not found. Set PM0_SKILL_DIR to a PM0 skill directory committed in this repository."
+            exit 1
+          fi
+
+          {
+            echo "prompt<<EOF"
+            cat "$PM0_SKILL_DIR/templates/product-review-prompt.md"
+            echo
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Run Codex product review
+        id: pm0-codex
+        uses: openai/codex-action@v1
+        env:
+          PM0_PRODUCT_REVIEW_PROMPT: ${{ steps.pm0-prompt.outputs.prompt }}
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt: |
+            ${{ steps.pm0-prompt.outputs.prompt }}
+
+            Pull request: ${{ github.repository }}#${{ github.event.pull_request.number }}
+            Title: ${{ github.event.pull_request.title }}
+
+            Body:
+            ${{ github.event.pull_request.body }}
+
+      - name: Post Codex product review
+        if: steps.pm0-codex.outputs.final-message != ''
+        uses: actions/github-script@v7
+        env:
+          PM0_CODEX_REVIEW: ${{ steps.pm0-codex.outputs.final-message }}
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: process.env.PM0_CODEX_REVIEW
+            });

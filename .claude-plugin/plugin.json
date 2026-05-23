@@ -1,0 +1,19 @@
+{
+  "name": "pm0",
+  "description": "Product memory for AI agents: repo-native surfaces, proposals, PRDs, and founder product workflows.",
+  "version": "0.1.0",
+  "author": {
+    "name": "PM0"
+  },
+  "homepage": "https://github.com/omarkhatib/pm0",
+  "repository": "https://github.com/omarkhatib/pm0",
+  "license": "MIT",
+  "keywords": [
+    "product-memory",
+    "skills",
+    "founders",
+    "prd",
+    "proposals"
+  ],
+  "skills": "./.claude/skills/"
+}
