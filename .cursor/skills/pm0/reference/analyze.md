@@ -19,22 +19,25 @@ The user must provide a surface name, flow, screen, or product area. If the targ
 
 ## Surface Template
 
-Use or update this structure for `.pm0/surfaces/{surface}.md`:
+Use or update this structure for `.pm0/surfaces/{surface}.md`. Surface files are the durable source of truth for a product area; they are not proposal drafts or mini-PRDs.
 
 ```markdown
 # {Surface Name}
 
-## Purpose
+Status: Draft
+Last updated: YYYY-MM-DD
+
+## Product Role
+
+## Target Users / Jobs
 
 ## Current Behavior
 
-## Target Users
-
 ## Product Principles
 
-## Known Problems
+## Known Problems / Tensions
 
-## Metrics
+## Metrics / Signals
 
 ## Active Proposals
 
@@ -44,8 +47,12 @@ Use or update this structure for `.pm0/surfaces/{surface}.md`:
 
 ## Open Questions
 
+## Evidence
+
 ## Agent Notes
 ```
+
+Keep surface files concise and durable. Store stable product truth, accepted/rejected history, active proposal links, metrics, tensions, and open questions. Do not store raw customer messages, transcripts, tickets, emails, replay data, or implementation logs.
 
 ## Evidence Rules
 

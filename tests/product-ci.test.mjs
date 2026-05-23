@@ -17,10 +17,108 @@ async function write(root, relativePath, content) {
   await writeFile(fullPath, content, "utf8");
 }
 
+async function writeValidOnboardingSurface(root) {
+  await write(root, ".pm0/project.md", "# Product\n");
+  await write(root, ".pm0/surfaces/onboarding.md", `# Onboarding
+
+Status: Draft
+Last updated: 2026-05-23
+
+## Product Role
+Help new users reach first value.
+
+## Target Users / Jobs
+Founders setting up the product.
+
+## Current Behavior
+Users see a guided setup.
+
+## Product Principles
+Keep setup short.
+
+## Known Problems / Tensions
+Activation can stall.
+
+## Metrics / Signals
+Setup completion.
+
+## Active Proposals
+None.
+
+## Accepted PRDs
+None.
+
+## Rejected Proposals
+None.
+
+## Open Questions
+None.
+
+## Evidence
+Repo routes and product copy.
+
+## Agent Notes
+Keep notes short.
+`);
+}
+
+async function writeValidProposal(root) {
+  await write(root, ".pm0/proposals/2026-05-23-onboarding-empty-state.md", `# Onboarding Empty State
+
+Status: Draft
+Surface: onboarding
+Date: 2026-05-23
+
+## Problem Or Opportunity
+New users do not know where to start.
+
+## Why Now
+Activation matters.
+
+## Target Users Or Segment
+New founders.
+
+## Current Behavior
+Blank state.
+
+## Desired Outcome
+Clear first step.
+
+## Evidence And Caveats
+Surface analysis.
+
+## Proposed Scope
+Add a checklist.
+
+## Non-Goals
+Do not rebuild onboarding.
+
+## Success Criteria
+Users can start setup.
+
+## Risks And Tradeoffs
+May be too generic.
+
+## Open Questions
+None.
+
+## Build Notes
+Keep small.
+
+## Handoff Readiness
+- [x] Problem is clear
+- [x] Target user is clear
+- [x] Scope is small enough for one engineering pass
+- [x] Acceptance criteria are testable
+- [x] Metrics or learning signal is defined
+- [x] Major open questions are resolved or explicitly accepted
+`);
+}
+
 test("runProductCi warns when a product PR lacks PM0 artifact links", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
   try {
-    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+    await writeValidOnboardingSurface(root);
     const result = await runProductCi({
       root,
       changedFiles: ["apps/web/src/onboarding/page.tsx"],
@@ -38,8 +136,8 @@ test("runProductCi warns when a product PR lacks PM0 artifact links", async () =
 test("runProductCi passes when PR links an existing PM0 proposal", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
   try {
-    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
-    await write(root, ".pm0/proposals/2026-05-23-onboarding-empty-state.md", "# Proposal\n");
+    await writeValidOnboardingSurface(root);
+    await writeValidProposal(root);
 
     const result = await runProductCi({
       root,
@@ -57,7 +155,7 @@ test("runProductCi passes when PR links an existing PM0 proposal", async () => {
 test("runProductCi warns when a linked PM0 artifact escapes proposal and PRD directories", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
   try {
-    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+    await writeValidOnboardingSurface(root);
 
     const result = await runProductCi({
       root,
@@ -76,7 +174,7 @@ test("runProductCi warns when a linked PM0 artifact escapes proposal and PRD dir
 test("runProductCi reports duplicate missing PM0 links once", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
   try {
-    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+    await writeValidOnboardingSurface(root);
 
     const result = await runProductCi({
       root,
@@ -95,7 +193,7 @@ test("runProductCi reports duplicate missing PM0 links once", async () => {
 test("runProductCi is informational when no product surface is inferable", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
   try {
-    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+    await writeValidOnboardingSurface(root);
 
     const result = await runProductCi({
       root,
@@ -110,10 +208,33 @@ test("runProductCi is informational when no product surface is inferable", async
   }
 });
 
+test("runProductCi includes PM0 memory validator warnings", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
+  try {
+    await write(root, ".pm0/project.md", "# Product\n");
+    await write(root, ".pm0/surfaces/index.md", "# Product Surfaces\n\n- Unverified: add product surfaces such as `onboarding`, `pricing`, or `dashboard`.\n");
+
+    const result = await runProductCi({
+      root,
+      changedFiles: ["scripts/release.mjs"],
+      prBody: "Release maintenance."
+    });
+
+    assert.equal(result.result, "warning");
+    assert.equal(result.surface, null);
+    assert.match(
+      result.findings.map((finding) => finding.message).join("\n"),
+      /Surface index\.md contains scaffold placeholder residue/
+    );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
 test("runProductCi infers a product surface from PR body text", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-"));
   try {
-    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+    await writeValidOnboardingSurface(root);
 
     const result = await runProductCi({
       root,
@@ -132,7 +253,7 @@ test("runProductCi infers a product surface from PR body text", async () => {
 test("product CI CLI emits GitHub annotations and step summary for warnings", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "pm0-ci-cli-"));
   try {
-    await write(root, ".pm0/surfaces/onboarding.md", "# Onboarding\n");
+    await writeValidOnboardingSurface(root);
     const summaryPath = path.join(root, "summary.md");
 
     const result = await new Promise((resolve, reject) => {

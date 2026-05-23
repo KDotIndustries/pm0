@@ -32,6 +32,7 @@ Choose evidence sources based on the product question and the tools available in
 | Login is failing | Intercom or Zendesk support tickets, Sentry, GitHub issues, recent PRs, auth logs. |
 | Users drop during onboarding | PostHog or Amplitude funnels, session replay, support tickets, onboarding surface memory. |
 | Pricing confusion | Support tickets, sales notes, checkout analytics, competitor pages, pricing surface memory. |
+| User interview feedback | Granola or interview-note summaries, CRM notes, founder-provided notes, research-plan context. |
 | Recent product regression | Git history, GitHub PRs or issues, Sentry, release notes. |
 | Competitor or market question | Web research, competitor sites or docs, sales notes. |
 
@@ -50,11 +51,13 @@ Date: YYYY-MM-DD
 
 ## Problem Or Opportunity
 
+## Why Now
+
+## Target Users Or Segment
+
 ## Current Behavior
 
 ## Desired Outcome
-
-## Target Users Or Segment
 
 ## Evidence And Caveats
 
@@ -62,14 +65,27 @@ Date: YYYY-MM-DD
 
 ## Non-Goals
 
-## Acceptance Criteria
+## Success Criteria
+
+## Risks And Tradeoffs
 
 ## Open Questions
 
 ## Build Notes
+
+## Handoff Readiness
+
+- [ ] Problem is clear
+- [ ] Target user is clear
+- [ ] Scope is small enough for one engineering pass
+- [ ] Acceptance criteria are testable
+- [ ] Metrics or learning signal is defined
+- [ ] Major open questions are resolved or explicitly accepted
 ```
 
 Use proposal status values from the PM0 spec: Draft, Investigating, Proposed, Accepted, Rejected, Built, or Shipped.
+
+Keep proposals founder-friendly and concise, but do not leave them vague. The proposal should be strong enough for a later `/pm0 handoff` to judge whether it is ready for engineering.
 
 ## Memory Hygiene
 
@@ -87,13 +103,15 @@ When discussion improves the product judgment, update the proposal instead of le
 - open questions
 - build notes
 
-Update the surface whenever discussion changes the surface-level memory. Add or revise:
+Update the surface whenever discussion changes the surface-level memory. Use the surface template from `reference/analyze.md`. Add or revise:
 
 - active proposal links and one-line summaries
 - accepted PRD links
 - rejected proposal summaries
 - known problems or tensions
+- metrics or signals
 - open questions
+- evidence caveats
 
 If you write an internal run artifact, also summarize any durable decision or recommendation back into the relevant proposal and surface before ending, unless the user explicitly asked for notes only.
 

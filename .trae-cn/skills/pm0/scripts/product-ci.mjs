@@ -1,6 +1,7 @@
 import { appendFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { validatePm0Memory } from "./validate-pm0-memory.mjs";
 
 async function pathExists(filePath) {
   try {
@@ -97,6 +98,7 @@ function normalizePm0ArtifactLink(root, link) {
 }
 
 export async function runProductCi({ root = process.cwd(), changedFiles = [], prBody = "" } = {}) {
+  const validation = await validatePm0Memory({ root });
   const surfaceFiles = await listMarkdownFiles(path.join(root, ".pm0", "surfaces"));
   const surfaceSlugs = surfaceFiles
     .map(slugFromFile)
@@ -104,10 +106,14 @@ export async function runProductCi({ root = process.cwd(), changedFiles = [], pr
 
   const inferredSurface = inferSurface(changedFiles, surfaceSlugs, prBody);
   const links = extractPm0Links(prBody);
-  const findings = [];
+  const findings = [...validation.findings];
 
   if (!inferredSurface) {
-    return { result: "pass", surface: null, findings };
+    return {
+      result: findings.length ? "warning" : "pass",
+      surface: null,
+      findings
+    };
   }
 
   if (links.length === 0) {

@@ -1,12 +1,14 @@
 # PM0
 
-Product memory for AI agents.
+Your AI product manager for founder-led teams.
 
-PM0 helps founders and product-minded builders keep product context next to the code, then use that context before changing a product surface.
+PM0 helps founders and product-minded builders turn scattered product context into repo-native product memory, proposals, and PRDs that coding agents can actually use.
 
 ## Why PM0
 
 Coding agents can change code quickly, but product context is usually scattered across founder memory, support tickets, analytics, interviews, Slack, GitHub, and old PRDs.
+
+PM0 gives early-stage teams a lightweight product management layer without requiring a full-time PM process. It keeps the product brain next to the code, so the agent changing the product can also understand the user, market, surface, proposal history, and acceptance criteria.
 
 PM0 makes that context explicit:
 
@@ -14,6 +16,28 @@ PM0 makes that context explicit:
 - each new idea starts as a proposal
 - accepted proposals become PRDs during handoff
 - rejected proposals are summarized back into the surface
+
+## Who PM0 Is For
+
+PM0 is designed for:
+
+- founders building with AI coding agents
+- early-stage startups without a full-time product manager
+- product-minded engineers who want stronger product judgment before shipping
+- teams that want product decisions stored next to code instead of buried in chat threads
+
+## Why Use PM0
+
+Use PM0 when you want the agent to do product work before code work.
+
+PM0 helps you:
+
+- keep durable product context in `.pm0/`
+- analyze a product surface before changing it
+- turn vague founder ideas, customer complaints, or market signals into proposals
+- turn accepted proposals into PRDs for engineering
+- use available MCP/connectors when the local agent has relevant product data access
+- preserve the loop from context to surface memory to proposal to build to PRD
 
 ## Commands
 
@@ -96,6 +120,8 @@ When `/pm0 init` creates context files, it follows the same founder-grade contex
 
 Use `/pm0 context <topic>` for focused research-backed context after init. PM0 starts from repo memory and can use available tools such as web search, product URLs, screenshots, or connected MCPs when they are relevant and allowed by the current agent harness.
 
+If your agent already has product MCPs or connectors, PM0 can route research through the relevant ones. Examples include PostHog or Amplitude for funnels and cohorts, Intercom or Zendesk for support themes, Granola or interview-note tools for research summaries, Linear or GitHub for issue history, and CRM or billing tools for sales and pricing signals. PM0 does not install or manage those integrations; it uses what the current agent environment exposes.
+
 Examples:
 
 ```text
@@ -113,7 +139,7 @@ PM0 stores durable summaries in `.pm0/contexts/`, not raw tickets, transcripts, 
 
 PM0 can add optional GitHub CI during `/pm0 init`.
 
-- Local check: warning-oriented, no hosted agent, validates that product-changing PRs link a PM0 proposal or PRD.
+- Local check: warning-oriented, no hosted agent, validates PM0 memory shape, flags scaffold placeholders, and checks that product-changing PRs link a PM0 proposal or PRD.
 - Claude example: uses the repository owner's Claude GitHub Action setup and PM0's shared product-review prompt.
 - Codex example: uses the repository owner's Codex GitHub Action setup and PM0's shared product-review prompt.
 
@@ -148,6 +174,17 @@ This expects the repository owner to configure the Codex GitHub Action and `OPEN
 Use `--mode auto` when you want PM0 to choose from the skill directory: `.claude/skills/pm0` selects Claude, `.agents/skills/pm0` selects Codex, and other locations select the local check.
 
 The installer writes `.github/workflows/pm0.yml` and refuses to overwrite an existing workflow unless you pass `--force`.
+
+## Future Direction
+
+PM0 is intentionally repo-native today. Future work may make the product memory loop stronger with:
+
+- richer MCP-assisted research for support, analytics, sales, and interview sources
+- deeper product-memory checks in CI
+- stronger proposal, surface, and PRD validation
+- better ways to visualize product surfaces, proposals, and PRDs over time
+
+These are directionally useful areas, not requirements for using PM0 today.
 
 ## Design References
 

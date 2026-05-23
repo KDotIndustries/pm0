@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provide optional GitHub CI for PM0 product memory. The default local check warns when product-changing pull requests do not link the relevant PM0 proposal or PRD. Agent-backed examples can ask Claude or Codex to review a PR against PM0 product memory when the repository owner already has that integration configured.
+Provide optional GitHub CI for PM0 product memory. The default local check validates `.pm0` artifact shape, warns about scaffold placeholder residue, and warns when product-changing pull requests do not link the relevant PM0 proposal or PRD. Agent-backed examples can ask Claude or Codex to review a PR against PM0 product memory when the repository owner already has that integration configured.
 
 ## Trigger
 
@@ -10,7 +10,7 @@ Use this reference only when the user asks to add optional GitHub CI during `/pm
 
 ## Modes
 
-- `local`: installs `templates/github-workflow.yml` and runs the bundled `scripts/product-ci.mjs` script.
+- `local`: installs `templates/github-workflow.yml` and runs the bundled `scripts/product-ci.mjs` script, which includes the `scripts/validate-pm0-memory.mjs` memory validator.
 - `claude`: installs `templates/github-workflow.claude.example.yml` and uses the shared `templates/product-review-prompt.md` prompt with `anthropics/claude-code-action@v1`.
 - `codex`: installs `templates/github-workflow.codex.example.yml` and uses the shared `templates/product-review-prompt.md` prompt with `openai/codex-action@v1`.
 - `auto`: chooses Claude when the PM0 skill directory is `.claude/skills/pm0`, Codex when it is `.agents/skills/pm0`, and local otherwise.
@@ -31,13 +31,16 @@ The CI check needs:
 - Pull request body text.
 - Existing `.pm0/surfaces/*.md` files.
 - Existing `.pm0/proposals/*.md` and `.pm0/prds/*.md` files.
+- Existing `.pm0/project.md` file.
 
 The local check uses `templates/github-workflow.yml` as the starting workflow. Set `PM0_SKILL_DIR` to a PM0 skill directory committed in the repository for the target harness, then run the bundled script with `node "$PM0_SKILL_DIR/scripts/product-ci.mjs"`.
 
 ## Checks
 
 - Infer whether changed files appear to affect a known product surface.
-- If no product surface can be inferred, pass without findings.
+- Validate that `.pm0/project.md`, surfaces, proposals, and PRDs follow the PM0 templates.
+- Warn when scaffold placeholders or unresolved TODO/TBD residue remain in PM0 memory.
+- If no product surface can be inferred, return only PM0 memory validator findings.
 - If a product surface is inferred, look for linked `.pm0/proposals/*.md` or `.pm0/prds/*.md` artifacts in the PR body.
 - Warn when a product-changing PR does not link a proposal or PRD.
 - Warn when a linked PM0 artifact path does not exist.
@@ -47,7 +50,7 @@ The local check uses `templates/github-workflow.yml` as the starting workflow. S
 For the local check, return a concise result with:
 
 - `pass` when no warning is needed.
-- `warning` when the PR appears product-changing and lacks a valid PM0 artifact link.
+- `warning` when PM0 memory is malformed, contains placeholder residue, or the PR appears product-changing and lacks a valid PM0 artifact link.
 - Finding messages that explain what to add or fix.
 
 The local check should not fail the build by default. It should emit GitHub warning annotations and write a step summary when GitHub provides `GITHUB_STEP_SUMMARY`.

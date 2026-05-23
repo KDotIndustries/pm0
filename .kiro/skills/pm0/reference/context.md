@@ -25,6 +25,8 @@ Start with repo memory: `.pm0/project.md`, relevant `.pm0/surfaces/`, existing `
 
 Use web search, product URLs, screenshots, and available MCP/connectors when they are relevant to the context topic and allowed by the current harness. Choose tools based on the question. Do not use every integration by default.
 
+Examples of relevant product MCP/connectors include PostHog or Amplitude for funnels and cohorts, Intercom or Zendesk for support themes, Granola or interview-note tools for research summaries, Linear or GitHub for issue history, and CRM or billing tools for sales and pricing signals. PM0 does not install or manage those integrations; it uses only what the current agent environment exposes.
+
 Examples:
 
 - competitive landscape: use web search, public competitor pages, pricing pages, docs, changelogs, review sites, and founder-provided competitors
@@ -48,6 +50,8 @@ For researched contexts:
 - Separate repo facts, public web evidence, user-provided context, and assumptions.
 - Include contradictions and confidence levels.
 - If tools are unavailable or evidence is too thin, write a useful research plan and mark the context as incomplete instead of pretending the work is complete.
+
+When this reference is loaded by `/pm0 init`, apply the same quality bar while working across a small batch of contexts. Init should normally produce two to five context files, but every file must still satisfy the relevant context-type shape below. If one context can be done well and four would be shallow, create the one and recommend the exact follow-up commands for the rest.
 
 ## Context Type Index
 

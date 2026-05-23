@@ -25,6 +25,7 @@ The user must provide a proposal path, proposal slug, or clear proposal title. I
 - Ask before changing the proposal's product direction.
 - Prefer reversible product changes when the proposal has weak evidence.
 - Keep `.pm0/` updates focused on product memory, not implementation logs.
+- Update the related surface using the surface template from `reference/analyze.md` when the build changes current behavior, metrics/signals, known problems, accepted PRDs, open questions, or durable evidence.
 - Run the repo's relevant verification commands before reporting the build result.
 
 ## Proposal Build Notes
