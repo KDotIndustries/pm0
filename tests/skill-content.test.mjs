@@ -250,9 +250,29 @@ test("README positions PM0 for founders and early-stage teams", async () => {
   assert.match(readme, /early-stage startups without a full-time product manager/);
   assert.match(readme, /product-minded engineers/);
   assert.match(readme, /Use PM0 when you want the agent to do product work before code work/);
-  assert.match(readme, /Future Direction/);
-  assert.match(readme, /richer MCP-assisted research/);
-  assert.match(readme, /not requirements for using PM0 today/);
+  assert.doesNotMatch(readme, /Future Direction/);
+});
+
+test("README explains proposal discussion loop", async () => {
+  const readme = await read("README.md");
+
+  assert.match(readme, /\/pm0 discuss 2026-05-23-onboarding-empty-state/);
+  assert.match(readme, /Run `\/pm0 discuss <proposal>`/);
+  assert.match(readme, /stakeholder feedback/);
+  assert.match(readme, /Proposals are meant to be shared and revisited/);
+  assert.match(readme, /update the product judgment before building or handing it off/);
+});
+
+test("README thanks public inspiration projects", async () => {
+  const readme = await read("README.md");
+
+  assert.match(readme, /Inspiration And Thanks/);
+  assert.match(readme, /practical, portable, and useful in real development work/);
+  assert.match(readme, /Thank you to the maintainers and contributors/);
+  assert.match(readme, /\[Impeccable\]\(https:\/\/github\.com\/pbakaus\/impeccable\)/);
+  assert.match(readme, /\[Superpowers\]\(https:\/\/github\.com\/obra\/superpowers\)/);
+  assert.doesNotMatch(readme, /examples\/impeccable-main/);
+  assert.doesNotMatch(readme, /examples\/superpowers-main/);
 });
 
 test("GitHub CI workflow template exists and wires product-ci inputs", async () => {

@@ -35,6 +35,7 @@ PM0 helps you:
 - keep durable product context in `.pm0/`
 - analyze a product surface before changing it
 - turn vague founder ideas, customer complaints, or market signals into proposals
+- keep discussing a proposal after stakeholder, user, or customer feedback
 - turn accepted proposals into PRDs for engineering
 - use available MCP/connectors when the local agent has relevant product data access
 - preserve the loop from context to surface memory to proposal to build to PRD
@@ -47,6 +48,7 @@ PM0 helps you:
 /pm0 context competitive landscape
 /pm0 analyze onboarding
 /pm0 discuss onboarding
+/pm0 discuss 2026-05-23-onboarding-empty-state
 /pm0 build 2026-05-23-onboarding-empty-state
 /pm0 handoff 2026-05-23-onboarding-empty-state
 ```
@@ -68,8 +70,11 @@ PM0 helps you:
 2. Run `/pm0 context <topic>` when you want focused product context such as competitive landscape, pricing packages, target users, or design system.
 3. Run `/pm0 analyze <surface>` for a product area such as onboarding or pricing.
 4. Run `/pm0 discuss <surface>` to turn a founder idea or user problem into a proposal.
-5. Run `/pm0 build <proposal>` to ask the host coding agent for the smallest useful change.
-6. Run `/pm0 handoff <proposal>` to accept for engineering, reject, or mark as needs more discussion.
+5. Run `/pm0 discuss <proposal>` when you have stakeholder feedback, user interview notes, customer objections, or new evidence for an existing proposal.
+6. Run `/pm0 build <proposal>` to ask the host coding agent for the smallest useful change.
+7. Run `/pm0 handoff <proposal>` to accept for engineering, reject, or mark as needs more discussion.
+
+Proposals are meant to be shared and revisited. A founder can send a proposal to users, teammates, advisors, or customers, then come back with feedback and use `/pm0 discuss <proposal>` to update the product judgment before building or handing it off.
 
 ## Installation
 
@@ -175,20 +180,9 @@ Use `--mode auto` when you want PM0 to choose from the skill directory: `.claude
 
 The installer writes `.github/workflows/pm0.yml` and refuses to overwrite an existing workflow unless you pass `--force`.
 
-## Future Direction
+## Inspiration And Thanks
 
-PM0 is intentionally repo-native today. Future work may make the product memory loop stronger with:
+PM0 exists in the same spirit as projects that made agent skills feel practical, portable, and useful in real development work. Thank you to the maintainers and contributors behind:
 
-- richer MCP-assisted research for support, analytics, sales, and interview sources
-- deeper product-memory checks in CI
-- stronger proposal, surface, and PRD validation
-- better ways to visualize product surfaces, proposals, and PRDs over time
-
-These are directionally useful areas, not requirements for using PM0 today.
-
-## Design References
-
-PM0's packaging follows:
-
-- `examples/impeccable-main` for one skill with command references
-- `examples/superpowers-main` for plugin manifests and cross-harness packaging
+- [Impeccable](https://github.com/pbakaus/impeccable)
+- [Superpowers](https://github.com/obra/superpowers)
