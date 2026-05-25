@@ -243,6 +243,12 @@ test("README uses approved handoff wording", async () => {
   assert.doesNotMatch(readme, /continue discussion/);
 });
 
+test("README includes skills install command", async () => {
+  const readme = await read("README.md");
+
+  assert.match(readme, /npx skills add KDotIndustries\/pm0/);
+});
+
 test("README positions PM0 for founders and early-stage teams", async () => {
   const readme = await read("README.md");
 

@@ -88,6 +88,12 @@ Proposals are meant to be shared and revisited. A founder can send a proposal to
 
 PM0 follows the same packaging style as the local Superpowers and Impeccable examples in this repository. Install the skill directory for your agent harness, or use the plugin manifest when your harness supports plugins.
 
+The quickest install path is:
+
+```bash
+npx skills add KDotIndustries/pm0
+```
+
 ### Codex
 
 Use the Codex plugin manifest in `.codex-plugin/plugin.json`, or copy `.agents/skills/pm0` into a repo-local or user-wide Codex skills directory.
