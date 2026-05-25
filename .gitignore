@@ -3,4 +3,5 @@
 # Dependencies
 examples/
 docs/
+.superpowers/
 .DS_Store
