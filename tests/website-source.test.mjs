@@ -34,6 +34,16 @@ test('homepage does not keep waitlist or access copy', async () => {
   assert.doesNotMatch(combined, /request access/)
 })
 
+test('404 page matches the PM0 brand surface', async () => {
+  const page = await read('src/pages/404.astro')
+
+  assert.match(page, /Missing surface/)
+  assert.match(page, /This route has no proposal/)
+  assert.match(page, /Back home/)
+  assert.match(page, /npx skills add KDotIndustries\/pm0/)
+  assert.match(page, /https:\/\/x\.com\/Fouadktb/)
+})
+
 test('hero includes the required product input cards', async () => {
   const hero = await read('src/components/InputGravityHero.tsx')
 
