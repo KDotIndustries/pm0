@@ -102,26 +102,6 @@ PM0 will create `.pm0/` product memory and guide you through optional context ge
 
 For stronger external research, connect [EXA MCP](https://exa.ai/docs/reference/exa-mcp) to your agent.
 
-## Manual Installation
-
-PM0 follows the same packaging style as the local Superpowers and Impeccable examples in this repository. If you are not using the `skills` installer, copy the skill directory for your agent harness or use the plugin manifest when your harness supports plugins.
-
-### Codex
-
-Use the Codex plugin manifest in `.codex-plugin/plugin.json`, or copy `.agents/skills/pm0` into a repo-local or user-wide Codex skills directory.
-
-### Claude Code
-
-Use the Claude plugin manifest in `.claude-plugin/plugin.json`, or copy `.claude/skills/pm0` into your Claude skills directory.
-
-### Cursor
-
-Copy `.cursor/skills/pm0` into your project or user Cursor skills directory.
-
-### Other Harnesses
-
-PM0 includes harness copies for `.gemini`, `.github`, `.kiro`, `.opencode`, `.pi`, `.qoder`, `.rovodev`, `.trae-cn`, and `.trae`.
-
 ## Initialize Product Memory
 
 From your product repository, run `/pm0 init` in your agent. The skill creates:

@@ -256,7 +256,10 @@ test("README includes quick install command", async () => {
   assert.match(readme, /npx skills add KDotIndustries\/pm0/);
   assert.match(readme, /\/pm0 init/);
   assert.match(readme, /For stronger external research, connect \[EXA MCP\]\(https:\/\/exa\.ai\/docs\/reference\/exa-mcp\) to your agent/);
-  assert.match(readme, /## Manual Installation/);
+  assert.doesNotMatch(readme, /## Manual Installation/);
+  assert.doesNotMatch(readme, /\.codex-plugin/);
+  assert.doesNotMatch(readme, /\.claude-plugin/);
+  assert.doesNotMatch(readme, /\.agents\/skills\/pm0 into/);
 });
 
 test("README positions PM0 for founders and early-stage teams", async () => {
