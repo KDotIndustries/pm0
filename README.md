@@ -2,13 +2,19 @@
 
 Your AI product manager for founder-led teams.
 
-PM0 helps founders and product-minded builders turn scattered product context into repo-native product memory, proposals, and PRDs that coding agents can actually use.
+PM0 helps founders and product-minded builders turn scattered product context into repo-native product memory, proposals, quick prototypes, and PRDs that coding agents can actually use.
+
+Read the broader product thinking at [pm0.app](https://pm0.app/).
 
 ## Why PM0
 
 Coding agents can change code quickly, but product context is usually scattered across founder memory, support tickets, analytics, interviews, Slack, GitHub, and old PRDs.
 
 PM0 gives early-stage teams a lightweight product management layer without requiring a full-time PM process. It keeps the product brain next to the code, so the agent changing the product can also understand the user, market, surface, proposal history, and acceptance criteria.
+
+PM0 is also useful when you are a founder, PM, or operator who does not write code every day. You can discuss a proposal, ask the coding agent to build the smallest useful prototype or product change, share it for feedback, and come back to update the proposal before deciding whether it deserves engineering handoff.
+
+PM0 is not a replacement for engineering review or production-quality implementation. It helps make a product direction testable earlier, with the context attached, instead of starting from a blank prompt in a generic prototyping tool.
 
 PM0 makes that context explicit:
 
@@ -23,6 +29,7 @@ PM0 is designed for:
 
 - founders building with AI coding agents
 - early-stage startups without a full-time product manager
+- PMs and operators who want to prototype a product direction without starting from code
 - product-minded engineers who want stronger product judgment before shipping
 - teams that want product decisions stored next to code instead of buried in chat threads
 
@@ -36,6 +43,7 @@ PM0 helps you:
 - analyze a product surface before changing it
 - turn vague founder ideas, customer complaints, or market signals into proposals
 - keep discussing a proposal after stakeholder, user, or customer feedback
+- turn a proposal into the smallest useful prototype or repo change
 - turn accepted proposals into PRDs for engineering
 - use available MCP/connectors when the local agent has relevant product data access
 - preserve the loop from context to surface memory to proposal to build to PRD
@@ -71,7 +79,7 @@ PM0 helps you:
 3. Run `/pm0 analyze <surface>` for a product area such as onboarding or pricing.
 4. Run `/pm0 discuss <surface>` to turn a founder idea or user problem into a proposal.
 5. Run `/pm0 discuss <proposal>` when you have stakeholder feedback, user interview notes, customer objections, or new evidence for an existing proposal.
-6. Run `/pm0 build <proposal>` to ask the host coding agent for the smallest useful change.
+6. Run `/pm0 build <proposal>` to ask the host coding agent for the smallest useful prototype or product change.
 7. Run `/pm0 handoff <proposal>` to accept for engineering, reject, or mark as needs more discussion.
 
 Proposals are meant to be shared and revisited. A founder can send a proposal to users, teammates, advisors, or customers, then come back with feedback and use `/pm0 discuss <proposal>` to update the product judgment before building or handing it off.
@@ -127,6 +135,8 @@ Use `/pm0 context <topic>` for focused research-backed context after init. PM0 s
 
 If your agent already has product MCPs or connectors, PM0 can route research through the relevant ones. Examples include PostHog or Amplitude for funnels and cohorts, Intercom or Zendesk for support themes, Granola or interview-note tools for research summaries, Linear or GitHub for issue history, and CRM or billing tools for sales and pricing signals. PM0 does not install or manage those integrations; it uses what the current agent environment exposes.
 
+PM0 uses opinionated context templates for common product work. Instead of asking the agent to "think about strategy" from scratch, context files give it familiar PM shapes such as target users and ICP, Jobs To Be Done, competitive landscape, positioning, roadmap, GTM, MVP framing, workflow analysis, research plans, pricing packages, and success metrics such as a North Star metric, input metrics, guardrails, and instrumentation gaps.
+
 Examples:
 
 ```text
@@ -136,7 +146,7 @@ Examples:
 /pm0 context design system
 ```
 
-Founder-grade context should be structured enough to support a decision. For example, competitive landscape should discover competitors, compare them in tables, rank threats, and call out differentiation opportunities. Pricing context should compare packages, expose contradictions, and benchmark competitors. Success metrics context should define metrics, baselines, targets, instrumentation, and caveats.
+Founder-grade context should be structured enough to support a decision. For example, competitive landscape should discover competitors, compare them in tables, rank threats, and call out differentiation opportunities. Pricing context should compare packages, expose contradictions, and benchmark competitors. Success metrics context should define a North Star candidate, input metrics, baselines, targets, instrumentation, and caveats.
 
 PM0 stores durable summaries in `.pm0/contexts/`, not raw tickets, transcripts, emails, analytics exports, or replay data.
 

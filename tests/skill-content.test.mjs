@@ -247,10 +247,34 @@ test("README positions PM0 for founders and early-stage teams", async () => {
   const readme = await read("README.md");
 
   assert.match(readme, /Your AI product manager for founder-led teams/);
+  assert.match(readme, /\[pm0\.app\]\(https:\/\/pm0\.app\/\)/);
   assert.match(readme, /early-stage startups without a full-time product manager/);
+  assert.match(readme, /PMs and operators who want to prototype a product direction without starting from code/);
   assert.match(readme, /product-minded engineers/);
   assert.match(readme, /Use PM0 when you want the agent to do product work before code work/);
   assert.doesNotMatch(readme, /Future Direction/);
+});
+
+test("README explains careful prototype use for non-coders", async () => {
+  const readme = await read("README.md");
+
+  assert.match(readme, /does not write code every day/);
+  assert.match(readme, /smallest useful prototype or product change/);
+  assert.match(readme, /not a replacement for engineering review/);
+  assert.match(readme, /testable earlier, with the context attached/);
+  assert.match(readme, /generic prototyping tool/);
+});
+
+test("README emphasizes PM0 context templates", async () => {
+  const readme = await read("README.md");
+
+  assert.match(readme, /opinionated context templates/);
+  assert.match(readme, /target users and ICP/);
+  assert.match(readme, /Jobs To Be Done/);
+  assert.match(readme, /GTM/);
+  assert.match(readme, /MVP framing/);
+  assert.match(readme, /North Star metric/);
+  assert.match(readme, /input metrics, guardrails, and instrumentation gaps/);
 });
 
 test("README explains proposal discussion loop", async () => {
