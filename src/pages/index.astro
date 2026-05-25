@@ -1,0 +1,196 @@
+---
+import { CommandCopy } from '../components/CommandCopy'
+import { InputGravityHero } from '../components/InputGravityHero'
+import Layout from '../layouts/layout.astro'
+
+const commands = [
+  {
+    command: '/pm0 init',
+    description: 'Create repo-native product memory in `.pm0/`.',
+  },
+  {
+    command: '/pm0 context <topic>',
+    description: 'Build focused product context such as target users, pricing, competitors, or metrics.',
+  },
+  {
+    command: '/pm0 analyze <surface>',
+    description: 'Read a product area and capture durable surface memory before changing it.',
+  },
+  {
+    command: '/pm0 discuss <surface>',
+    description: 'Turn a founder idea, complaint, or product question into a proposal.',
+  },
+  {
+    command: '/pm0 build <proposal>',
+    description: 'Ask the host coding agent for the smallest useful prototype or product change.',
+  },
+  {
+    command: '/pm0 handoff <proposal>',
+    description: 'Accept, reject, or convert a proposal into an engineering-ready PRD.',
+  },
+]
+
+const loop = [
+  'Customer calls',
+  'Product context',
+  'Proposal',
+  'Prototype',
+  'Feedback',
+  'PRD handoff',
+]
+---
+
+<Layout>
+  <main class='min-h-dvh overflow-x-clip bg-paper text-ink'>
+    <section class='relative isolate min-h-[92svh] overflow-hidden border-b border-line px-5 pb-16 pt-5 sm:px-8 lg:px-12'>
+      <InputGravityHero client:load />
+
+      <header class='relative z-20 mx-auto flex max-w-7xl items-center justify-between gap-6 text-xs uppercase tracking-[0.14em] text-muted'>
+        <a
+          href='/'
+          class='text-ink transition-colors hover:text-rust focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+        >
+          pm0
+        </a>
+        <nav
+          class='flex items-center gap-4 sm:gap-6'
+          aria-label='Primary'
+        >
+          <a
+            href='https://github.com/KDotIndustries/pm0'
+            class='transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+          >
+            GitHub
+          </a>
+          <a
+            href='https://www.linkedin.com/in/fouadktb'
+            class='transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+          >
+            DM Fouad
+          </a>
+        </nav>
+      </header>
+
+      <div class='relative z-10 mx-auto grid min-h-[76svh] max-w-7xl items-end pt-20'>
+        <div class='max-w-4xl pb-4'>
+          <p class='fade-up text-xs uppercase tracking-[0.18em] text-rust'>
+            Product memory for AI agents
+          </p>
+          <h1
+            class='fade-up mt-5 max-w-4xl font-heading text-[clamp(3.5rem,13vw,10.5rem)] leading-[0.82] text-ink'
+            style='animation-delay: 120ms'
+            aria-label='Bring the mess. Find the move.'
+          >
+            Bring the mess.<br />Find the move.
+          </h1>
+          <p
+            class='fade-up mt-7 max-w-2xl text-base leading-7 text-muted sm:text-lg sm:leading-8'
+            style='animation-delay: 220ms'
+          >
+            PM0 turns scattered product context into repo-native memory, proposals,
+            prototypes, and handoffs that coding agents can use.
+          </p>
+          <div
+            class='fade-up mt-8'
+            style='animation-delay: 320ms'
+          >
+            <CommandCopy client:load />
+            <noscript>
+              <code>npx skills add KDotIndustries/pm0</code>
+            </noscript>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='border-b border-line px-5 py-16 sm:px-8 lg:px-12'>
+      <div class='mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]'>
+        <p class='text-xs uppercase tracking-[0.18em] text-rust'>01 / What it does</p>
+        <div class='max-w-3xl'>
+          <h2 class='text-3xl leading-tight sm:text-5xl'>A product brain that lives next to the code.</h2>
+          <p class='mt-6 text-base leading-7 text-muted sm:text-lg sm:leading-8'>
+            PM0 is an installable skill for founder-led teams using coding agents. It creates
+            `.pm0/` product memory, reads the product surface before code changes, and turns
+            loose product input into proposals, prototypes, and PRDs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class='border-b border-line px-5 py-16 sm:px-8 lg:px-12'>
+      <div class='mx-auto max-w-7xl'>
+        <p class='text-xs uppercase tracking-[0.18em] text-rust'>02 / The loop</p>
+        <div class='mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-6'>
+          {
+            loop.map((item, index) => (
+              <div class='min-h-36 border border-line bg-[#fbf7ed] p-4'>
+                <p class='text-xs text-muted'>{String(index + 1).padStart(2, '0')}</p>
+                <p class='mt-8 text-lg leading-6'>{item}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class='border-b border-line px-5 py-16 sm:px-8 lg:px-12'>
+      <div class='mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]'>
+        <p class='text-xs uppercase tracking-[0.18em] text-rust'>03 / Commands</p>
+        <div class='divide-y divide-line border-y border-line'>
+          {
+            commands.map(item => (
+              <div class='grid gap-3 py-5 sm:grid-cols-[14rem_1fr]'>
+                <code class='text-sm text-ink'>{item.command}</code>
+                <p class='text-sm leading-6 text-muted'>{item.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class='px-5 py-16 sm:px-8 lg:px-12'>
+      <div class='mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]'>
+        <p class='text-xs uppercase tracking-[0.18em] text-rust'>04 / Open source</p>
+        <div class='max-w-3xl'>
+          <h2 class='text-3xl leading-tight sm:text-5xl'>Install it, inspect it, change it.</h2>
+          <p class='mt-6 text-base leading-7 text-muted sm:text-lg sm:leading-8'>
+            PM0 is MIT licensed and built in the same spirit as practical agent skills:
+            portable product judgment, stored in the repository, available to the agent doing
+            the work.
+          </p>
+          <div class='mt-8 flex flex-wrap gap-4 text-sm'>
+            <a
+              href='https://github.com/KDotIndustries/pm0'
+              class='border border-ink px-4 py-3 text-ink transition-colors hover:bg-ink hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+            >
+              View source
+            </a>
+            <a
+              href='https://www.linkedin.com/in/fouadktb'
+              class='border border-line px-4 py-3 text-muted transition-colors hover:border-ink hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+            >
+              DM Fouad
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class='border-t border-line px-5 py-8 text-sm text-muted sm:px-8 lg:px-12'>
+      <div class='mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+        <p>pm0</p>
+        <p>
+          Have feedback or a real product question?
+          <a
+            href='https://www.linkedin.com/in/fouadktb'
+            class='text-ink underline decoration-line underline-offset-4 hover:text-rust'
+          >
+            DM Fouad
+          </a>
+          .
+        </p>
+      </div>
+    </footer>
+  </main>
+</Layout>
