@@ -1,15 +1,29 @@
 import {
+  BookOpenTextIcon,
+  BrowserIcon,
   ChartBarIcon,
   ChatCircleTextIcon,
+  ChatsCircleIcon,
+  ClipboardTextIcon,
+  DatabaseIcon,
+  EnvelopeIcon,
+  FileArrowUpIcon,
   FileCsvIcon,
-  GithubLogoIcon,
+  FileTextIcon,
+  MegaphoneIcon,
   MicrophoneStageIcon,
   NewspaperClippingIcon,
+  PhoneCallIcon,
+  PresentationChartIcon,
+  QuestionIcon,
+  RowsIcon,
+  TrendUpIcon,
+  UsersThreeIcon,
 } from '@phosphor-icons/react'
 import {
+  ClickUp,
   Figma,
   GitHubDark,
-  GranolaLight,
   Linear,
   Notion,
   PostHog,
@@ -44,26 +58,53 @@ const cards: InputCard[] = [
   { label: 'Intercom tickets', tone: '#e8f1ff', Icon: ChatCircleTextIcon },
   { label: 'Linear issues', tone: '#eeefff', Icon: Linear },
   { label: 'Slack messages', tone: '#f3f0ed', Icon: Slack },
-  { label: 'Miro boards', tone: '#fff2a6', Icon: NewspaperClippingIcon },
-  { label: 'PostHog events', tone: '#ffe3bf', Icon: PostHog },
-  { label: 'Figma comments', tone: '#f1e8ff', Icon: Figma },
-  { label: 'Customer calls', tone: '#e7f2dc', Icon: MicrophoneStageIcon },
-  { label: 'CSV exports', tone: '#ebe4d3', Icon: FileCsvIcon },
-  { label: 'Research repo', tone: '#e5ece4', Icon: GranolaLight },
+  { label: 'User uploads', tone: '#ebe4d3', Icon: FileArrowUpIcon },
+  { label: 'Interviews', tone: '#f1e8ff', Icon: MicrophoneStageIcon },
+  { label: 'Emails', tone: '#fff1d8', Icon: EnvelopeIcon },
+  { label: 'User stories', tone: '#e7f2dc', Icon: UsersThreeIcon },
   { label: 'GitHub issues', tone: '#e9e9e4', Icon: GitHubDark },
+  { label: 'Figma comments', tone: '#f1e8ff', Icon: Figma },
   { label: 'Notion docs', tone: '#f6f2e8', Icon: Notion },
-  { label: 'Analytics charts', tone: '#dfedf4', Icon: ChartBarIcon },
-  { label: 'GitHub PRDs', tone: '#e9e9e4', Icon: GithubLogoIcon },
+  { label: 'Jira tickets', tone: '#e8f1ff', Icon: ClipboardTextIcon },
+  { label: 'Granola notes', tone: '#f1f5d8', Icon: FileTextIcon },
+  { label: 'PostHog events', tone: '#ffe3bf', Icon: PostHog },
+  { label: 'Amplitude charts', tone: '#e8f1ff', Icon: ChartBarIcon },
+  { label: 'Mixpanel cohorts', tone: '#f1e8ff', Icon: ChartBarIcon },
+  { label: 'ClickUp tasks', tone: '#f1e8ff', Icon: ClickUp },
+  { label: 'Miro boards', tone: '#fff2a6', Icon: NewspaperClippingIcon },
+  { label: 'Attio records', tone: '#e9e9e4', Icon: DatabaseIcon },
+  { label: 'HubSpot deals', tone: '#ffe8df', Icon: TrendUpIcon },
+  { label: 'Call notes', tone: '#eaf1ff', Icon: FileTextIcon },
+  { label: 'Customer feedback', tone: '#ffe8ef', Icon: ChatCircleTextIcon },
+  { label: 'Sales calls', tone: '#eaf1ff', Icon: PhoneCallIcon },
+  { label: 'CSV exports', tone: '#ebe4d3', Icon: FileCsvIcon },
+  { label: 'Surveys', tone: '#fff1d8', Icon: QuestionIcon },
+  { label: 'Roadmaps', tone: '#e7f2dc', Icon: RowsIcon },
+  { label: 'Changelogs', tone: '#e9e9e4', Icon: ClipboardTextIcon },
+  { label: 'Analytics', tone: '#dfedf4', Icon: ChartBarIcon },
+  { label: 'Session replay', tone: '#f1e8ff', Icon: BrowserIcon },
+  { label: 'Win/loss notes', tone: '#ffe8ef', Icon: TrendUpIcon },
+  { label: 'Community posts', tone: '#e7f2dc', Icon: ChatsCircleIcon },
+  { label: 'Launch notes', tone: '#fff1d8', Icon: MegaphoneIcon },
+  { label: 'Data warehouse', tone: '#eaf1ff', Icon: DatabaseIcon },
+  { label: 'Research repo', tone: '#e5ece4', Icon: BookOpenTextIcon },
+  { label: 'Stakeholder decks', tone: '#f1e8ff', Icon: PresentationChartIcon },
 ]
 
 const mobileCardLabels = new Set([
   'Intercom tickets',
   'Linear issues',
   'Slack messages',
-  'Miro boards',
-  'PostHog events',
-  'Customer calls',
+  'Emails',
   'GitHub issues',
+  'Jira tickets',
+  'PostHog events',
+  'Miro boards',
+  'Call notes',
+  'Customer feedback',
+  'CSV exports',
+  'Roadmaps',
+  'Session replay',
 ])
 
 function removeMatterMouseListeners(mouse: Matter.Mouse) {
@@ -152,7 +193,7 @@ export function InputGravityHero() {
 
     let { w: width, h: height } = getSize()
     const wallThickness = 400
-    let centerSpawnGap = Math.min(width * 0.36, 460)
+    let centerSpawnGap = Math.min(width * 0.34, 440)
 
     const ground = Bodies.rectangle(
       width / 2,
@@ -204,8 +245,8 @@ export function InputGravityHero() {
     const bodies = dimensions.map(({ w, h }, index) => {
       const side = index % 2 === 0 ? 'left' : 'right'
       const laneWidth = isMobileScene
-        ? Math.max(150, width * 0.78)
-        : Math.max(180, (width - centerSpawnGap) / 2)
+        ? Math.max(150, width * 0.74)
+        : Math.max(160, (width - centerSpawnGap) / 2)
       const laneStart = side === 'left' ? -w * 0.35 : width - laneWidth
       const x = isMobileScene
         ? Math.max(w / 2, Math.min(width - w / 2, Math.random() * width))
@@ -213,7 +254,7 @@ export function InputGravityHero() {
           ? laneStart + Math.random() * laneWidth
           : laneStart + Math.random() * laneWidth + w * 0.35
       const y =
-        -120 - index * (isMobileScene ? 44 : 22) - Math.random() * (isMobileScene ? 120 : 64)
+        -120 - index * (isMobileScene ? 34 : 16) - Math.random() * (isMobileScene ? 110 : 48)
       const body = Bodies.rectangle(x, y, w, h, {
         restitution: 0.1,
         friction: 0.42,
@@ -224,7 +265,7 @@ export function InputGravityHero() {
       })
       Matter.Body.setVelocity(body, {
         x: isMobileScene
-          ? (Math.random() - 0.5) * 2.2
+          ? (Math.random() - 0.5) * 2.4
           : side === 'left'
             ? 0.9 + Math.random() * 1.4
             : -0.9 - Math.random() * 1.4,
@@ -338,7 +379,7 @@ export function InputGravityHero() {
         height * 6,
       )
       setBoundary(boundaries.leftWall, -wallThickness / 2, height / 2, wallThickness, height * 6)
-      centerSpawnGap = Math.min(width * 0.36, 460)
+      centerSpawnGap = Math.min(width * 0.34, 440)
     }
 
     const resizeObserver = new ResizeObserver(applyBounds)

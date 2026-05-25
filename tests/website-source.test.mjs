@@ -37,18 +37,32 @@ test('homepage does not keep waitlist or access copy', async () => {
 test('hero includes the required product input cards', async () => {
   const hero = await read('src/components/InputGravityHero.tsx')
 
+  const cardCount = (hero.match(/label: '/g) || []).length
+  assert.ok(cardCount >= 30, `expected at least 30 hero input cards, found ${cardCount}`)
+
   for (const label of [
     'Intercom tickets',
     'Linear issues',
     'Slack messages',
+    'User uploads',
+    'Emails',
+    'GitHub issues',
     'Miro boards',
+    'Jira tickets',
+    'Granola notes',
     'PostHog events',
+    'Amplitude charts',
+    'ClickUp tasks',
     'Figma comments',
-    'Customer calls',
+    'Customer feedback',
     'CSV exports',
     'Research repo',
-    'GitHub issues',
+    'Stakeholder decks',
   ]) {
     assert.match(hero, new RegExp(label))
   }
+
+  assert.match(hero, /GitHubDark/)
+  assert.match(hero, /label: 'Research repo', tone: '#e5ece4', Icon: BookOpenTextIcon/)
+  assert.doesNotMatch(hero, /label: 'Research repo'[^\\n]+Granola/)
 })

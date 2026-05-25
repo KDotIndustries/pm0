@@ -116,9 +116,15 @@ Requirements:
 - Cards are draggable by mouse on desktop. On mobile, the card layer should not intercept
   touch gestures across the full hero because page scrolling is more important than dragging
   decorative background items.
-- Cards represent product inputs such as Intercom tickets, Linear issues, Slack messages,
-  Miro boards, PostHog events, Figma comments, customer calls, CSV exports, research repo,
-  and GitHub issues.
+- Cards represent a dense product-input cloud, using the old marketing hero as the baseline:
+  Intercom tickets, Linear issues, Slack messages, user uploads, interviews, emails, user
+  stories, GitHub issues, Figma comments, Notion docs, Jira tickets, Granola notes, PostHog
+  events, analytics tools, task tools, Miro boards, CRM records, calls, feedback, exports,
+  surveys, roadmaps, changelogs, session replay, launch notes, data warehouse, research repo,
+  and stakeholder decks.
+- Use `svgl-react` logos only where the package has a practical match. Use Phosphor domain
+  icons for unsupported brands instead of mismatched placeholders. In particular, GitHub uses
+  the current `GitHubDark` logo and `Research repo` uses a book/research icon, not Granola.
 - Use brand logos from `@ridemountainpig/svgl-react` when available.
 - Fall back to Phosphor icons when a specific logo export is unavailable.
 - `prefers-reduced-motion` disables physics and shows a static fallback arrangement.
