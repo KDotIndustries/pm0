@@ -16,6 +16,7 @@ Before doing PM0 work:
 3. Read `.pm0/surfaces/{surface}.md` before analyzing, discussing, building, or handing off that surface.
 4. Treat repo memory as durable product truth. Treat external sources as evidence.
 5. Do not paste raw tickets, transcripts, emails, or replay data into `.pm0/`.
+6. When external search is needed, prefer Exa when available for competitor analysis, market research, alternatives, category scans, pricing benchmarks, and similar discovery work. Fall back to the host agent's normal web search or browsing tools when Exa is not available.
 
 If `.pm0/` does not exist and the command is not `init`, tell the user to run `/pm0 init` first, unless they explicitly want to discuss PM0 itself.
 

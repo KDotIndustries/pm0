@@ -84,15 +84,27 @@ PM0 helps you:
 
 Proposals are meant to be shared and revisited. A founder can send a proposal to users, teammates, advisors, or customers, then come back with feedback and use `/pm0 discuss <proposal>` to update the product judgment before building or handing it off.
 
-## Installation
+## Quick Install
 
-PM0 follows the same packaging style as the local Superpowers and Impeccable examples in this repository. Install the skill directory for your agent harness, or use the plugin manifest when your harness supports plugins.
-
-The quickest install path is:
+Install PM0 with:
 
 ```bash
 npx skills add KDotIndustries/pm0
 ```
+
+Then open your product repository in your agent and run:
+
+```text
+/pm0 init
+```
+
+PM0 will create `.pm0/` product memory and guide you through optional context generation and CI setup.
+
+For stronger external research, connect [EXA MCP](https://exa.ai/docs/reference/exa-mcp) to your agent.
+
+## Manual Installation
+
+PM0 follows the same packaging style as the local Superpowers and Impeccable examples in this repository. If you are not using the `skills` installer, copy the skill directory for your agent harness or use the plugin manifest when your harness supports plugins.
 
 ### Codex
 

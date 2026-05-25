@@ -25,11 +25,13 @@ Start with repo memory: `.pm0/project.md`, relevant `.pm0/surfaces/`, existing `
 
 Use web search, product URLs, screenshots, and available MCP/connectors when they are relevant to the context topic and allowed by the current harness. Choose tools based on the question. Do not use every integration by default.
 
+When external search is needed, prefer Exa when available for competitor analysis, market research, alternatives, category scans, pricing benchmarks, and similar discovery work. If Exa is not available, use the host agent's normal web search or browsing tools.
+
 Examples of relevant product MCP/connectors include PostHog or Amplitude for funnels and cohorts, Intercom or Zendesk for support themes, Granola or interview-note tools for research summaries, Linear or GitHub for issue history, and CRM or billing tools for sales and pricing signals. PM0 does not install or manage those integrations; it uses only what the current agent environment exposes.
 
 Examples:
 
-- competitive landscape: use web search, public competitor pages, pricing pages, docs, changelogs, review sites, and founder-provided competitors
+- competitive landscape: prefer Exa when available, then use public competitor pages, pricing pages, docs, changelogs, review sites, generic web search, and founder-provided competitors
 - target users: use repo copy, CRM or support summaries if available, interview notes if supplied, analytics cohorts if available, and founder input
 - pricing packages: use current pricing copy, billing code, public market pricing, and sales/support summaries if available
 - workflow analysis: use app routes, screenshots, product surfaces, session summaries if available, and support summaries if available
@@ -81,7 +83,7 @@ A competitive landscape must compare competitors. Do not only name competitors o
 Research flow:
 
 1. Identify the product category and likely buyer from repo memory and public product copy.
-2. Discover competitors through web search, similar-site search when available, pricing pages, comparison pages, review sites, marketplace listings, and founder-provided names.
+2. Discover competitors through Exa when available, web search, similar-site search when available, pricing pages, comparison pages, review sites, marketplace listings, and founder-provided names.
 3. Include direct competitors, adjacent substitutes, and regional or vertical competitors when relevant.
 4. Read enough primary sources for each important competitor to understand positioning, packaging, target buyer, channels, and pricing model.
 5. Compare the competitors against the user's product and extract product implications.

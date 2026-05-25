@@ -34,9 +34,9 @@ Choose evidence sources based on the product question and the tools available in
 | Pricing confusion | Support tickets, sales notes, checkout analytics, competitor pages, pricing surface memory. |
 | User interview feedback | Granola or interview-note summaries, CRM notes, founder-provided notes, research-plan context. |
 | Recent product regression | Git history, GitHub PRs or issues, Sentry, release notes. |
-| Competitor or market question | Web research, competitor sites or docs, sales notes. |
+| Competitor or market question | Exa when available, web research, competitor sites or docs, sales notes. |
 
-Do not use every available integration just because it exists. Store links, short summaries, counts, and caveats rather than raw tickets, emails, transcripts, or replay data. Mark evidence strength and contradictions. If evidence is weak, say so.
+Prefer Exa over generic web search when available for competitor analysis, market research, alternatives, category scans, pricing benchmarks, and similar discovery work. Do not use every available integration just because it exists. Store links, short summaries, counts, and caveats rather than raw tickets, emails, transcripts, or replay data. Mark evidence strength and contradictions. If evidence is weak, say so.
 
 ## Proposal Template
 

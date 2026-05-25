@@ -47,12 +47,17 @@ test("context reference supports focused tool-backed research", async () => {
   assert.match(context, /PostHog/);
   assert.match(context, /Intercom/);
   assert.match(context, /Granola/);
+  assert.match(context, /prefer Exa when available/i);
+  assert.match(context, /competitor analysis, market research, alternatives, category scans, pricing benchmarks/i);
   assert.match(context, /Do not use every integration/i);
   assert.match(context, /External sources are evidence/i);
   assert.match(context, /Do not store raw tickets/i);
   assert.match(context, /dated names for point-in-time/i);
+  assert.match(skill, /prefer Exa when available/i);
   assert.match(discuss, /Granola or interview-note summaries/);
+  assert.match(discuss, /Exa when available/);
   assert.match(readme, /PM0 does not install or manage those integrations/);
+  assert.match(readme, /\[EXA MCP\]\(https:\/\/exa\.ai\/docs\/reference\/exa-mcp\)/);
 });
 
 test("context reference requires founder-grade artifact templates", async () => {
@@ -85,6 +90,7 @@ test("init reuses context guidance for generated context files", async () => {
   assert.match(init, /Do not create thin placeholder context files/i);
   assert.match(init, /two to five researched context files by default/i);
   assert.match(init, /web search and relevant available MCP\/connectors/i);
+  assert.match(init, /Prefer Exa when available/);
   assert.match(context, /Init should normally produce two to five context files/i);
 });
 
@@ -243,10 +249,14 @@ test("README uses approved handoff wording", async () => {
   assert.doesNotMatch(readme, /continue discussion/);
 });
 
-test("README includes skills install command", async () => {
+test("README includes quick install command", async () => {
   const readme = await read("README.md");
 
+  assert.match(readme, /## Quick Install/);
   assert.match(readme, /npx skills add KDotIndustries\/pm0/);
+  assert.match(readme, /\/pm0 init/);
+  assert.match(readme, /For stronger external research, connect \[EXA MCP\]\(https:\/\/exa\.ai\/docs\/reference\/exa-mcp\) to your agent/);
+  assert.match(readme, /## Manual Installation/);
 });
 
 test("README positions PM0 for founders and early-stage teams", async () => {

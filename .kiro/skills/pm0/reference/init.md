@@ -12,7 +12,7 @@ Create the `.pm0/` product memory tree and make the repo product-aware. Init sho
 - Existing agent instructions or repository conventions.
 - Product URL or screenshots if the user provides them.
 - Product context supplied by the user in the conversation.
-- Web search or available MCP/connectors when they are relevant and allowed by the current harness. Init should use them by default for research contexts when the repo alone cannot meet the quality bar.
+- Web search or available MCP/connectors when they are relevant and allowed by the current harness. Init should use them by default for research contexts when the repo alone cannot meet the quality bar. Prefer Exa when available for competitor analysis, market research, alternatives, category scans, pricing benchmarks, and similar discovery work.
 
 ## Writes
 
@@ -44,7 +44,7 @@ Init should usually create two to five researched context files by default. Pref
 - `success-metrics`
 - one product-specific context such as `positioning`, `product-vision`, `workflow-analysis`, `go-to-market`, or `design-system`
 
-Use repo evidence first, then use web search and relevant available MCP/connectors to complete the context research when the harness allows it. For example, competitive landscape and pricing packages usually need web research; success metrics may need repo instrumentation, analytics connectors, or a clearly marked instrumentation-gap section; target users may use repo copy plus public positioning, CRM/support summaries, or founder-provided context.
+Use repo evidence first, then use web search and relevant available MCP/connectors to complete the context research when the harness allows it. Prefer Exa over generic web search when available for competitor analysis, market research, alternatives, category scans, pricing benchmarks, and similar discovery work. For example, competitive landscape and pricing packages usually need external research; success metrics may need repo instrumentation, analytics connectors, or a clearly marked instrumentation-gap section; target users may use repo copy plus public positioning, CRM/support summaries, or founder-provided context.
 
 Create fewer than two context files only when the evidence or tools are too limited to meet the quality bar. When that happens, say why in the output and recommend the exact `/pm0 context <topic>` commands that should be run next. Never lower the context quality bar just to hit the two-to-five target.
 
