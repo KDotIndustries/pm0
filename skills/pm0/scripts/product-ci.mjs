@@ -1,209 +1,199 @@
-import { appendFile, readdir, stat } from "node:fs/promises";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { validatePm0Memory } from "./validate-pm0-memory.mjs";
+import { appendFile, readdir, stat } from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import { validatePm0Memory } from './validate-pm0-memory.mjs'
 
 async function pathExists(filePath) {
   try {
-    await stat(filePath);
-    return true;
+    await stat(filePath)
+    return true
   } catch {
-    return false;
+    return false
   }
 }
 
 async function listMarkdownFiles(dir) {
   if (!(await pathExists(dir))) {
-    return [];
+    return []
   }
-  const entries = await readdir(dir, { withFileTypes: true });
+  const entries = await readdir(dir, { withFileTypes: true })
   return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
-    .map((entry) => entry.name);
+    .filter(entry => entry.isFile() && entry.name.endsWith('.md'))
+    .map(entry => entry.name)
 }
 
 function slugFromFile(fileName) {
-  return fileName.replace(/\.md$/, "");
+  return fileName.replace(/\.md$/, '')
 }
 
 function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 function surfaceAliases(surface) {
-  return [...new Set([
-    surface,
-    surface.replace(/-/g, " "),
-    surface.replace(/-/g, "_")
-  ])];
+  return [...new Set([surface, surface.replace(/-/g, ' '), surface.replace(/-/g, '_')])]
 }
 
 function textMentionsSurface(text, surface) {
-  const haystack = String(text || "");
-  return surfaceAliases(surface).some((alias) => {
-    const pattern = new RegExp(`(^|[^a-z0-9])${escapeRegExp(alias)}([^a-z0-9]|$)`, "i");
-    return pattern.test(haystack);
-  });
+  const haystack = String(text || '')
+  return surfaceAliases(surface).some(alias => {
+    const pattern = new RegExp(`(^|[^a-z0-9])${escapeRegExp(alias)}([^a-z0-9]|$)`, 'i')
+    return pattern.test(haystack)
+  })
 }
 
-function inferSurface(changedFiles, surfaceSlugs, prBody = "") {
+function inferSurface(changedFiles, surfaceSlugs, prBody = '') {
   for (const surface of surfaceSlugs) {
     if (
-      changedFiles.some((file) => textMentionsSurface(file, surface)) ||
+      changedFiles.some(file => textMentionsSurface(file, surface)) ||
       textMentionsSurface(prBody, surface)
     ) {
-      return surface;
+      return surface
     }
   }
-  return null;
+  return null
 }
 
 function extractPm0Links(prBody) {
-  const links = new Set();
-  const pattern = /(?<![A-Za-z0-9._-])\/?(?:[A-Za-z0-9._-]+\/)*\.pm0\/(?:proposals|prds)\/[A-Za-z0-9._/-]+\.md/g;
-  for (const match of String(prBody || "").matchAll(pattern)) {
-    links.add(match[0]);
+  const links = new Set()
+  const pattern =
+    /(?<![A-Za-z0-9._-])\/?(?:[A-Za-z0-9._-]+\/)*\.pm0\/(?:proposals|prds)\/[A-Za-z0-9._/-]+\.md/g
+  for (const match of String(prBody || '').matchAll(pattern)) {
+    links.add(match[0])
   }
-  return [...links];
+  return [...links]
 }
 
 function isSubpath(filePath, dir) {
-  const relative = path.relative(dir, filePath);
-  return relative && !relative.startsWith("..") && !path.isAbsolute(relative);
+  const relative = path.relative(dir, filePath)
+  return relative && !relative.startsWith('..') && !path.isAbsolute(relative)
 }
 
 function normalizePm0ArtifactLink(root, link) {
-  const segments = link.split("/");
-  const normalized = path.posix.normalize(link);
+  const segments = link.split('/')
+  const normalized = path.posix.normalize(link)
 
-  if (path.posix.isAbsolute(link) || segments.includes("..")) {
-    return { valid: false, normalized };
+  if (path.posix.isAbsolute(link) || segments.includes('..')) {
+    return { valid: false, normalized }
   }
 
-  if (
-    !normalized.startsWith(".pm0/proposals/") &&
-    !normalized.startsWith(".pm0/prds/")
-  ) {
-    return { valid: false, normalized };
+  if (!normalized.startsWith('.pm0/proposals/') && !normalized.startsWith('.pm0/prds/')) {
+    return { valid: false, normalized }
   }
 
-  const resolved = path.resolve(root, normalized);
-  const proposalsDir = path.resolve(root, ".pm0", "proposals");
-  const prdsDir = path.resolve(root, ".pm0", "prds");
+  const resolved = path.resolve(root, normalized)
+  const proposalsDir = path.resolve(root, '.pm0', 'proposals')
+  const prdsDir = path.resolve(root, '.pm0', 'prds')
 
   return {
     valid: isSubpath(resolved, proposalsDir) || isSubpath(resolved, prdsDir),
-    normalized
-  };
+    normalized,
+  }
 }
 
-export async function runProductCi({ root = process.cwd(), changedFiles = [], prBody = "" } = {}) {
-  const validation = await validatePm0Memory({ root });
-  const surfaceFiles = await listMarkdownFiles(path.join(root, ".pm0", "surfaces"));
-  const surfaceSlugs = surfaceFiles
-    .map(slugFromFile)
-    .filter((slug) => slug !== "index");
+export async function runProductCi({ root = process.cwd(), changedFiles = [], prBody = '' } = {}) {
+  const validation = await validatePm0Memory({ root })
+  const surfaceFiles = await listMarkdownFiles(path.join(root, '.pm0', 'surfaces'))
+  const surfaceSlugs = surfaceFiles.map(slugFromFile).filter(slug => slug !== 'index')
 
-  const inferredSurface = inferSurface(changedFiles, surfaceSlugs, prBody);
-  const links = extractPm0Links(prBody);
-  const findings = [...validation.findings];
+  const inferredSurface = inferSurface(changedFiles, surfaceSlugs, prBody)
+  const links = extractPm0Links(prBody)
+  const findings = [...validation.findings]
 
   if (!inferredSurface) {
     return {
-      result: findings.length ? "warning" : "pass",
+      result: findings.length ? 'warning' : 'pass',
       surface: null,
-      findings
-    };
+      findings,
+    }
   }
 
   if (links.length === 0) {
     findings.push({
-      level: "warning",
-      message: `Changes appear to affect the ${inferredSurface} surface, but the PR body does not link a PM0 proposal or PRD.`
-    });
+      level: 'warning',
+      message: `Changes appear to affect the ${inferredSurface} surface, but the PR body does not link a PM0 proposal or PRD.`,
+    })
   }
 
   for (const link of links) {
-    const artifact = normalizePm0ArtifactLink(root, link);
+    const artifact = normalizePm0ArtifactLink(root, link)
     if (!artifact.valid) {
       findings.push({
-        level: "warning",
-        message: `Invalid PM0 artifact link: ${link}`
-      });
-      continue;
+        level: 'warning',
+        message: `Invalid PM0 artifact link: ${link}`,
+      })
+      continue
     }
 
     if (!(await pathExists(path.join(root, artifact.normalized)))) {
       findings.push({
-        level: "warning",
-        message: `Linked PM0 artifact does not exist: ${artifact.normalized}`
-      });
+        level: 'warning',
+        message: `Linked PM0 artifact does not exist: ${artifact.normalized}`,
+      })
     }
   }
 
   return {
-    result: findings.length ? "warning" : "pass",
+    result: findings.length ? 'warning' : 'pass',
     surface: inferredSurface,
-    findings
-  };
+    findings,
+  }
 }
 
 function escapeGitHubCommand(value) {
-  return String(value)
-    .replace(/%/g, "%25")
-    .replace(/\r/g, "%0D")
-    .replace(/\n/g, "%0A");
+  return String(value).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A')
 }
 
 function formatGithubAnnotations(result) {
   return result.findings
-    .filter((finding) => finding.level === "warning")
-    .map((finding) => `::warning title=PM0 product memory::${escapeGitHubCommand(finding.message)}`);
+    .filter(finding => finding.level === 'warning')
+    .map(finding => `::warning title=PM0 product memory::${escapeGitHubCommand(finding.message)}`)
 }
 
 function formatGithubStepSummary(result) {
   const lines = [
-    "## PM0 Product CI",
-    "",
+    '## PM0 Product CI',
+    '',
     `Result: ${result.result}`,
-    `Surface: ${result.surface || "not inferred"}`,
-    ""
-  ];
+    `Surface: ${result.surface || 'not inferred'}`,
+    '',
+  ]
 
   if (result.findings.length === 0) {
-    lines.push("No PM0 product-memory warnings.");
+    lines.push('No PM0 product-memory warnings.')
   } else {
-    lines.push("Findings:");
+    lines.push('Findings:')
     for (const finding of result.findings) {
-      lines.push(`- ${finding.level}: ${finding.message}`);
+      lines.push(`- ${finding.level}: ${finding.message}`)
     }
   }
 
-  lines.push("");
-  return lines.join("\n");
+  lines.push('')
+  return lines.join('\n')
 }
 
 async function main() {
-  const changedFiles = (process.env.PM0_CHANGED_FILES || "")
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-  const prBody = process.env.PM0_PR_BODY || "";
-  const result = await runProductCi({ changedFiles, prBody });
+  const changedFiles = (process.env.PM0_CHANGED_FILES || '')
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+  const prBody = process.env.PM0_PR_BODY || ''
+  const result = await runProductCi({ changedFiles, prBody })
   for (const annotation of formatGithubAnnotations(result)) {
-    console.log(annotation);
+    console.log(annotation)
   }
   if (process.env.GITHUB_STEP_SUMMARY) {
-    await appendFile(process.env.GITHUB_STEP_SUMMARY, formatGithubStepSummary(result), "utf8");
+    await appendFile(process.env.GITHUB_STEP_SUMMARY, formatGithubStepSummary(result), 'utf8')
   }
-  console.log(JSON.stringify(result, null, 2));
-  process.exit(0);
+  console.log(JSON.stringify(result, null, 2))
+  process.exit(0)
 }
 
-const currentFile = fileURLToPath(import.meta.url);
+const currentFile = fileURLToPath(import.meta.url)
 if (process.argv[1] === currentFile) {
-  main().catch((error) => {
-    console.error(error.message);
-    process.exit(1);
-  });
+  main().catch(error => {
+    console.error(error.message)
+    process.exit(1)
+  })
 }

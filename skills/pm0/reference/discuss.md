@@ -27,14 +27,14 @@ If `/pm0 discuss <surface>` names a product surface, read product and surface me
 
 Choose evidence sources based on the product question and the tools available in the host agent. Ask or inspect what integrations are available, then use only the relevant ones.
 
-| Product question | Likely sources if available |
-| --- | --- |
-| Login is failing | Intercom or Zendesk support tickets, Sentry, GitHub issues, recent PRs, auth logs. |
-| Users drop during onboarding | PostHog or Amplitude funnels, session replay, support tickets, onboarding surface memory. |
-| Pricing confusion | Support tickets, sales notes, checkout analytics, competitor pages, pricing surface memory. |
-| User interview feedback | Granola or interview-note summaries, CRM notes, founder-provided notes, research-plan context. |
-| Recent product regression | Git history, GitHub PRs or issues, Sentry, release notes. |
-| Competitor or market question | Exa when available, web research, competitor sites or docs, sales notes. |
+| Product question              | Likely sources if available                                                                    |
+| ----------------------------- | ---------------------------------------------------------------------------------------------- |
+| Login is failing              | Intercom or Zendesk support tickets, Sentry, GitHub issues, recent PRs, auth logs.             |
+| Users drop during onboarding  | PostHog or Amplitude funnels, session replay, support tickets, onboarding surface memory.      |
+| Pricing confusion             | Support tickets, sales notes, checkout analytics, competitor pages, pricing surface memory.    |
+| User interview feedback       | Granola or interview-note summaries, CRM notes, founder-provided notes, research-plan context. |
+| Recent product regression     | Git history, GitHub PRs or issues, Sentry, release notes.                                      |
+| Competitor or market question | Exa when available, web research, competitor sites or docs, sales notes.                       |
 
 Prefer Exa over generic web search when available for competitor analysis, market research, alternatives, category scans, pricing benchmarks, and similar discovery work. Do not use every available integration just because it exists. Store links, short summaries, counts, and caveats rather than raw tickets, emails, transcripts, or replay data. Mark evidence strength and contradictions. If evidence is weak, say so.
 
