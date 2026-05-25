@@ -68,7 +68,7 @@ Related Surface: .pm0/surfaces/{surface}.md
 ## Requirements
 
 | Requirement | Priority | User Value | Acceptance Criteria | Notes |
-| --- | --- | --- | --- | --- |
+| ----------- | -------- | ---------- | ------------------- | ----- |
 
 ## User Flows / UX Notes
 

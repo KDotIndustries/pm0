@@ -154,18 +154,36 @@ export function InputGravityHero() {
     const wallThickness = 400
     let centerSpawnGap = Math.min(width * 0.36, 460)
 
-    const ground = Bodies.rectangle(width / 2, height + wallThickness / 2, width * 3, wallThickness, {
-      isStatic: true,
-    })
-    const ceiling = Bodies.rectangle(width / 2, -wallThickness / 2 - 800, width * 3, wallThickness, {
-      isStatic: true,
-    })
+    const ground = Bodies.rectangle(
+      width / 2,
+      height + wallThickness / 2,
+      width * 3,
+      wallThickness,
+      {
+        isStatic: true,
+      },
+    )
+    const ceiling = Bodies.rectangle(
+      width / 2,
+      -wallThickness / 2 - 800,
+      width * 3,
+      wallThickness,
+      {
+        isStatic: true,
+      },
+    )
     const leftWall = Bodies.rectangle(-wallThickness / 2, height / 2, wallThickness, height * 6, {
       isStatic: true,
     })
-    const rightWall = Bodies.rectangle(width + wallThickness / 2, height / 2, wallThickness, height * 6, {
-      isStatic: true,
-    })
+    const rightWall = Bodies.rectangle(
+      width + wallThickness / 2,
+      height / 2,
+      wallThickness,
+      height * 6,
+      {
+        isStatic: true,
+      },
+    )
     const boundaries = {
       ground: { body: ground, w: width * 3, h: wallThickness },
       ceiling: { body: ceiling, w: width * 3, h: wallThickness },
@@ -194,7 +212,8 @@ export function InputGravityHero() {
         : side === 'left'
           ? laneStart + Math.random() * laneWidth
           : laneStart + Math.random() * laneWidth + w * 0.35
-      const y = -120 - index * (isMobileScene ? 44 : 22) - Math.random() * (isMobileScene ? 120 : 64)
+      const y =
+        -120 - index * (isMobileScene ? 44 : 22) - Math.random() * (isMobileScene ? 120 : 64)
       const body = Bodies.rectangle(x, y, w, h, {
         restitution: 0.1,
         friction: 0.42,
@@ -303,9 +322,21 @@ export function InputGravityHero() {
       if (next.w === width && next.h === height) return
       width = next.w
       height = next.h
-      setBoundary(boundaries.ground, width / 2, height + wallThickness / 2, width * 3, wallThickness)
+      setBoundary(
+        boundaries.ground,
+        width / 2,
+        height + wallThickness / 2,
+        width * 3,
+        wallThickness,
+      )
       setBoundary(boundaries.ceiling, width / 2, -wallThickness / 2 - 800, width * 3, wallThickness)
-      setBoundary(boundaries.rightWall, width + wallThickness / 2, height / 2, wallThickness, height * 6)
+      setBoundary(
+        boundaries.rightWall,
+        width + wallThickness / 2,
+        height / 2,
+        wallThickness,
+        height * 6,
+      )
       setBoundary(boundaries.leftWall, -wallThickness / 2, height / 2, wallThickness, height * 6)
       centerSpawnGap = Math.min(width * 0.36, 460)
     }
@@ -346,21 +377,24 @@ export function InputGravityHero() {
       <div
         ref={sceneRef}
         className={`absolute inset-0 z-0 overflow-hidden ${
-          isMobileScene === false ? 'cursor-grab touch-none active:cursor-grabbing' : 'pointer-events-none'
+          isMobileScene === false
+            ? 'cursor-grab touch-none active:cursor-grabbing'
+            : 'pointer-events-none'
         }`}
         aria-hidden='true'
       >
         {visibleCards.map((card, index) => {
           const Icon = card.Icon
-          const fallbackStyle = reducedMotion === true
-            ? {
-                left: `${8 + (index % 3) * 31}%`,
-                top: `${12 + Math.floor(index / 3) * 18}%`,
-                transform: `rotate(${(index % 2 === 0 ? -1 : 1) * (4 + index)}deg)`,
-              }
-            : {
-                transform: 'translate(-9999px, -9999px)',
-              }
+          const fallbackStyle =
+            reducedMotion === true
+              ? {
+                  left: `${8 + (index % 3) * 31}%`,
+                  top: `${12 + Math.floor(index / 3) * 18}%`,
+                  transform: `rotate(${(index % 2 === 0 ? -1 : 1) * (4 + index)}deg)`,
+                }
+              : {
+                  transform: 'translate(-9999px, -9999px)',
+                }
 
           return (
             <div

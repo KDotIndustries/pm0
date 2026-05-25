@@ -59,20 +59,20 @@ When this reference is loaded by `/pm0 init`, apply the same quality bar while w
 
 Map the user's topic to the closest context type. If the topic spans multiple types, create the highest-value context first and recommend the next one.
 
-| User asks for | Context type | Required shape |
-| --- | --- | --- |
-| competitors, market map, alternatives, battlecard | Competitive Landscape | competitor discovery, comparison matrix, threat ranking, differentiation |
-| pricing, plans, packaging, billing, limits | Pricing Packages | current package matrix, competitor pricing benchmark, contradictions |
-| metrics, KPIs, north star, activation, retention | Success Metrics | north star candidate, input metrics, guardrails, instrumentation gaps |
-| personas, ICP, user definition, buyer | Target Users | segment matrix, buyer/user split, jobs, non-targets |
-| design system, UI language, visual consistency | Design System | interface inventory, reusable patterns, accessibility and risks |
-| vision, strategy, product direction | Product Vision | future state, strategic bets, product principles, risks |
-| positioning, messaging, category, differentiation | Positioning | competitive alternatives, unique attributes, value, target segment, category |
-| roadmap, now next later, priorities | Roadmap | themes, initiatives, outcomes, dependencies, confidence |
-| go-to-market, launch, channels, sales motion | Go-To-Market Outline | ICP, positioning, channels, funnel, launch risks, metrics |
-| MVP, v1 scope, first release | MVP Framing | user promise, included scope, excluded scope, riskiest assumptions |
-| workflow, journey, funnel, onboarding | Workflow Analysis | current workflow, user goals, friction, drop-offs, opportunities |
-| research plan, validation plan, interviews | Research Plan | research questions, methods, participants, timeline, synthesis plan |
+| User asks for                                     | Context type          | Required shape                                                               |
+| ------------------------------------------------- | --------------------- | ---------------------------------------------------------------------------- |
+| competitors, market map, alternatives, battlecard | Competitive Landscape | competitor discovery, comparison matrix, threat ranking, differentiation     |
+| pricing, plans, packaging, billing, limits        | Pricing Packages      | current package matrix, competitor pricing benchmark, contradictions         |
+| metrics, KPIs, north star, activation, retention  | Success Metrics       | north star candidate, input metrics, guardrails, instrumentation gaps        |
+| personas, ICP, user definition, buyer             | Target Users          | segment matrix, buyer/user split, jobs, non-targets                          |
+| design system, UI language, visual consistency    | Design System         | interface inventory, reusable patterns, accessibility and risks              |
+| vision, strategy, product direction               | Product Vision        | future state, strategic bets, product principles, risks                      |
+| positioning, messaging, category, differentiation | Positioning           | competitive alternatives, unique attributes, value, target segment, category |
+| roadmap, now next later, priorities               | Roadmap               | themes, initiatives, outcomes, dependencies, confidence                      |
+| go-to-market, launch, channels, sales motion      | Go-To-Market Outline  | ICP, positioning, channels, funnel, launch risks, metrics                    |
+| MVP, v1 scope, first release                      | MVP Framing           | user promise, included scope, excluded scope, riskiest assumptions           |
+| workflow, journey, funnel, onboarding             | Workflow Analysis     | current workflow, user goals, friction, drop-offs, opportunities             |
+| research plan, validation plan, interviews        | Research Plan         | research questions, methods, participants, timeline, synthesis plan          |
 
 ## Artifact-Specific Guidance
 
@@ -96,17 +96,17 @@ Minimum output:
 ## Competitor Set
 
 | Competitor | Type | Target Buyer | Core Promise | Pricing Model | Why They Matter | Sources | Confidence |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| ---------- | ---- | ------------ | ------------ | ------------- | --------------- | ------- | ---------- |
 
 ## Competitor Comparison
 
 | Capability / Position | Our Product | Competitor A | Competitor B | Competitor C |
-| --- | --- | --- | --- | --- |
+| --------------------- | ----------- | ------------ | ------------ | ------------ |
 
 ## Threat Ranking
 
 | Rank | Competitor | Threat Level | Reason | PM0 Implication |
-| --- | --- | --- | --- | --- |
+| ---- | ---------- | ------------ | ------ | --------------- |
 
 ## Differentiation Opportunities
 
@@ -129,12 +129,12 @@ Minimum output:
 ## Current Package Matrix
 
 | Package | Price | Buyer / Use Case | Limits | Included | Excluded / Add-ons | Source | Caveats |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| ------- | ----- | ---------------- | ------ | -------- | ------------------ | ------ | ------- |
 
 ## Pricing And Packaging Matrix
 
 | Company | Entry Package | Core Paid Package | AI / Usage Pricing | Seat Pricing | Key Limits | Notes | Sources |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| ------- | ------------- | ----------------- | ------------------ | ------------ | ---------- | ----- | ------- |
 
 ## Internal Contradictions
 
@@ -157,7 +157,7 @@ Minimum output:
 ## Success Metrics Matrix
 
 | Metric | Definition | User / Business Reason | Current Baseline | Target | Instrumentation Source | Cadence | Caveats |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| ------ | ---------- | ---------------------- | ---------------- | ------ | ---------------------- | ------- | ------- |
 
 ## Funnel Or Workflow Metrics
 
@@ -180,7 +180,7 @@ Minimum output:
 ## Segment Matrix
 
 | Segment | Buyer | Daily User | Trigger Problem | Current Alternative | Success Criteria | Evidence | Confidence |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| ------- | ----- | ---------- | --------------- | ------------------- | ---------------- | -------- | ---------- |
 
 ## Priority Segment Recommendation
 
@@ -201,7 +201,7 @@ Minimum output:
 ## Interface Inventory
 
 | Surface | Components / Patterns | Visual Language | Interaction Notes | Source |
-| --- | --- | --- | --- | --- |
+| ------- | --------------------- | --------------- | ----------------- | ------ |
 
 ## Reusable Patterns
 
@@ -226,7 +226,7 @@ Minimum output:
 ## Strategic Bets
 
 | Bet | User / Market Belief | Product Implication | Evidence | Risk | Confidence |
-| --- | --- | --- | --- | --- | --- |
+| --- | -------------------- | ------------------- | -------- | ---- | ---------- |
 
 ## Product Principles
 
@@ -247,7 +247,7 @@ Minimum output:
 ## Positioning Matrix
 
 | Target Segment | Competitive Alternative | Unique Attribute | Value Enabled | Proof / Evidence | Caveat |
-| --- | --- | --- | --- | --- | --- |
+| -------------- | ----------------------- | ---------------- | ------------- | ---------------- | ------ |
 
 ## Positioning Statement Candidates
 
@@ -270,7 +270,7 @@ Minimum output:
 ## Roadmap Matrix
 
 | Horizon | Theme | Initiative | Customer Outcome | Business Outcome | Dependencies | Confidence |
-| --- | --- | --- | --- | --- | --- | --- |
+| ------- | ----- | ---------- | ---------------- | ---------------- | ------------ | ---------- |
 
 ## Now / Next / Later
 
@@ -297,7 +297,7 @@ Minimum output:
 ## GTM Motion Matrix
 
 | Channel / Motion | Target Segment | Message | Offer / CTA | Funnel Stage | Success Metric | Evidence | Risk |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| ---------------- | -------------- | ------- | ----------- | ------------ | -------------- | -------- | ---- |
 
 ## Launch Or Campaign Plan
 
@@ -322,7 +322,7 @@ Minimum output:
 ## MVP Scope Matrix
 
 | Capability | Include In MVP? | User Value | Validation Purpose | Non-Goals / Later |
-| --- | --- | --- | --- | --- |
+| ---------- | --------------- | ---------- | ------------------ | ----------------- |
 
 ## First User Segment
 
@@ -343,7 +343,7 @@ Minimum output:
 ## Workflow Breakdown
 
 | Step | User Goal | Current Behavior | Friction / Risk | Evidence | Opportunity |
-| --- | --- | --- | --- | --- | --- |
+| ---- | --------- | ---------------- | --------------- | -------- | ----------- |
 
 ## Entry Points
 
@@ -370,7 +370,7 @@ Minimum output:
 ## Research Plan Matrix
 
 | Question | Method | Participants / Source | Sample Size | Output | Timeline | Risk |
-| --- | --- | --- | --- | --- | --- | --- |
+| -------- | ------ | --------------------- | ----------- | ------ | -------- | ---- |
 
 ## Recruiting Or Source Plan
 
