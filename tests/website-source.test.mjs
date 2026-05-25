@@ -20,7 +20,7 @@ test('homepage presents PM0 as an installable open-source skill', async () => {
   assert.match(page, /Product memory for AI agents/)
   assert.match(page, /Bring the mess\. Find the move\./)
   assert.match(page, /npx skills add KDotIndustries\/pm0/)
-  assert.match(page, /DM Fouad/)
+  assert.match(page, /DM me/)
   assert.match(page, /Open source/)
 })
 

@@ -61,7 +61,7 @@ export function CommandCopy() {
   return (
     <button
       type='button'
-      className='group flex w-full max-w-142 items-center justify-between gap-4 border border-ink bg-ink px-4 py-3 text-left text-paper shadow-[8px_8px_0_#d6cbb7] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust sm:px-5'
+      className='group flex w-full max-w-142 items-center justify-between gap-4 border border-ink bg-ink px-4 py-3 text-left text-paper shadow-[8px_8px_0_var(--color-line)] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust sm:px-5'
       onClick={copyCommand}
       aria-label={
         status === 'copied'
