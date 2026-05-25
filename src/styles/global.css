@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Pixel';
+  src: url('/fonts/GeistPixel-Line.woff2') format('woff2');
+  font-weight: 1 999;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans:
+    'Geist Mono', ui-monospace, 'SFMono-Regular', 'Roboto Mono', 'Menlo', 'Monaco',
+    'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+  --font-heading:
+    'Geist Pixel', 'Geist Mono', ui-monospace, 'SFMono-Regular', 'Roboto Mono', 'Menlo', 'Monaco',
+    'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+  --color-ink: #171411;
+  --color-paper: #f6efe1;
+  --color-muted: #756b5b;
+  --color-line: #d6cbb7;
+  --color-rust: #9d4528;
+  --color-moss: #51644f;
+  --color-blueprint: #2f4f64;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+    text-rendering: optimizelegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+      env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--color-rust) 24%, transparent);
+    color: var(--color-ink);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+.fade-up {
+  animation: fade-up 700ms cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-up {
+    animation: none;
+  }
+}
