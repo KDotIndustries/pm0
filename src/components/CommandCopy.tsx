@@ -42,6 +42,12 @@ async function writeClipboardText(text: string) {
 export function CommandCopy() {
   const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
   const resetTimerRef = useRef<number | undefined>(undefined)
+  const statusText =
+    status === 'copied'
+      ? 'PM0 install command copied.'
+      : status === 'failed'
+        ? `Copy failed. Select ${command} manually.`
+        : ''
 
   async function copyCommand() {
     const didCopy = await writeClipboardText(command)
@@ -59,10 +65,10 @@ export function CommandCopy() {
       onClick={copyCommand}
       aria-label={
         status === 'copied'
-          ? 'PM0 install command copied'
+          ? `${command} copied`
           : status === 'failed'
-            ? 'Copy failed. Select the PM0 install command manually.'
-            : 'Copy PM0 install command'
+            ? `Copy failed. Select ${command} manually.`
+            : `Copy ${command}`
       }
     >
       <span className='flex min-w-0 items-center gap-3'>
@@ -89,11 +95,7 @@ export function CommandCopy() {
         className='sr-only'
         aria-live='polite'
       >
-        {status === 'copied'
-          ? 'PM0 install command copied.'
-          : status === 'failed'
-            ? 'Copy failed. Select the PM0 install command manually.'
-            : ''}
+        {statusText}
       </span>
     </button>
   )

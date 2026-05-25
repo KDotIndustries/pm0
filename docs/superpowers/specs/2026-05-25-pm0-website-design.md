@@ -113,7 +113,9 @@ Requirements:
 - Cards are DOM elements controlled by Matter.js bodies, so icons and text remain crisp.
 - Desktop cards spawn from both sides while leaving the hero copy readable.
 - Mobile uses fewer cards and a narrower spawn pattern.
-- Cards are draggable by mouse or touch.
+- Cards are draggable by mouse on desktop. On mobile, the card layer should not intercept
+  touch gestures across the full hero because page scrolling is more important than dragging
+  decorative background items.
 - Cards represent product inputs such as Intercom tickets, Linear issues, Slack messages,
   Miro boards, PostHog events, Figma comments, customer calls, CSV exports, research repo,
   and GitHub issues.
