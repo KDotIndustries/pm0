@@ -1,289 +1,335 @@
 ---
 import { CommandCopy } from '../components/CommandCopy'
 import { InputGravityHero } from '../components/InputGravityHero'
+import { IntegrationLogos } from '../components/IntegrationLogos'
 import Layout from '../layouts/layout.astro'
 
-const commands = [
-  {
-    command: '/pm0 init',
-    stage: 'Set the shelf',
-    description: 'Create `.pm0/` memory beside the codebase.',
-  },
-  {
-    command: '/pm0 context <topic>',
-    stage: 'Load evidence',
-    description: 'Capture focused context: users, pricing, competitors, metrics.',
-  },
-  {
-    command: '/pm0 analyze <surface>',
-    stage: 'Read the surface',
-    description: 'Summarize product behavior before asking an agent to change it.',
-  },
-  {
-    command: '/pm0 discuss <surface>',
-    stage: 'Shape the bet',
-    description: 'Turn a loose idea or complaint into a concrete proposal.',
-  },
-  {
-    command: '/pm0 build <proposal>',
-    stage: 'Make it testable',
-    description: 'Ask for the smallest useful prototype or product change.',
-  },
-  {
-    command: '/pm0 handoff <proposal>',
-    stage: 'Decide',
-    description: 'Accept, reject, or convert the proposal into an engineering PRD.',
-  },
-]
-
-const inputs = [
-  'Customer calls',
-  'Support tickets',
-  'Repo history',
-  'Analytics notes',
-  'Founder memory',
-  'Old PRDs',
+const evidenceFiles = [
+  ['prd draft.pdf', 'Problem, users, outcomes'],
+  ['user interviews.csv', 'Quotes and contradictions'],
+  ['feedback.slack', 'Complaints, requests, signals'],
+  ['metrics.png', 'Activation, drop-off, gaps'],
+  ['roadmap.xlsx', 'Bets, dependencies, timing'],
 ]
 
 const memoryRows = [
-  ['surface', 'onboarding', 'what changed, what stayed true'],
-  ['proposal', 'empty-state-v2', 'problem, options, smallest build'],
+  ['surface', 'onboarding', 'what is true now, what changed, what matters'],
+  ['proposal', 'empty-state-v2', 'problem, options, smallest useful build'],
+  ['prototype', 'branch-ready', 'testable change with context attached'],
   ['handoff', 'accepted', 'criteria, risks, engineering scope'],
 ]
 
 const loop = [
   {
-    title: 'Collect the mess',
-    body: 'Bring calls, tickets, analytics, stakeholder notes, and repo history into the same conversation.',
+    step: '01',
+    title: 'Analyze',
+    command: '/pm0 analyze onboarding',
+    body: 'Read the surface before asking an agent to change it.',
   },
   {
-    title: 'Write memory',
-    body: 'Store durable product judgment in `.pm0/`, close enough for agents to use before editing code.',
+    step: '02',
+    title: 'Discuss',
+    command: '/pm0 discuss activation',
+    body: 'Turn loose founder input into a proposal with tradeoffs.',
   },
   {
-    title: 'Prototype narrowly',
-    body: 'Build the smallest version that can test the direction instead of pretending the whole roadmap is known.',
+    step: '03',
+    title: 'Build',
+    command: '/pm0 build empty-state-v2',
+    body: 'Ask for the smallest useful prototype, not a pretend roadmap.',
   },
   {
-    title: 'Hand off or fold back',
-    body: 'Accepted ideas become PRDs. Rejected ideas become better surface memory for the next decision.',
+    step: '04',
+    title: 'Handoff',
+    command: '/pm0 handoff empty-state-v2',
+    body: 'Accept, reject, or turn the decision into an engineering PRD.',
   },
+]
+
+const principles = [
+  'Product context stays beside the code.',
+  'Every proposal keeps the problem, options, and decision trail.',
+  'Rejected ideas improve the next surface analysis.',
 ]
 ---
 
 <Layout>
   <main class='min-h-dvh overflow-x-clip bg-paper text-ink'>
-    <section class='relative isolate min-h-[88svh] overflow-hidden border-b border-ink/20 px-5 pb-14 pt-5 sm:px-8 lg:px-12'>
+    <section class='notebook-page relative isolate min-h-[92svh] overflow-hidden border-b border-ink px-5 pt-5 sm:px-8 lg:px-12'>
       <InputGravityHero client:load />
-      <div class='absolute inset-x-0 top-0 z-[1] h-40 bg-linear-to-b from-paper via-paper/86 to-transparent'></div>
-      <div class='absolute inset-x-0 bottom-0 z-[1] h-56 bg-linear-to-t from-paper via-paper/86 to-transparent'></div>
-      <div class='absolute inset-0 z-[1] bg-paper/72 sm:hidden'></div>
-      <div class='absolute inset-y-0 left-0 z-[1] hidden w-[78%] bg-linear-to-r from-paper via-paper/94 to-transparent sm:block'></div>
-      <div class='absolute inset-y-0 left-[11%] z-[1] hidden w-px bg-ink/12 lg:block'></div>
-      <div class='absolute inset-y-0 right-[16%] z-[1] hidden w-px bg-ink/12 lg:block'></div>
+      <div class='pointer-events-none absolute inset-y-0 left-0 z-[1] hidden w-[68%] bg-linear-to-r from-paper via-paper/94 to-transparent lg:block'></div>
+      <div class='pointer-events-none absolute inset-y-0 right-0 z-[1] hidden w-[52%] bg-linear-to-l from-paper/52 via-paper/16 to-transparent lg:block'></div>
+      <div class='pointer-events-none absolute inset-0 z-[1] bg-linear-to-b from-paper via-paper/62 to-paper/96'></div>
+      <div class='pointer-events-none absolute inset-0 z-[1] bg-paper/78 sm:bg-paper/48 lg:bg-transparent'></div>
 
-      <header class='relative z-20 mx-auto flex max-w-7xl items-center justify-between gap-6 text-xs uppercase tracking-[0.14em] text-muted'>
+      <header class='relative z-20 mx-auto flex max-w-7xl items-start justify-between gap-6 border-b border-ink/70 pb-4 text-xs text-ink'>
         <a
           href='/'
-          class='text-ink transition-colors hover:text-rust focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+          class='brand-mark text-3xl leading-none transition-colors hover:text-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-command'
+          aria-label='PM0 home'
         >
-          pm0
+          PM<span>0</span>
         </a>
         <nav
-          class='flex items-center gap-4 sm:gap-6'
+          class='flex flex-wrap items-center justify-end gap-x-3 gap-y-2 pt-1 font-mono text-[0.68rem] sm:gap-x-5 sm:text-[0.72rem]'
           aria-label='Primary'
         >
           <a
-            href='https://github.com/KDotIndustries/pm0'
-            class='transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+            href='#loop'
+            class='nav-link'
           >
-            GitHub
+            Loop
           </a>
           <a
-            href='https://x.com/Fouadktb'
-            class='transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust'
+            href='#examples'
+            class='nav-link hidden sm:inline'
           >
-            DM me
+            Examples
+          </a>
+          <a
+            href='https://github.com/KDotIndustries/pm0'
+            class='nav-link'
+          >
+            GitHub
           </a>
         </nav>
       </header>
 
-      <div class='relative z-10 mx-auto grid min-h-[74svh] max-w-7xl items-end pt-20'>
-        <div class='max-w-5xl pb-2'>
-          <p class='fade-up w-fit border border-ink/15 bg-limewash px-3 py-2 text-xs uppercase tracking-[0.16em] text-ink shadow-[5px_5px_0_color-mix(in_oklch,var(--color-ink)_14%,transparent)]'>
-            Product memory for AI agents
+      <div class='relative z-10 mx-auto grid min-w-0 max-w-7xl gap-12 pb-12 pt-12 lg:min-h-[76svh] lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.48fr)] lg:items-center lg:pb-14 lg:pt-16'>
+        <div class='min-w-0'>
+          <p class='fade-up max-w-full border border-command bg-paper px-3 py-2 font-mono text-[0.7rem] leading-5 text-command-deep shadow-[4px_4px_0_color-mix(in_oklch,var(--color-command)_28%,transparent)] sm:w-fit sm:text-xs'>
+            Open-source AI agent skill for founders and PMs
           </p>
           <h1
-            class='fade-up mt-5 max-w-5xl font-heading text-[clamp(3rem,13vw,5.8rem)] leading-[0.82] text-ink sm:text-[clamp(3.25rem,8vw,7rem)] lg:text-[clamp(4rem,7.2vw,7.5rem)]'
-            style='animation-delay: 120ms'
+            class='fade-up mt-6 max-w-5xl font-heading text-[clamp(3rem,10vw,4.8rem)] font-black leading-[0.92] text-ink sm:text-[clamp(3.7rem,5.9vw,5.1rem)]'
+            style='animation-delay: 100ms'
             aria-label='Bring the mess. Find the move.'
           >
-            <span class='sm:hidden'>Bring the<br />mess.<br />Find the<br />move.</span>
-            <span class='hidden sm:inline'>Bring the mess.<br />Find the move.</span>
+            <span class='block sm:hidden'>
+              Bring the
+              <br />
+              mess.
+              <br />
+              Find the
+              <br />
+              <span class='marker-underline'>move.</span>
+            </span>
+            <span class='hidden sm:block'>Bring the mess.</span>
+            <span class='hidden sm:block'>
+              Find the <span class='marker-underline'>move.</span>
+            </span>
           </h1>
-          <div class='mt-6 grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,36rem)_minmax(18rem,24rem)] lg:items-end'>
-            <p
-              class='fade-up max-w-2xl text-base leading-7 text-muted sm:text-lg sm:leading-8'
-              style='animation-delay: 220ms'
-            >
-              PM0 turns scattered product context into repo-native memory, proposals,
-              prototypes, and handoffs that coding agents can use before they touch the code.
-            </p>
-            <div
-              class='fade-up lg:justify-self-end'
-              style='animation-delay: 320ms'
-            >
-              <CommandCopy client:load />
-              <noscript>
-                <code>npx skills add KDotIndustries/pm0</code>
-              </noscript>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class='border-b border-ink/20 bg-moss px-5 py-14 text-paper sm:px-8 lg:px-12 lg:py-20'>
-      <div class='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-start'>
-        <div>
-          <p class='text-xs uppercase tracking-[0.18em] text-limewash'>What PM0 does</p>
-          <h2 class='mt-5 max-w-xl text-3xl leading-tight sm:text-5xl'>
-            A product brain that lives next to the code.
-          </h2>
-        </div>
-        <div class='grid gap-8'>
-          <p class='max-w-3xl text-base leading-7 text-paper/78 sm:text-lg sm:leading-8'>
-            PM0 is an installable skill for founder-led teams using coding agents. It creates
-            `.pm0/` product memory, reads a product surface before code changes, and turns loose
-            product input into proposals, prototypes, and PRDs.
+          <p
+            class='fade-up mt-6 max-w-full text-base leading-7 text-muted sm:max-w-2xl sm:text-lg sm:leading-8'
+            style='animation-delay: 190ms'
+          >
+            PM0 turns scattered product context into repo-native memory, proposals,
+            prototypes, and PRDs that coding agents can use before they touch the code.
           </p>
-          <div class='grid gap-4 lg:grid-cols-[0.82fr_1.18fr]'>
-            <div class='border border-paper/18 bg-paper/8 p-5'>
-              <p class='text-xs uppercase tracking-[0.16em] text-limewash'>Inputs</p>
-              <div class='mt-6 flex flex-wrap gap-2'>
-                {
-                  inputs.map(item => (
-                    <span class='border border-paper/18 bg-paper/10 px-3 py-2 text-xs text-paper/86'>
-                      {item}
-                    </span>
-                  ))
-                }
-              </div>
+          <div
+            class='fade-up mt-7 max-w-2xl'
+            style='animation-delay: 280ms'
+          >
+            <CommandCopy client:load />
+            <noscript>
+              <code>npx skills add KDotIndustries/pm0</code>
+            </noscript>
+          </div>
+          <dl
+            class='fade-up mt-8 grid max-w-2xl gap-4 border-y border-ink/35 py-4 font-mono text-xs sm:grid-cols-3'
+            style='animation-delay: 360ms'
+          >
+            <div>
+              <dt class='text-muted'>GitHub</dt>
+              <dd class='mt-1 text-ink'>KDotIndustries/pm0</dd>
             </div>
-            <div class='relative overflow-hidden border border-paper/20 bg-ink p-5 shadow-[10px_10px_0_color-mix(in_oklch,var(--color-limewash)_34%,transparent)]'>
-              <div class='ledger-scan pointer-events-none absolute inset-x-0 top-0 h-14 bg-linear-to-b from-limewash/20 to-transparent'></div>
-              <div class='flex items-center justify-between gap-4 border-b border-paper/16 pb-4 text-xs uppercase tracking-[0.16em] text-paper/56'>
-                <span>.pm0 memory</span>
-                <span>repo-native</span>
-              </div>
-              <div class='divide-y divide-paper/12'>
-                {
-                  memoryRows.map(([kind, name, note]) => (
-                    <div class='grid gap-3 py-4 text-sm sm:grid-cols-[7rem_1fr]'>
-                      <code class='text-clay'>{kind}</code>
-                      <div>
-                        <p class='text-paper'>{name}</p>
-                        <p class='mt-1 text-xs leading-5 text-paper/58'>{note}</p>
-                      </div>
-                    </div>
-                  ))
-                }
-              </div>
+            <div>
+              <dt class='text-muted'>License</dt>
+              <dd class='mt-1 text-ink'>MIT</dd>
+            </div>
+            <div>
+              <dt class='text-muted'>Memory</dt>
+              <dd class='mt-1 text-ink'>.pm0/ in your repo</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside
+          class='ledger-stack fade-up relative hidden self-end lg:block'
+          style='animation-delay: 260ms'
+          aria-label='PM0 turns scattered inputs into a product move'
+        >
+          <div class='absolute -left-24 top-4 w-36 rotate-[-8deg] border border-ink/70 bg-evidence-blue p-3 font-mono text-xs shadow-[4px_4px_0_color-mix(in_oklch,var(--color-ink)_16%,transparent)]'>
+            user interview
+            <br />
+            "what changed?"
+          </div>
+          <div class='absolute -right-7 top-16 w-32 rotate-[7deg] border border-ink/70 bg-evidence-amber p-3 font-mono text-xs shadow-[4px_4px_0_color-mix(in_oklch,var(--color-ink)_16%,transparent)]'>
+            support ticket
+            <br />
+            export failed
+          </div>
+          <div class='relative border border-ink bg-paper p-5 shadow-[12px_12px_0_color-mix(in_oklch,var(--color-ink)_13%,transparent)]'>
+            <p class='font-mono text-xs text-command-deep'>THE MOVE</p>
+            <h2 class='mt-3 font-heading text-4xl leading-none'>Clear next step</h2>
+            <ul class='mt-6 space-y-3 font-mono text-sm'>
+              <li class='flex gap-3'>
+                <span class='text-command-deep'>✓</span>
+                Problem framed
+              </li>
+              <li class='flex gap-3'>
+                <span class='text-command-deep'>✓</span>
+                Evidence attached
+              </li>
+              <li class='flex gap-3'>
+                <span class='text-command-deep'>✓</span>
+                Options compared
+              </li>
+              <li class='flex gap-3'>
+                <span class='text-command-deep'>✓</span>
+                Prototype scoped
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section
+      id='examples'
+      class='border-b border-ink bg-paper px-5 py-14 sm:px-8 lg:px-12 lg:py-20'
+    >
+      <div class='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.58fr_1.42fr]'>
+        <div>
+          <p class='section-kicker'>From noisy input</p>
+          <h2 class='mt-4 max-w-lg font-heading text-4xl leading-none sm:text-6xl'>
+            Product work with recipes.
+          </h2>
+          <p class='mt-6 max-w-md leading-7 text-muted'>
+            Bring in support, calls, analytics, design notes, issues, and repo history.
+            PM0 stores the durable summary, not the raw pile.
+          </p>
+        </div>
+        <div class='grid gap-6 lg:grid-cols-[0.82fr_1.18fr]'>
+          <div class='evidence-wall min-h-88 border border-ink bg-paper p-4'>
+            <IntegrationLogos />
+            {evidenceFiles.map(([file, note], index) => (
+              <article
+                class={`evidence-slip slip-${index + 1}`}
+              >
+                <p class='font-mono text-[0.72rem] text-ink'>{file}</p>
+                <p class='mt-3 text-xs leading-5 text-muted'>{note}</p>
+              </article>
+            ))}
+          </div>
+          <div class='relative overflow-hidden border border-ink bg-ink p-5 text-paper shadow-[10px_10px_0_var(--color-command)]'>
+            <div class='ledger-scan pointer-events-none absolute inset-x-0 top-0 h-16 bg-linear-to-b from-command/24 to-transparent'></div>
+            <div class='flex items-center justify-between gap-4 border-b border-paper/20 pb-4 font-mono text-xs text-paper/62'>
+              <span>.pm0 memory</span>
+              <span>repo-native</span>
+            </div>
+            <div class='divide-y divide-paper/16'>
+              {memoryRows.map(([kind, name, note]) => (
+                <div class='grid gap-3 py-4 text-sm sm:grid-cols-[6.5rem_1fr]'>
+                  <code class='text-command'>{kind}</code>
+                  <div>
+                    <p class='text-paper'>{name}</p>
+                    <p class='mt-1 text-xs leading-5 text-paper/58'>{note}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class='border-b border-ink/20 bg-silt px-5 py-14 sm:px-8 lg:px-12 lg:py-20'>
+    <section
+      id='loop'
+      class='border-b border-ink bg-graph px-5 py-14 sm:px-8 lg:px-12 lg:py-20'
+    >
       <div class='mx-auto max-w-7xl'>
-        <div class='grid gap-8 lg:grid-cols-[0.62fr_1.38fr]'>
-          <p class='text-xs uppercase tracking-[0.18em] text-rust'>The loop</p>
-          <h2 class='max-w-4xl text-3xl leading-tight sm:text-5xl'>
-            Product work stays attached to the decision that produced it.
+        <div class='grid gap-8 lg:grid-cols-[0.58fr_1.42fr]'>
+          <p class='section-kicker'>Operator loop</p>
+          <h2 class='max-w-4xl font-heading text-4xl leading-none sm:text-6xl'>
+            From scattered evidence to a clear next step.
           </h2>
         </div>
-        <div class='mt-10 grid gap-px border border-ink/20 bg-ink/20 lg:grid-cols-4'>
-          {
-            loop.map((item, index) => (
-              <article class='bg-silt p-5 min-h-60 lg:min-h-80 flex flex-col justify-between'>
-                <p class='font-heading text-5xl leading-none text-rust/80'>
-                  {String(index + 1).padStart(2, '0')}
-                </p>
-                <div>
-                  <h3 class='text-xl leading-tight'>{item.title}</h3>
-                  <p class='mt-4 text-sm leading-6 text-muted'>{item.body}</p>
-                </div>
-              </article>
-            ))
-          }
+        <div class='mt-12 grid border border-ink bg-paper lg:grid-cols-4'>
+          {loop.map(item => (
+            <article class='loop-cell min-h-72 border-b border-ink p-5 last:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0'>
+              <p class='font-mono text-xs text-command-deep'>{item.step}</p>
+              <h3 class='mt-8 font-heading text-3xl leading-none'>{item.title}</h3>
+              <code class='mt-5 block break-words border border-ink/35 bg-paper px-3 py-2 text-xs text-command-deep'>
+                {item.command}
+              </code>
+              <p class='mt-5 text-sm leading-6 text-muted'>{item.body}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
 
-    <section class='border-b border-ink/20 px-5 py-14 sm:px-8 lg:px-12 lg:py-20'>
-      <div class='mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.62fr_1.38fr]'>
+    <section class='border-b border-ink bg-paper px-5 py-14 sm:px-8 lg:px-12 lg:py-20'>
+      <div class='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.58fr_1.42fr]'>
         <div>
-          <p class='text-xs uppercase tracking-[0.18em] text-rust'>Commands</p>
-          <h2 class='mt-5 text-3xl leading-tight sm:text-5xl'>A small grammar for product judgment.</h2>
+          <p class='section-kicker'>Why it exists</p>
+          <h2 class='mt-4 max-w-xl font-heading text-4xl leading-none sm:text-6xl'>
+            Agents move fast. Product memory has to keep up.
+          </h2>
         </div>
-        <div class='border-y border-ink/20'>
-          {
-            commands.map(item => (
-              <div class='grid gap-4 border-b border-ink/12 py-5 last:border-b-0 sm:grid-cols-[15rem_1fr]'>
-                <div>
-                  <code class='text-sm text-ink'>{item.command}</code>
-                  <p class='mt-2 text-xs uppercase tracking-[0.14em] text-rust'>{item.stage}</p>
-                </div>
-                <p class='max-w-2xl text-sm leading-6 text-muted'>{item.description}</p>
-              </div>
-            ))
-          }
+        <div class='grid gap-10'>
+          <p class='max-w-3xl text-lg leading-8 text-muted'>
+            Coding agents can change code quickly, but they do not automatically know
+            the user, the surface, the market signal, or the last rejected proposal.
+            PM0 gives them a small product layer before the build begins.
+          </p>
+          <ul class='grid gap-px border border-ink bg-ink sm:grid-cols-3'>
+            {principles.map(principle => (
+              <li class='min-h-36 bg-paper p-5 text-lg leading-7'>{principle}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
 
-    <section class='bg-blueprint px-5 py-14 text-paper sm:px-8 lg:px-12 lg:py-20'>
-      <div class='mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.62fr_1.38fr] lg:items-end'>
-        <p class='text-xs uppercase tracking-[0.18em] text-clay'>Open source</p>
+    <section class='bg-ink px-5 py-14 text-paper sm:px-8 lg:px-12 lg:py-20'>
+      <div class='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.58fr_1.42fr] lg:items-end'>
         <div>
-          <h2 class='max-w-4xl text-3xl leading-tight sm:text-5xl'>
+          <p class='section-kicker text-command'>Open source</p>
+          <h2 class='mt-4 max-w-xl font-heading text-4xl leading-none sm:text-6xl'>
             Install it, inspect it, change it.
           </h2>
-          <p class='mt-6 max-w-3xl text-base leading-7 text-paper/76 sm:text-lg sm:leading-8'>
-            PM0 is MIT licensed and built in the same spirit as practical agent skills: portable
-            product judgment, stored in the repository, available to the agent doing the work.
+        </div>
+        <div>
+          <p class='max-w-3xl text-base leading-7 text-paper/72 sm:text-lg sm:leading-8'>
+            PM0 is MIT licensed and built as a practical agent skill. It is meant to be
+            read, edited, and carried between real repositories, not hidden behind a hosted app.
           </p>
-          <div class='mt-8 flex flex-wrap gap-4 text-sm'>
+          <div class='mt-8 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center'>
+            <CommandCopy client:load />
             <a
               href='https://github.com/KDotIndustries/pm0'
-              class='border border-paper bg-paper px-4 py-3 text-blueprint transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-clay'
+              class='inline-flex min-h-12 items-center justify-center border border-paper px-5 py-3 font-mono text-sm text-paper transition-colors hover:border-command hover:text-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-command'
             >
               View source
             </a>
-            <a
-              href='https://x.com/Fouadktb'
-              class='border border-paper/24 px-4 py-3 text-paper transition-colors hover:border-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-clay'
-            >
-              DM me
-            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class='border-t border-paper/16 bg-blueprint px-5 py-8 text-sm text-paper/64 sm:px-8 lg:px-12'>
+    <footer class='border-t border-paper/16 bg-ink px-5 py-8 font-mono text-xs text-paper/62 sm:px-8 lg:px-12'>
       <div class='mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
-        <p>pm0</p>
+        <p>PM0</p>
         <p>
-          Have feedback or a real product question?
+          Product memory for AI agents.
           <a
             href='https://x.com/Fouadktb'
-            class='text-paper underline decoration-paper/30 underline-offset-4 hover:text-clay'
+            class='text-paper underline decoration-command/50 underline-offset-4 hover:text-command'
           >
             DM me
           </a>
-          .
         </p>
       </div>
     </footer>

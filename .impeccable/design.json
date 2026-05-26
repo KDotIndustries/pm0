@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-26T13:41:01Z",
+  "title": "Design System: PM0",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Notebook Ink",
+        "canonical": "oklch(15% 0.027 151)",
+        "tonalRamp": [
+          "oklch(15% 0.027 151)",
+          "oklch(25% 0.027 151)",
+          "oklch(35% 0.027 151)",
+          "oklch(45% 0.027 151)",
+          "oklch(58% 0.022 151)",
+          "oklch(72% 0.016 151)",
+          "oklch(86% 0.01 151)",
+          "oklch(95% 0.006 151)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Notebook Paper",
+        "canonical": "oklch(96% 0.015 88)",
+        "tonalRamp": [
+          "oklch(18% 0.015 88)",
+          "oklch(30% 0.015 88)",
+          "oklch(42% 0.015 88)",
+          "oklch(56% 0.015 88)",
+          "oklch(70% 0.015 88)",
+          "oklch(84% 0.015 88)",
+          "oklch(92% 0.015 88)",
+          "oklch(96% 0.015 88)"
+        ]
+      },
+      "graph": {
+        "role": "neutral",
+        "displayName": "Graph Paper",
+        "canonical": "oklch(93% 0.016 91)",
+        "tonalRamp": [
+          "oklch(18% 0.016 91)",
+          "oklch(30% 0.016 91)",
+          "oklch(42% 0.016 91)",
+          "oklch(56% 0.016 91)",
+          "oklch(70% 0.016 91)",
+          "oklch(82% 0.016 91)",
+          "oklch(90% 0.016 91)",
+          "oklch(96% 0.014 91)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Pencil",
+        "canonical": "oklch(44% 0.025 128)",
+        "tonalRamp": [
+          "oklch(15% 0.025 128)",
+          "oklch(25% 0.025 128)",
+          "oklch(35% 0.025 128)",
+          "oklch(44% 0.025 128)",
+          "oklch(58% 0.022 128)",
+          "oklch(72% 0.016 128)",
+          "oklch(86% 0.01 128)",
+          "oklch(95% 0.006 128)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Ledger Line",
+        "canonical": "oklch(73% 0.017 104)",
+        "tonalRamp": [
+          "oklch(15% 0.017 104)",
+          "oklch(25% 0.017 104)",
+          "oklch(38% 0.017 104)",
+          "oklch(52% 0.017 104)",
+          "oklch(66% 0.017 104)",
+          "oklch(73% 0.017 104)",
+          "oklch(86% 0.011 104)",
+          "oklch(95% 0.007 104)"
+        ]
+      },
+      "command": {
+        "role": "primary",
+        "displayName": "Command Blue",
+        "canonical": "oklch(78% 0.064 239)",
+        "tonalRamp": [
+          "oklch(15% 0.064 239)",
+          "oklch(25% 0.064 239)",
+          "oklch(38% 0.064 239)",
+          "oklch(52% 0.064 239)",
+          "oklch(66% 0.064 239)",
+          "oklch(78% 0.064 239)",
+          "oklch(88% 0.044 239)",
+          "oklch(95% 0.024 239)"
+        ]
+      },
+      "command-deep": {
+        "role": "primary",
+        "displayName": "Deep Command Blue",
+        "canonical": "oklch(42% 0.09 239)",
+        "tonalRamp": [
+          "oklch(15% 0.09 239)",
+          "oklch(25% 0.09 239)",
+          "oklch(35% 0.09 239)",
+          "oklch(42% 0.09 239)",
+          "oklch(56% 0.072 239)",
+          "oklch(70% 0.054 239)",
+          "oklch(84% 0.036 239)",
+          "oklch(95% 0.018 239)"
+        ]
+      },
+      "evidence-amber": {
+        "role": "secondary",
+        "displayName": "Evidence Amber",
+        "canonical": "oklch(84% 0.104 78)",
+        "tonalRamp": [
+          "oklch(15% 0.104 78)",
+          "oklch(27% 0.104 78)",
+          "oklch(39% 0.104 78)",
+          "oklch(52% 0.104 78)",
+          "oklch(66% 0.104 78)",
+          "oklch(84% 0.104 78)",
+          "oklch(90% 0.064 78)",
+          "oklch(95% 0.034 78)"
+        ]
+      },
+      "evidence-blue": {
+        "role": "tertiary",
+        "displayName": "Evidence Blue",
+        "canonical": "oklch(78% 0.064 239)",
+        "tonalRamp": [
+          "oklch(15% 0.064 239)",
+          "oklch(25% 0.064 239)",
+          "oklch(38% 0.064 239)",
+          "oklch(52% 0.064 239)",
+          "oklch(66% 0.064 239)",
+          "oklch(78% 0.064 239)",
+          "oklch(88% 0.044 239)",
+          "oklch(95% 0.024 239)"
+        ]
+      },
+      "evidence-rose": {
+        "role": "tertiary",
+        "displayName": "Evidence Rose",
+        "canonical": "oklch(78% 0.092 25)",
+        "tonalRamp": [
+          "oklch(15% 0.092 25)",
+          "oklch(25% 0.092 25)",
+          "oklch(38% 0.092 25)",
+          "oklch(52% 0.092 25)",
+          "oklch(66% 0.092 25)",
+          "oklch(78% 0.092 25)",
+          "oklch(88% 0.056 25)",
+          "oklch(95% 0.03 25)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero-only positioning claims."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Major section claims."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Compact panel and loop headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Founder-readable paragraphs, commands, and ledger copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Kickers, nav links, artifact labels, and metadata."
+      }
+    },
+    "shadows": [
+      {
+        "name": "artifact-shadow",
+        "value": "4px 4px 0 color-mix(in oklch, var(--color-ink) 14%, transparent)",
+        "purpose": "Evidence slips and logo tiles."
+      },
+      {
+        "name": "command-shadow",
+        "value": "8px 8px 0 color-mix(in oklch, var(--color-command) 22%, transparent)",
+        "purpose": "Install command and primary action surfaces."
+      },
+      {
+        "name": "ledger-shadow",
+        "value": "10px 10px 0 var(--color-command)",
+        "purpose": "Dark memory panels that represent ordered output."
+      },
+      {
+        "name": "stack-shadow",
+        "value": "12px 12px 0 color-mix(in oklch, var(--color-ink) 13%, transparent)",
+        "purpose": "Large outcome cards and stacked notebook blocks."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fade-up",
+        "value": "700ms cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Short page-load reveal for major content."
+      },
+      {
+        "name": "ledger-scan",
+        "value": "5200ms cubic-bezier(0.16, 1, 0.3, 1) infinite",
+        "purpose": "Subtle scan motion inside the dark memory panel."
+      },
+      {
+        "name": "gravity-inputs",
+        "value": "Matter.js gravity with static reduced-motion fallback",
+        "purpose": "Signature motion pattern for messy product inputs."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Command Copy Button",
+      "kind": "button",
+      "refersTo": "command-button",
+      "description": "Primary install command affordance with terminal icon and hard command shadow.",
+      "html": "<button class=\"ds-command-button\" type=\"button\"><span class=\"ds-command-left\"><svg class=\"ds-command-icon\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75Z\" stroke=\"currentColor\" stroke-width=\"1.5\"/><path d=\"m8 9 3 3-3 3M12.5 15h3.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><code>$ npx skills add KDotIndustries/pm0</code></span><span class=\"ds-copy-box\"><svg viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M8 8h10v10H8z\" stroke=\"currentColor\" stroke-width=\"1.5\"/><path d=\"M6 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></span></button>",
+      "css": ".ds-command-button { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; max-width: 35.5rem; border: 1px solid var(--color-command); background: var(--color-paper); color: var(--color-ink); padding: 0.75rem 1rem; font-family: var(--font-mono); text-align: left; border-radius: 0; box-shadow: 8px 8px 0 color-mix(in oklch, var(--color-command) 22%, transparent); transition: transform 180ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-command-button:hover { transform: translateY(-0.125rem); } .ds-command-button:focus-visible { outline: 2px solid var(--color-command); outline-offset: 4px; } .ds-command-left { display: flex; align-items: center; min-width: 0; gap: 0.75rem; } .ds-command-icon { width: 1.25rem; height: 1.25rem; color: var(--color-command-deep); flex: 0 0 auto; } .ds-command-button code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.875rem; } .ds-copy-box { display: flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; flex: 0 0 auto; border: 1px solid color-mix(in oklch, var(--color-ink) 20%, transparent); background: var(--color-command); color: var(--color-ink); } .ds-copy-box svg { width: 1rem; height: 1rem; }"
+    },
+    {
+      "name": "Evidence Slip",
+      "kind": "card",
+      "refersTo": "evidence-slip",
+      "description": "Small rotated paper artifact for product inputs and evidence notes.",
+      "html": "<article class=\"ds-evidence-slip\"><p class=\"ds-slip-file\">user interviews.csv</p><p class=\"ds-slip-note\">Quotes and contradictions</p></article>",
+      "css": ".ds-evidence-slip { width: min(10.85rem, 44%); border: 1px solid var(--color-ink); background: var(--color-evidence-blue); color: var(--color-ink); padding: 0.72rem; border-radius: 0; box-shadow: 4px 4px 0 color-mix(in oklch, var(--color-ink) 14%, transparent); transform: rotate(5deg); } .ds-slip-file { margin: 0; font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-ink); } .ds-slip-note { margin: 0.75rem 0 0; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.45; color: var(--color-muted); }"
+    },
+    {
+      "name": "Logo Tile",
+      "kind": "chip",
+      "refersTo": "logo-tile",
+      "description": "Logo-only integration artifact, used inside the evidence wall rather than as a logo garden.",
+      "html": "<span class=\"ds-logo-tile\" title=\"PostHog\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"8\" fill=\"currentColor\"/></svg></span>",
+      "css": ".ds-logo-tile { display: flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border: 1px solid color-mix(in oklch, var(--color-ink) 80%, transparent); background: color-mix(in oklch, var(--color-paper) 95%, transparent); color: var(--color-command-deep); border-radius: 0; box-shadow: 4px 4px 0 color-mix(in oklch, var(--color-ink) 16%, transparent); transform: rotate(-7deg); } .ds-logo-tile svg { width: 1.35rem; height: 1.35rem; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Small mono navigation with a quiet default state and command-color hover underline.",
+      "html": "<a class=\"ds-nav-link\" href=\"#loop\">Loop</a>",
+      "css": ".ds-nav-link { border-bottom: 1px solid transparent; color: color-mix(in oklch, var(--color-ink) 74%, transparent); font-family: var(--font-mono); font-size: 0.72rem; text-decoration: none; transition: border-color 180ms cubic-bezier(0.25, 1, 0.5, 1), color 180ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-nav-link:hover { border-color: var(--color-command); color: var(--color-ink); } .ds-nav-link:focus-visible { outline: 2px solid var(--color-command); outline-offset: 4px; }"
+    },
+    {
+      "name": "Ledger Memory Panel",
+      "kind": "card",
+      "refersTo": "ledger-panel",
+      "description": "Dark ordered-output panel for repo-native PM0 memory rows.",
+      "html": "<section class=\"ds-ledger\"><div class=\"ds-ledger-top\"><span>.pm0 memory</span><span>repo-native</span></div><div class=\"ds-ledger-row\"><code>surface</code><div><p>onboarding</p><small>what is true now, what changed, what matters</small></div></div></section>",
+      "css": ".ds-ledger { position: relative; overflow: hidden; border: 1px solid var(--color-ink); background: var(--color-ink); color: var(--color-paper); padding: 1.25rem; border-radius: 0; box-shadow: 10px 10px 0 var(--color-command); font-family: var(--font-mono); } .ds-ledger-top { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid color-mix(in oklch, var(--color-paper) 20%, transparent); padding-bottom: 1rem; font-size: 0.75rem; color: color-mix(in oklch, var(--color-paper) 62%, transparent); } .ds-ledger-row { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.75rem; padding: 1rem 0; border-bottom: 1px solid color-mix(in oklch, var(--color-paper) 16%, transparent); } .ds-ledger-row code { color: var(--color-command); font-size: 0.875rem; } .ds-ledger-row p { margin: 0; color: var(--color-paper); font-size: 0.875rem; } .ds-ledger-row small { display: block; margin-top: 0.25rem; color: color-mix(in oklch, var(--color-paper) 58%, transparent); font-size: 0.75rem; line-height: 1.45; }"
+    },
+    {
+      "name": "Gravity Input Card",
+      "kind": "custom",
+      "refersTo": "gravity-card",
+      "description": "Interactive product-input artifact used in the hero gravity scene.",
+      "html": "<div class=\"ds-gravity-card\"><span class=\"ds-gravity-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M5 7h14M5 12h10M5 17h7\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/></svg></span><span>Support tickets</span></div>",
+      "css": ".ds-gravity-card { display: inline-flex; align-items: center; width: fit-content; border: 1px solid var(--color-ink); background: color-mix(in oklch, var(--color-paper) 90%, white); color: var(--color-ink); padding: 0.5rem; border-radius: 0; box-shadow: 5px 5px 0 rgba(7, 24, 15, 0.2); font-family: var(--font-mono); font-size: 1rem; font-weight: 500; white-space: nowrap; } .ds-gravity-icon { display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; flex: 0 0 auto; border: 1px solid color-mix(in oklch, var(--color-ink) 25%, transparent); background: var(--color-evidence-amber); color: var(--color-ink); } .ds-gravity-icon svg { width: 1.5rem; height: 1.5rem; } .ds-gravity-card span:last-child { margin-inline: 0.75rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Field Notebook Ledger",
+    "overview": "PM0 should feel like a sharp product operator's notebook left open next to a terminal: tactile, practical, slightly messy, and visibly useful. The surface is a brand landing page for an open-source skill, not a SaaS dashboard. It communicates through paper texture, command affordances, hard-edged artifacts, and evidence becoming order.\n\nThe system uses a restrained notebook palette with one clear command accent. Visual energy comes from physical arrangement: gravity cards, rotated slips, ledger grids, line paper, and offset shadows. Do not polish away the mess; make the mess legible.",
+    "keyCharacteristics": [
+      "Square, tactile, paper-first surfaces with visible borders.",
+      "Command-line credibility without becoming a developer-only toy.",
+      "Scattered product inputs resolving into structured product memory.",
+      "Restrained blue command accent, used as evidence and action, not decoration.",
+      "Motion is purposeful: gravity, scan lines, and short reveal timing only."
+    ],
+    "rules": [
+      {
+        "name": "The Blue Is A Command Rule",
+        "body": "Command Blue is for action, source, selection, or evidence. Never spread it across the page as generic brand decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Must Stay Warm Rule",
+        "body": "Avoid sterile white, cold gray, or pure black. Every neutral should feel like ink or paper, not software chrome.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Costume Mono Rule",
+        "body": "Mono is allowed because PM0 is command-native, but it must carry real commands, evidence labels, and artifact text. Do not use mono as generic tech styling.",
+        "section": "typography"
+      },
+      {
+        "name": "The Big Claim Rule",
+        "body": "Use Rockwell for claims, not decoration. If the text is not a product-positioning statement, it should usually stay in Geist Mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hard Shadow Rule",
+        "body": "Shadows are offset blocks, never blurred glow. If a surface starts to look like glassmorphism or generic SaaS elevation, remove the effect.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do lead with the product loop, not a vague AI promise.",
+      "Do make the install command, source access, and open-source nature immediately visible.",
+      "Do show scattered product inputs becoming structured product work.",
+      "Do keep copy concise, founder-readable, and skeptical of unnecessary process.",
+      "Do preserve the gravity-item hero and use it to explain the product.",
+      "Do use square borders, hard offset shadows, and warm paper backgrounds.",
+      "Do use Command Blue for action, evidence, and source credibility."
+    ],
+    "donts": [
+      "Don't make PM0 feel like generic AI SaaS.",
+      "Don't make it feel like a heavy enterprise PM suite.",
+      "Don't make it a vague AI-hype landing page.",
+      "Don't make it look like enterprise workflow software.",
+      "Don't use waitlist framing, inflated platform claims, decorative dashboards, or abstract productivity promises.",
+      "Don't imply PM0 is a hosted product-management app.",
+      "Don't make it feel like a developer-only CLI toy.",
+      "Don't use glassmorphism, gradient text, generic rounded card grids, or soft SaaS glow.",
+      "Don't replace evidence artifacts with a clean logo garden. Logos must feel thrown into the notebook."
+    ]
+  }
+}

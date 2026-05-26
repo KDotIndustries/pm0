@@ -61,7 +61,7 @@ export function CommandCopy() {
   return (
     <button
       type='button'
-      className='group flex w-full max-w-142 items-center justify-between gap-4 border border-ink bg-ink px-4 py-3 text-left text-paper shadow-[8px_8px_0_var(--color-line)] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rust sm:px-5'
+      className='group flex w-full max-w-full min-w-0 items-center justify-between gap-3 border border-command bg-paper px-4 py-3 text-left text-ink shadow-[8px_8px_0_color-mix(in_oklch,var(--color-command)_22%,transparent)] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-command sm:max-w-142 sm:gap-4 sm:px-5'
       onClick={copyCommand}
       aria-label={
         status === 'copied'
@@ -71,14 +71,14 @@ export function CommandCopy() {
             : `Copy ${command}`
       }
     >
-      <span className='flex min-w-0 items-center gap-3'>
+      <span className='flex min-w-0 flex-1 items-center gap-3 overflow-hidden'>
         <TerminalWindowIcon
           aria-hidden
-          className='size-5 shrink-0 text-paper/75'
+          className='size-5 shrink-0 text-command-deep'
         />
-        <code className='min-w-0 truncate text-xs text-paper sm:text-sm'>{command}</code>
+        <code className='min-w-0 truncate text-[0.72rem] text-ink sm:text-sm'>$ {command}</code>
       </span>
-      <span className='flex size-8 shrink-0 items-center justify-center border border-paper/20 bg-paper/10 text-paper'>
+      <span className='flex size-8 shrink-0 items-center justify-center border border-ink/20 bg-command text-ink'>
         {status === 'copied' ? (
           <CheckIcon
             aria-hidden

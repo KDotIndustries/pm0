@@ -10,11 +10,9 @@ import {
   FileArrowUpIcon,
   FileCsvIcon,
   FileTextIcon,
-  MegaphoneIcon,
   MicrophoneStageIcon,
   NewspaperClippingIcon,
   PhoneCallIcon,
-  PresentationChartIcon,
   QuestionIcon,
   RowsIcon,
   TrendUpIcon,
@@ -55,56 +53,73 @@ type MatterMouseWithHandlers = Matter.Mouse & {
 }
 
 const cards: InputCard[] = [
-  { label: 'Intercom tickets', tone: '#e8f1ff', Icon: ChatCircleTextIcon },
-  { label: 'Linear issues', tone: '#eeefff', Icon: Linear },
-  { label: 'Slack messages', tone: '#f3f0ed', Icon: Slack },
-  { label: 'User uploads', tone: '#ebe4d3', Icon: FileArrowUpIcon },
-  { label: 'Interviews', tone: '#f1e8ff', Icon: MicrophoneStageIcon },
-  { label: 'Emails', tone: '#fff1d8', Icon: EnvelopeIcon },
-  { label: 'User stories', tone: '#e7f2dc', Icon: UsersThreeIcon },
-  { label: 'GitHub issues', tone: '#e9e9e4', Icon: GitHubDark },
-  { label: 'Figma comments', tone: '#f1e8ff', Icon: Figma },
-  { label: 'Notion docs', tone: '#f6f2e8', Icon: Notion },
-  { label: 'Jira tickets', tone: '#e8f1ff', Icon: ClipboardTextIcon },
-  { label: 'Granola notes', tone: '#f1f5d8', Icon: FileTextIcon },
-  { label: 'PostHog events', tone: '#ffe3bf', Icon: PostHog },
-  { label: 'Amplitude charts', tone: '#e8f1ff', Icon: ChartBarIcon },
-  { label: 'Mixpanel cohorts', tone: '#f1e8ff', Icon: ChartBarIcon },
-  { label: 'ClickUp tasks', tone: '#f1e8ff', Icon: ClickUp },
-  { label: 'Miro boards', tone: '#fff2a6', Icon: NewspaperClippingIcon },
-  { label: 'Attio records', tone: '#e9e9e4', Icon: DatabaseIcon },
-  { label: 'HubSpot deals', tone: '#ffe8df', Icon: TrendUpIcon },
-  { label: 'Call notes', tone: '#eaf1ff', Icon: FileTextIcon },
-  { label: 'Customer feedback', tone: '#ffe8ef', Icon: ChatCircleTextIcon },
-  { label: 'Sales calls', tone: '#eaf1ff', Icon: PhoneCallIcon },
-  { label: 'CSV exports', tone: '#ebe4d3', Icon: FileCsvIcon },
-  { label: 'Surveys', tone: '#fff1d8', Icon: QuestionIcon },
-  { label: 'Roadmaps', tone: '#e7f2dc', Icon: RowsIcon },
-  { label: 'Changelogs', tone: '#e9e9e4', Icon: ClipboardTextIcon },
-  { label: 'Analytics', tone: '#dfedf4', Icon: ChartBarIcon },
-  { label: 'Session replay', tone: '#f1e8ff', Icon: BrowserIcon },
-  { label: 'Win/loss notes', tone: '#ffe8ef', Icon: TrendUpIcon },
-  { label: 'Community posts', tone: '#e7f2dc', Icon: ChatsCircleIcon },
-  { label: 'Launch notes', tone: '#fff1d8', Icon: MegaphoneIcon },
-  { label: 'Data warehouse', tone: '#eaf1ff', Icon: DatabaseIcon },
+  { label: 'Customer calls', tone: '#f3e2df', Icon: PhoneCallIcon },
+  { label: 'Support tickets', tone: '#f3dfb8', Icon: ChatCircleTextIcon },
+  { label: 'Founder memory', tone: '#f6f1e8', Icon: BookOpenTextIcon },
+  { label: 'Slack threads', tone: '#f1eee6', Icon: Slack },
+  { label: 'User interviews', tone: '#cfe0ee', Icon: MicrophoneStageIcon },
+  { label: 'GitHub issues', tone: '#e6e3da', Icon: GitHubDark },
+  { label: 'Linear issues', tone: '#dcdff0', Icon: Linear },
+  { label: 'PostHog events', tone: '#f5d2a3', Icon: PostHog },
+  { label: 'Activation drop-off', tone: '#cfe0ee', Icon: ChartBarIcon },
+  { label: 'Sales calls', tone: '#f3e2df', Icon: TrendUpIcon },
+  { label: 'CSV exports', tone: '#e5dcc5', Icon: FileCsvIcon },
+  { label: 'Old PRDs', tone: '#f6f1e8', Icon: FileTextIcon },
+  { label: 'Roadmap.xlsx', tone: '#f3dfb8', Icon: RowsIcon },
+  { label: 'Email feedback', tone: '#f3e2df', Icon: EnvelopeIcon },
+  { label: 'Research notes', tone: '#e6e3da', Icon: NewspaperClippingIcon },
+  { label: 'User stories', tone: '#dcebd0', Icon: UsersThreeIcon },
+  { label: 'Analytics gaps', tone: '#cfe0ee', Icon: ChartBarIcon },
+  { label: 'Feature request', tone: '#f3dfb8', Icon: QuestionIcon },
+  { label: 'Data warehouse', tone: '#e6e3da', Icon: DatabaseIcon },
+  { label: 'Stakeholder notes', tone: '#f6f1e8', Icon: ClipboardTextIcon },
+  { label: 'Prototype branch', tone: '#dcebd0', Icon: FileArrowUpIcon },
+  { label: 'Intercom tickets', tone: '#cfe0ee', Icon: ChatCircleTextIcon },
+  { label: 'Slack messages', tone: '#f1eee6', Icon: Slack },
+  { label: 'User uploads', tone: '#e5dcc5', Icon: FileArrowUpIcon },
+  { label: 'Emails', tone: '#f3dfb8', Icon: EnvelopeIcon },
+  { label: 'Miro boards', tone: '#f3dfb8', Icon: NewspaperClippingIcon },
+  { label: 'Jira tickets', tone: '#cfe0ee', Icon: ClipboardTextIcon },
+  { label: 'Granola notes', tone: '#dcebd0', Icon: FileTextIcon },
+  { label: 'Amplitude charts', tone: '#cfe0ee', Icon: ChartBarIcon },
+  { label: 'ClickUp tasks', tone: '#f3e2df', Icon: ClickUp },
+  { label: 'Figma comments', tone: '#f3e2df', Icon: Figma },
+  { label: 'Customer feedback', tone: '#f3e2df', Icon: ChatCircleTextIcon },
+  { label: 'Session replay', tone: '#dcdff0', Icon: BrowserIcon },
+  { label: 'Community posts', tone: '#dcebd0', Icon: ChatsCircleIcon },
+  { label: 'Notion docs', tone: '#f6f1e8', Icon: Notion },
   { label: 'Research repo', tone: '#e5ece4', Icon: BookOpenTextIcon },
-  { label: 'Stakeholder decks', tone: '#f1e8ff', Icon: PresentationChartIcon },
+  { label: 'Stakeholder decks', tone: '#f3e2df', Icon: NewspaperClippingIcon },
 ]
 
-const mobileCardLabels = new Set([
-  'Intercom tickets',
-  'Linear issues',
-  'Slack messages',
-  'Emails',
+const desktopEvidenceLabels = new Set([
+  'Customer calls',
+  'Support tickets',
+  'Founder memory',
+  'Slack threads',
+  'User interviews',
   'GitHub issues',
-  'Jira tickets',
+  'Linear issues',
   'PostHog events',
-  'Miro boards',
-  'Call notes',
+  'Activation drop-off',
+  'Old PRDs',
+  'Roadmap.xlsx',
   'Customer feedback',
-  'CSV exports',
-  'Roadmaps',
-  'Session replay',
+  'Research repo',
+  'Stakeholder decks',
+])
+
+const mobileCardLabels = new Set([
+  'Customer calls',
+  'Support tickets',
+  'Founder memory',
+  'Slack threads',
+  'User interviews',
+  'GitHub issues',
+  'PostHog events',
+  'Old PRDs',
+  'Roadmap.xlsx',
+  'Feature request',
 ])
 
 function removeMatterMouseListeners(mouse: Matter.Mouse) {
@@ -164,7 +179,10 @@ export function InputGravityHero() {
   }, [])
 
   const visibleCards = useMemo(
-    () => (isMobileScene ? cards.filter(card => mobileCardLabels.has(card.label)) : cards),
+    () =>
+      cards.filter(card =>
+        isMobileScene ? mobileCardLabels.has(card.label) : desktopEvidenceLabels.has(card.label),
+      ),
     [isMobileScene],
   )
 
@@ -193,7 +211,6 @@ export function InputGravityHero() {
 
     let { w: width, h: height } = getSize()
     const wallThickness = 400
-    let centerSpawnGap = Math.min(width * 0.34, 440)
 
     const ground = Bodies.rectangle(
       width / 2,
@@ -243,32 +260,23 @@ export function InputGravityHero() {
     })
 
     const bodies = dimensions.map(({ w, h }, index) => {
-      const side = index % 2 === 0 ? 'left' : 'right'
-      const laneWidth = isMobileScene
-        ? Math.max(150, width * 0.74)
-        : Math.max(160, (width - centerSpawnGap) / 2)
-      const laneStart = side === 'left' ? -w * 0.35 : width - laneWidth
+      const laneWidth = isMobileScene ? Math.max(150, width * 0.74) : Math.max(250, width * 0.4)
+      const laneStart = isMobileScene ? 0 : width - laneWidth - 32
       const x = isMobileScene
         ? Math.max(w / 2, Math.min(width - w / 2, Math.random() * width))
-        : side === 'left'
-          ? laneStart + Math.random() * laneWidth
-          : laneStart + Math.random() * laneWidth + w * 0.35
+        : Math.max(w / 2, Math.min(width - w / 2, laneStart + Math.random() * laneWidth))
       const y =
-        -120 - index * (isMobileScene ? 34 : 16) - Math.random() * (isMobileScene ? 110 : 48)
+        -120 - index * (isMobileScene ? 38 : 19) - Math.random() * (isMobileScene ? 120 : 58)
       const body = Bodies.rectangle(x, y, w, h, {
-        restitution: 0.1,
-        friction: 0.42,
-        frictionStatic: 0.85,
-        frictionAir: 0.022,
+        restitution: 0.08,
+        friction: 0.5,
+        frictionStatic: 0.9,
+        frictionAir: 0.026,
         density: 0.0015,
         angle: (Math.random() - 0.5) * 0.45,
       })
       Matter.Body.setVelocity(body, {
-        x: isMobileScene
-          ? (Math.random() - 0.5) * 2.4
-          : side === 'left'
-            ? 0.9 + Math.random() * 1.4
-            : -0.9 - Math.random() * 1.4,
+        x: isMobileScene ? (Math.random() - 0.5) * 2.4 : -0.35 - Math.random() * 0.8,
         y: 0,
       })
       Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.08)
@@ -379,7 +387,6 @@ export function InputGravityHero() {
         height * 6,
       )
       setBoundary(boundaries.leftWall, -wallThickness / 2, height / 2, wallThickness, height * 6)
-      centerSpawnGap = Math.min(width * 0.34, 440)
     }
 
     const resizeObserver = new ResizeObserver(applyBounds)
@@ -417,7 +424,7 @@ export function InputGravityHero() {
       </div>
       <div
         ref={sceneRef}
-        className={`absolute inset-0 z-0 overflow-hidden ${
+        className={`absolute inset-0 z-[2] overflow-hidden ${
           isMobileScene === false
             ? 'cursor-grab touch-none active:cursor-grabbing'
             : 'pointer-events-none'
@@ -443,19 +450,21 @@ export function InputGravityHero() {
               ref={element => {
                 cardRefs.current[index] = element
               }}
-              className='absolute top-0 left-0 box-border flex w-fit items-center border border-line bg-paper/95 p-1 text-ink shadow-[4px_4px_0_rgba(23,20,17,0.1)] backdrop-blur-sm will-change-transform'
+              className='gravity-card absolute top-0 left-0 box-border flex w-fit items-center border border-ink p-2 text-ink shadow-[5px_5px_0_rgba(7,24,15,0.2)] will-change-transform'
               style={fallbackStyle}
             >
               <span
-                className='flex aspect-square size-7 shrink-0 items-center justify-center overflow-hidden border border-ink/10 md:size-8'
+                className='flex aspect-square size-8 shrink-0 items-center justify-center overflow-hidden border border-ink/25 text-ink md:size-10'
                 style={{ backgroundColor: card.tone }}
               >
                 <Icon
                   aria-hidden
-                  className='size-4 shrink-0 md:size-5'
+                  className='size-5 shrink-0 md:size-6'
                 />
               </span>
-              <span className='mx-3 text-xs whitespace-nowrap md:text-sm'>{card.label}</span>
+              <span className='mx-3 font-mono text-sm font-medium whitespace-nowrap md:text-base'>
+                {card.label}
+              </span>
             </div>
           )
         })}
