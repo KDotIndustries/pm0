@@ -16,12 +16,25 @@ test('package keeps skill tests and adds website scripts', async () => {
 
 test('homepage presents PM0 as an installable open-source skill', async () => {
   const page = await read('src/pages/index.astro')
+  const layout = await read('src/layouts/layout.astro')
+  const combined = `${page}\n${layout}`
 
-  assert.match(page, /Product memory for AI agents/)
+  assert.match(combined, /Product memory for coding agents/)
+  assert.match(page, /Open-source PM skill for AI coding agents/)
   assert.match(page, /Bring the mess\. Find the move\./)
+  assert.match(page, /src='\/logo\.svg'/)
+  assert.match(page, /brightness-0 invert/)
   assert.match(page, /npx skills add KDotIndustries\/pm0/)
-  assert.match(page, /DM me/)
-  assert.match(page, /Open source/)
+  assert.match(page, /View PM0 on GitHub/)
+  assert.match(page, /https:\/\/x\.com\/Fouadktb/)
+  assert.match(page, /product memory before the build/)
+  assert.doesNotMatch(page, /Install the skill\. Keep the product brain in the repo\./)
+  assert.doesNotMatch(page, /<dt class='text-muted'>License<\/dt>/)
+  assert.doesNotMatch(page, /<dt class='text-muted'>Memory<\/dt>/)
+  assert.doesNotMatch(page, /section-kicker/)
+  assert.doesNotMatch(page, /From noisy input/)
+  assert.doesNotMatch(page, /Operator loop/)
+  assert.doesNotMatch(page, /Why it exists/)
 })
 
 test('homepage does not keep waitlist or access copy', async () => {

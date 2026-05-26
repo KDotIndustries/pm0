@@ -1,22 +1,23 @@
 ---
+import { GithubLogoIcon, XLogoIcon } from '@phosphor-icons/react'
 import { CommandCopy } from '../components/CommandCopy'
 import { InputGravityHero } from '../components/InputGravityHero'
 import { IntegrationLogos } from '../components/IntegrationLogos'
 import Layout from '../layouts/layout.astro'
 
 const evidenceFiles = [
-  ['prd draft.pdf', 'Problem, users, outcomes'],
-  ['user interviews.csv', 'Quotes and contradictions'],
-  ['feedback.slack', 'Complaints, requests, signals'],
-  ['metrics.png', 'Activation, drop-off, gaps'],
-  ['roadmap.xlsx', 'Bets, dependencies, timing'],
+  ['customer-calls.csv', 'Quotes, objections, urgency'],
+  ['support.slack', 'Repeated pain and broken flows'],
+  ['posthog-notes.png', 'Activation gaps and drop-offs'],
+  ['github-issues.md', 'Bugs, requests, repo context'],
+  ['roadmap-debate.md', 'Bets, constraints, tradeoffs'],
 ]
 
 const memoryRows = [
-  ['surface', 'onboarding', 'what is true now, what changed, what matters'],
-  ['proposal', 'empty-state-v2', 'problem, options, smallest useful build'],
-  ['prototype', 'branch-ready', 'testable change with context attached'],
-  ['handoff', 'accepted', 'criteria, risks, engineering scope'],
+  ['surface', 'onboarding', 'users, friction, constraints, recent changes'],
+  ['context', 'pricing', 'market notes, positioning, open questions'],
+  ['proposal', 'empty-state-v2', 'evidence, options, tradeoffs, decision trail'],
+  ['handoff', 'accepted', 'scope, acceptance criteria, risks'],
 ]
 
 const loop = [
@@ -24,32 +25,32 @@ const loop = [
     step: '01',
     title: 'Analyze',
     command: '/pm0 analyze onboarding',
-    body: 'Read the surface before asking an agent to change it.',
+    body: 'Inspect a product surface and write down what is true before the agent changes it.',
   },
   {
     step: '02',
     title: 'Discuss',
     command: '/pm0 discuss activation',
-    body: 'Turn loose founder input into a proposal with tradeoffs.',
+    body: 'Turn founder instinct, customer evidence, and team debate into options with tradeoffs.',
   },
   {
     step: '03',
     title: 'Build',
     command: '/pm0 build empty-state-v2',
-    body: 'Ask for the smallest useful prototype, not a pretend roadmap.',
+    body: 'Scope the smallest useful prototype or code change with the product context attached.',
   },
   {
     step: '04',
     title: 'Handoff',
     command: '/pm0 handoff empty-state-v2',
-    body: 'Accept, reject, or turn the decision into an engineering PRD.',
+    body: 'Accept, reject, or turn the decision into an engineering-ready PRD.',
   },
 ]
 
 const principles = [
-  'Product context stays beside the code.',
-  'Every proposal keeps the problem, options, and decision trail.',
-  'Rejected ideas improve the next surface analysis.',
+  'Durable product context lives in .pm0/ beside the code.',
+  'Every proposal carries evidence, options, tradeoffs, and the decision trail.',
+  'Rejected ideas update memory so agents do not repeat bad paths.',
 ]
 ---
 
@@ -65,10 +66,14 @@ const principles = [
       <header class='relative z-20 mx-auto flex max-w-7xl items-start justify-between gap-6 border-b border-ink/70 pb-4 text-xs text-ink'>
         <a
           href='/'
-          class='brand-mark text-3xl leading-none transition-colors hover:text-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-command'
+          class='brand-mark transition-opacity hover:opacity-72 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-command'
           aria-label='PM0 home'
         >
-          PM<span>0</span>
+          <img
+            src='/logo.svg'
+            alt='PM0'
+            class='h-8 w-auto sm:h-9'
+          />
         </a>
         <nav
           class='flex flex-wrap items-center justify-end gap-x-3 gap-y-2 pt-1 font-mono text-[0.68rem] sm:gap-x-5 sm:text-[0.72rem]'
@@ -88,9 +93,25 @@ const principles = [
           </a>
           <a
             href='https://github.com/KDotIndustries/pm0'
-            class='nav-link'
+            class='nav-icon'
+            aria-label='View PM0 on GitHub'
           >
-            GitHub
+            <GithubLogoIcon
+              aria-hidden='true'
+              className='size-4'
+              weight='bold'
+            />
+          </a>
+          <a
+            href='https://x.com/Fouadktb'
+            class='nav-icon'
+            aria-label='Follow Fouad on X'
+          >
+            <XLogoIcon
+              aria-hidden='true'
+              className='size-4'
+              weight='bold'
+            />
           </a>
         </nav>
       </header>
@@ -98,7 +119,7 @@ const principles = [
       <div class='relative z-10 mx-auto grid min-w-0 max-w-7xl gap-12 pb-12 pt-12 lg:min-h-[76svh] lg:grid-cols-[minmax(0,1.2fr)_minmax(20rem,0.48fr)] lg:items-center lg:pb-14 lg:pt-16'>
         <div class='min-w-0'>
           <p class='fade-up max-w-full border border-command bg-paper px-3 py-2 font-mono text-[0.7rem] leading-5 text-command-deep shadow-[4px_4px_0_color-mix(in_oklch,var(--color-command)_28%,transparent)] sm:w-fit sm:text-xs'>
-            Open-source AI agent skill for founders and PMs
+            Open-source PM skill for AI coding agents
           </p>
           <h1
             class='fade-up mt-6 max-w-5xl font-heading text-[clamp(3rem,10vw,4.8rem)] font-black leading-[0.92] text-ink sm:text-[clamp(3.7rem,5.9vw,5.1rem)]'
@@ -123,8 +144,9 @@ const principles = [
             class='fade-up mt-6 max-w-full text-base leading-7 text-muted sm:max-w-2xl sm:text-lg sm:leading-8'
             style='animation-delay: 190ms'
           >
-            PM0 turns scattered product context into repo-native memory, proposals,
-            prototypes, and PRDs that coding agents can use before they touch the code.
+            PM0 turns customer calls, support tickets, analytics notes, GitHub issues,
+            and founder memory into repo-native product context before your coding agent
+            touches the code.
           </p>
           <div
             class='fade-up mt-7 max-w-2xl'
@@ -135,23 +157,6 @@ const principles = [
               <code>npx skills add KDotIndustries/pm0</code>
             </noscript>
           </div>
-          <dl
-            class='fade-up mt-8 grid max-w-2xl gap-4 border-y border-ink/35 py-4 font-mono text-xs sm:grid-cols-3'
-            style='animation-delay: 360ms'
-          >
-            <div>
-              <dt class='text-muted'>GitHub</dt>
-              <dd class='mt-1 text-ink'>KDotIndustries/pm0</dd>
-            </div>
-            <div>
-              <dt class='text-muted'>License</dt>
-              <dd class='mt-1 text-ink'>MIT</dd>
-            </div>
-            <div>
-              <dt class='text-muted'>Memory</dt>
-              <dd class='mt-1 text-ink'>.pm0/ in your repo</dd>
-            </div>
-          </dl>
         </div>
 
         <aside
@@ -171,7 +176,7 @@ const principles = [
           </div>
           <div class='relative border border-ink bg-paper p-5 shadow-[12px_12px_0_color-mix(in_oklch,var(--color-ink)_13%,transparent)]'>
             <p class='font-mono text-xs text-command-deep'>THE MOVE</p>
-            <h2 class='mt-3 font-heading text-4xl leading-none'>Clear next step</h2>
+            <h2 class='mt-3 font-heading text-4xl leading-none'>Right next thing</h2>
             <ul class='mt-6 space-y-3 font-mono text-sm'>
               <li class='flex gap-3'>
                 <span class='text-command-deep'>✓</span>
@@ -201,13 +206,13 @@ const principles = [
     >
       <div class='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.58fr_1.42fr]'>
         <div>
-          <p class='section-kicker'>From noisy input</p>
-          <h2 class='mt-4 max-w-lg font-heading text-4xl leading-none sm:text-6xl'>
-            Product work with recipes.
+          <h2 class='max-w-lg font-heading text-4xl leading-none sm:text-6xl'>
+            Context before code.
           </h2>
           <p class='mt-6 max-w-md leading-7 text-muted'>
-            Bring in support, calls, analytics, design notes, issues, and repo history.
-            PM0 stores the durable summary, not the raw pile.
+            Bring the messy inputs that usually live across Slack, calls, tickets,
+            analytics, docs, issues, and memory. PM0 stores the durable product
+            summary in your repo, not another raw pile.
           </p>
         </div>
         <div class='grid gap-6 lg:grid-cols-[0.82fr_1.18fr]'>
@@ -250,9 +255,8 @@ const principles = [
     >
       <div class='mx-auto max-w-7xl'>
         <div class='grid gap-8 lg:grid-cols-[0.58fr_1.42fr]'>
-          <p class='section-kicker'>Operator loop</p>
           <h2 class='max-w-4xl font-heading text-4xl leading-none sm:text-6xl'>
-            From scattered evidence to a clear next step.
+            Evidence to decision.
           </h2>
         </div>
         <div class='mt-12 grid border border-ink bg-paper lg:grid-cols-4'>
@@ -273,16 +277,16 @@ const principles = [
     <section class='border-b border-ink bg-paper px-5 py-14 sm:px-8 lg:px-12 lg:py-20'>
       <div class='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.58fr_1.42fr]'>
         <div>
-          <p class='section-kicker'>Why it exists</p>
-          <h2 class='mt-4 max-w-xl font-heading text-4xl leading-none sm:text-6xl'>
-            Agents move fast. Product memory has to keep up.
+          <h2 class='max-w-xl font-heading text-4xl leading-none sm:text-6xl'>
+            Fast code needs memory.
           </h2>
         </div>
         <div class='grid gap-10'>
           <p class='max-w-3xl text-lg leading-8 text-muted'>
-            Coding agents can change code quickly, but they do not automatically know
-            the user, the surface, the market signal, or the last rejected proposal.
-            PM0 gives them a small product layer before the build begins.
+            AI coding agents can ship changes quickly, but speed does not tell them
+            which problem matters, what users already said, or which paths the team
+            rejected last week. PM0 gives the agent product memory before the build
+            begins.
           </p>
           <ul class='grid gap-px border border-ink bg-ink sm:grid-cols-3'>
             {principles.map(principle => (
@@ -293,44 +297,20 @@ const principles = [
       </div>
     </section>
 
-    <section class='bg-ink px-5 py-14 text-paper sm:px-8 lg:px-12 lg:py-20'>
-      <div class='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.58fr_1.42fr] lg:items-end'>
-        <div>
-          <p class='section-kicker text-command'>Open source</p>
-          <h2 class='mt-4 max-w-xl font-heading text-4xl leading-none sm:text-6xl'>
-            Install it, inspect it, change it.
-          </h2>
-        </div>
-        <div>
-          <p class='max-w-3xl text-base leading-7 text-paper/72 sm:text-lg sm:leading-8'>
-            PM0 is MIT licensed and built as a practical agent skill. It is meant to be
-            read, edited, and carried between real repositories, not hidden behind a hosted app.
-          </p>
-          <div class='mt-8 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center'>
-            <CommandCopy client:load />
-            <a
-              href='https://github.com/KDotIndustries/pm0'
-              class='inline-flex min-h-12 items-center justify-center border border-paper px-5 py-3 font-mono text-sm text-paper transition-colors hover:border-command hover:text-command focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-command'
-            >
-              View source
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <footer class='border-t border-paper/16 bg-ink px-5 py-8 font-mono text-xs text-paper/62 sm:px-8 lg:px-12'>
       <div class='mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
-        <p>PM0</p>
-        <p>
-          Product memory for AI agents.
-          <a
-            href='https://x.com/Fouadktb'
-            class='text-paper underline decoration-command/50 underline-offset-4 hover:text-command'
-          >
-            DM me
-          </a>
-        </p>
+        <a
+          href='/'
+          class='inline-flex w-fit transition-opacity hover:opacity-72 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-command'
+          aria-label='PM0 home'
+        >
+          <img
+            src='/logo.svg'
+            alt='PM0'
+            class='h-6 w-auto brightness-0 invert'
+          />
+        </a>
+        <p>Product memory for AI coding agents.</p>
       </div>
     </footer>
   </main>

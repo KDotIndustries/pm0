@@ -90,13 +90,8 @@
   }
 
   .brand-mark {
-    font-family: var(--font-heading);
-    font-weight: 900;
-  }
-
-  .brand-mark span {
-    color: var(--color-command-deep);
-    font-style: italic;
+    display: inline-flex;
+    align-items: center;
   }
 
   .nav-link {
@@ -117,6 +112,28 @@
     outline-offset: 4px;
   }
 
+  .nav-icon {
+    display: inline-flex;
+    height: 1.75rem;
+    width: 1.75rem;
+    align-items: center;
+    justify-content: center;
+    color: color-mix(in oklch, var(--color-ink) 74%, transparent);
+    transition:
+      color 180ms cubic-bezier(0.25, 1, 0.5, 1),
+      transform 180ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .nav-icon:hover {
+    color: var(--color-ink);
+    transform: translateY(-1px);
+  }
+
+  .nav-icon:focus-visible {
+    outline: 2px solid var(--color-command);
+    outline-offset: 4px;
+  }
+
   .marker-underline {
     background: linear-gradient(
       transparent 72%,
@@ -124,12 +141,6 @@
       color-mix(in oklch, var(--color-command) 62%, transparent) 86%,
       transparent 86%
     );
-  }
-
-  .section-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--color-command-deep);
   }
 
   .gravity-card {
